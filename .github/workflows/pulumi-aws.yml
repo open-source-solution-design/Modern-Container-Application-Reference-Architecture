@@ -31,3 +31,21 @@ jobs:
         working-directory: ./aws
         run: |
           pulumi login --local
+
+      - name: create cloud resource
+        shell: bash
+        working-directory: ./aws
+        run: |
+          pulumi up
+
+      - name: create cloud resource
+        shell: bash
+        working-directory: ./aws
+        run: |
+          pulumi refresh
+
+      - name: create cloud resource
+        shell: bash
+        working-directory: ./aws
+        run: |
+          pulumi destroy
