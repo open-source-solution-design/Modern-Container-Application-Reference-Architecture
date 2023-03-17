@@ -38,6 +38,7 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
+          env | grep AWS
           pulumi stack init dev
           pulumi stack select dev
           pulumi up --yes
