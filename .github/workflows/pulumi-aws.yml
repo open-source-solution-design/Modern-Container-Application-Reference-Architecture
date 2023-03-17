@@ -37,7 +37,7 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          pulumi stack init
+          pulumi stack init dev
           pulumi stack select dev
           pulumi up --yes
 
