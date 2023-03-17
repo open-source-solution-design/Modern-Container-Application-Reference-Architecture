@@ -39,7 +39,7 @@ jobs:
         working-directory: ./aws
         run: |
           env | grep AWS
-          pulumi stack init dev
+          pulumi stack init dev --secrets-provider passphrase
           pulumi stack select dev
           pulumi up --yes
 
