@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: set pulumi tools
+      - name: set pulumi tools
         shell: bash
         run: |
           - curl -fsSL https://get.pulumi.com | sh
