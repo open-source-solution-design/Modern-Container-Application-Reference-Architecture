@@ -23,8 +23,8 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          - curl -fsSL https://get.pulumi.com | sh
-          - pip3 install -r requirements.txt
+          curl -fsSL https://get.pulumi.com | sh
+          pip3 install -r requirements.txt
 
       - name: config pulumi backend
         shell: bash
