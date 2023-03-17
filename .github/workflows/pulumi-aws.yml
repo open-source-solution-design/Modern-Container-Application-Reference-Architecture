@@ -30,4 +30,4 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          - pulumi login --local
+          pulumi login --local
