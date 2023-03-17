@@ -46,7 +46,7 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          pulumi refresh
+          pulumi refresh --yes
           pulumi stack output bucket_name
 
       - name: destroy resource
