@@ -9,9 +9,10 @@ on:
   workflow_dispatch:
 
 env:
-  PULUMI_DISABLE_CI_DETECTION: true
+  AWS_REGION: ap-east-1 
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }} 
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }} 
+  PULUMI_DISABLE_CI_DETECTION: true
 
 jobs:
   build:
@@ -37,7 +38,6 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          env | grep AWS
           pulumi stack init dev
           pulumi stack select dev
           pulumi up --yes
