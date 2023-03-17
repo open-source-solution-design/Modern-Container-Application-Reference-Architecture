@@ -10,7 +10,6 @@ on:
 
 env:
   PULUMI_DISABLE_CI_DETECTION: true
-  PULUMI_CONFIG_PASSPHRASE: 907b224d244167aa7606106e9983e87d506be06202d202f93a4f141ef54a3418 
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }} 
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }} 
 
@@ -32,14 +31,14 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          pulumi login --local
+          pulumi login s3://pulumi-aws-dev --aws-profile dev
 
       - name: create cloud resource
         shell: bash
         working-directory: ./aws
         run: |
           env | grep AWS
-          pulumi stack init dev --secrets-provider passphrase
+          pulumi stack init dev
           pulumi stack select dev
           pulumi up --yes
 
