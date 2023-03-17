@@ -13,6 +13,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }} 
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }} 
   PULUMI_DISABLE_CI_DETECTION: true
+  PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_PASS }}
 
 jobs:
   build:
@@ -25,33 +26,30 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          KEY=`env | grep AWS` && $KEY > /tmp/token
-          cat /tmp/token
           curl -fsSL https://get.pulumi.com | sh
           pip3 install -r requirements.txt
 
-      - name: config pulumi backend
+      - name: login state backend
         shell: bash
         working-directory: ./aws
         run: |
           pulumi login s3://pulumi-aws-dev
 
-      - name: create cloud resource
+      - name: create resource
         shell: bash
         working-directory: ./aws
         run: |
-          pulumi stack init dev
           pulumi stack select dev
           pulumi up --yes
 
-      - name: create cloud resource
+      - name: show pulumi output
         shell: bash
         working-directory: ./aws
         run: |
           pulumi refresh
           pulumi stack output bucket_name
 
-      - name: create cloud resource
+      - name: destroy resource
         shell: bash
         working-directory: ./aws
         run: |
