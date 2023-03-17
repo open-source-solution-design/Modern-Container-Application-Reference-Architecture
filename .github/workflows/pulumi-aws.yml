@@ -37,6 +37,8 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
+          pulumi stack init
+          pulumi stack select dev
           pulumi up --yes
 
       - name: create cloud resource
@@ -44,6 +46,7 @@ jobs:
         working-directory: ./aws
         run: |
           pulumi refresh
+          pulumi stack output bucket_name
 
       - name: create cloud resource
         shell: bash
