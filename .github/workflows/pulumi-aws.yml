@@ -31,7 +31,7 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
-          pulumi login s3://pulumi-aws-dev --aws-profile dev
+          pulumi login s3://pulumi-aws-dev
 
       - name: create cloud resource
         shell: bash
