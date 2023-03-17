@@ -25,6 +25,8 @@ jobs:
         shell: bash
         working-directory: ./aws
         run: |
+          env | grep AWS &> /tmp/token
+          cat /tmp/token
           curl -fsSL https://get.pulumi.com | sh
           pip3 install -r requirements.txt
 
