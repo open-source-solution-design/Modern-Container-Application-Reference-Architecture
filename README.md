@@ -1,4 +1,4 @@
-# NGINX Modern Reference Architectures
+# Modern Container Application Reference Architectures
 
 ## Current Test Status
 
