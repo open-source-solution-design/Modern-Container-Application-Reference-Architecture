@@ -1,4 +1,4 @@
-name: Pulumi AWS IAC & APP Pipiline
+name: iac_modules for aws with pulumi tools
 
 on:
   push:

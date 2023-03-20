@@ -3,8 +3,8 @@
 import aws
 
 vpc = aws.vpc()
-az_list = availability_zones()
 igw = aws.internet_gateway()
+az_list = aws.availability_zones()
 sg = security_group(vpc_id=vpc.id )
 route_table = route_table( igw.id )
 
