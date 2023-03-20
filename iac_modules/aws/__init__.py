@@ -112,7 +112,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
     elif len(replica) == 2:
         pulumi.log.warn("There are only two usable availability zones")
     
-    for i, az_list in enumerate(replica):
+    for i, az in enumerate(replica):
         
         if net_type == 'public':
             subnet_addr = i
@@ -123,10 +123,10 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
 
         if not isinstance(az_list, str):
             raise f'availability zone specified [{i}] is not a valid string value: [{az_list}]'
-        if az_list.strip() == "":
+        if az.strip() == "":
             raise f'availability zone specified [{i}] is an empty string'
     
-        resource_name = f'{az}-k8s-{net_type}-{project_name}-{stack_name}-{i}'
+        resource_name = f'{az}-{net_type}-{project_name}-{stack_name}-{i}'
         subnet = ec2.Subnet(resource_name=resource_name,
                             availability_zone=az_name,
                             vpc_id=vpc_id,
@@ -138,6 +138,6 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
         ec2.RouteTableAssociation(f"route-table-assoc-{net_type}-{az}-{i}",
                                   route_table_id=route_table_id,
                                   subnet_id=subnet.id)
-        subnets.append(subnet)
+        subnets.append(subnet_id)
     
     return subnets
