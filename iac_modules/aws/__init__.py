@@ -45,7 +45,7 @@ def route_table( vpc_id, igw_id ):
             vpc_id=vpc_id,
             routes=[ec2.RouteTableRouteArgs(
                 cidr_block='0.0.0.0/0',
-                gateway_id=igw.id)
+                gateway_id=igw_id)
                     ],
             tags={
                 "Project": project_name,
