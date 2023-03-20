@@ -128,7 +128,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
     
         resource_name = f'{az}-{net_type}-{project_name}-{stack_name}-{i}'
         subnet = ec2.Subnet(resource_name=resource_name,
-                            availability_zone=az_name,
+                            availability_zone=az,
                             vpc_id=vpc_id,
                             cidr_block=f"10.100.{subnet_addr}.0/24",
                             map_public_ip_on_launch=map_eip,
