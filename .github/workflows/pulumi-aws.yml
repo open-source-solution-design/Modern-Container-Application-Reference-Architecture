@@ -47,7 +47,9 @@ jobs:
         working-directory: ./iac_modules
         run: |
           pulumi refresh --yes
-          pulumi stack output bucket_name
+          pulumi stack output vpc
+          pulumi stack output sg
+          pulumi stack output subnets 
 
       - name: destroy resource
         shell: bash
