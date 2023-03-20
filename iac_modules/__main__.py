@@ -1,5 +1,6 @@
 """An AWS Python Pulumi AWS Module"""
 
+import pulumi
 from aws import vpc, security_group, availability_zones, internet_gateway, route_table, subnets 
 
 vpc_id  = vpc()
@@ -14,7 +15,7 @@ subnets=subnets(vpc_id, az_list, route_table_id, 'public' )
 #bucket = s3.Bucket('my-bucket')
 
 # Export the name of the bucket
-pulumi.export('bucket_name', bucket)
+#pulumi.export('bucket_name', bucket)
 pulumi.export("vpc", vpc_id)
 pulumi.export("sg", sg_id)
 pulumi.export("subnets", subnets)
