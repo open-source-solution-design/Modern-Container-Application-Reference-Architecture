@@ -1,13 +1,8 @@
 """An AWS Python Pulumi program"""
 
-import pulumi
 from pulumi_aws import s3
 from pulumi_aws import ec2, get_availability_zones
 
-stack_name = pulumi.get_stack()
-project_name = pulumi.get_project()
-
-config = pulumi.Config('aws')
 
 vpc = ec2.Vpc(resource_name=f"eks-{project_name}-{stack_name}",
               cidr_block="10.100.0.0/16",
@@ -41,6 +36,8 @@ if config.get('azs'):
     azs = config.get_object('azs')
 else:
     azs = get_availability_zones(state="available").names
+
+print(azs)
 
 public_subnets = []
 private_subnets = []

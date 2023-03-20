@@ -24,33 +24,33 @@ jobs:
 
       - name: set pulumi tools
         shell: bash
-        working-directory: ./aws
+        working-directory: ./iac_modules
         run: |
           curl -fsSL https://get.pulumi.com | sh
           pip3 install -r requirements.txt
 
       - name: login state backend
         shell: bash
-        working-directory: ./aws
+        working-directory: ./iac_modules
         run: |
           pulumi login s3://pulumi-aws-dev
 
       - name: create resource
         shell: bash
-        working-directory: ./aws
+        working-directory: ./iac_modules
         run: |
           pulumi stack select dev
           pulumi up --yes
 
       - name: show pulumi output
         shell: bash
-        working-directory: ./aws
+        working-directory: ./iac_modules
         run: |
           pulumi refresh --yes
           pulumi stack output bucket_name
 
       - name: destroy resource
         shell: bash
-        working-directory: ./aws
+        working-directory: ./iac_modules
         run: |
           pulumi destroy --yes
