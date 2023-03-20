@@ -114,10 +114,10 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
     
     for i, az_list in enumerate(replica):
         
-        if net_type ==public:
+        if net_type == 'public':
             subnet_addr = i
             map_eip=True
-        if net_type ==private:
+        if net_type == 'private':
             subnet_addr = (i + 1) * 16
             map_eip=False
 
