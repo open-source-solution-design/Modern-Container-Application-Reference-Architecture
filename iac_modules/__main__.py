@@ -1,15 +1,14 @@
 """An AWS Python Pulumi AWS Module"""
 
-import aws
+from aws import vpc, security_group, availability_zones, internet_gateway, route_table, subnets 
 
-vpc_id = aws.vpc()
-sg_id = aws.security_group(vpc_id )
-az_list = aws.availability_zones()
-igw_id = aws.internet_gateway( vpc_id )
-route_table_id = aws.route_table( vpc_id, igw_id )
+vpc_id  = vpc()
+sg_id   = security_group( vpc_id )
+az_list = availability_zones()
+igw_id  = internet_gateway( vpc_id )
+route_table_id = route_table( vpc_id, igw_id )
 
-subnets=subnets(vpc_id=vpc_id, az_name=az_list, route_table_id=route_table_id, net_type=public )
-
+subnets=subnets(vpc_id, az_list, route_table_id, public )
 
 # Create an AWS resource (S3 Bucket)
 bucket = s3.Bucket('my-bucket')
