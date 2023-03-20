@@ -83,7 +83,7 @@ def security_group( vpc_id ):
                 "Stack": stack_name
                 }
             )
-    return secrity_group
+    return security_group 
 
 #------------------------------------#
 def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
