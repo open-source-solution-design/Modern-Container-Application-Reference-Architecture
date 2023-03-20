@@ -11,7 +11,7 @@ route_table_id = route_table( vpc_id, igw_id )
 subnets=subnets(vpc_id, az_list, route_table_id, 'public' )
 
 # Create an AWS resource (S3 Bucket)
-bucket = s3.Bucket('my-bucket')
+#bucket = s3.Bucket('my-bucket')
 
 # Export the name of the bucket
 pulumi.export('bucket_name', bucket)
