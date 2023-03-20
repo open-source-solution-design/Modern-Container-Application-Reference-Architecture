@@ -14,7 +14,7 @@ def vpc():
               instance_tenancy='default',
               tags={"Project": project_name,
                     "Stack": stack_name})
-    return vpc
+    return vpc.id
 
 #------------------------------------#
 def availability_zones():
@@ -36,6 +36,7 @@ def internet_gateway( vpc_id ):
                 "Stack": stack_name
                 }
             )
+    return igw.id
 
 #------------------------------------#
 def route_table( vpc_id, igw_id ):
@@ -51,6 +52,7 @@ def route_table( vpc_id, igw_id ):
                 "Stack": stack_name
                 }
             )
+    return route_table.id
 
 #------------------------------------#
 def security_group( vpc_id ):
@@ -83,7 +85,7 @@ def security_group( vpc_id ):
                 "Stack": stack_name
                 }
             )
-    return security_group 
+    return security_group.id
 
 #------------------------------------#
 def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
