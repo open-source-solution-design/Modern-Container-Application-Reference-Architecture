@@ -3,6 +3,8 @@
 import aws
 
 vpc = aws.vpc()
+print(vpc)
+print(vpc.id)
 sg = aws.security_group(vpc.id )
 az_list = aws.availability_zones()
 igw = aws.internet_gateway( vpc.id )
