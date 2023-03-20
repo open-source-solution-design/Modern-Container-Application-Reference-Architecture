@@ -121,7 +121,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
             subnet_addr = (i + 1) * 16
             map_eip=False
 
-        if not isinstance(az_list, str):
+        if not isinstance(az, str):
             raise f'availability zone specified [{i}] is not a valid string value: [{az_list}]'
         if az.strip() == "":
             raise f'availability zone specified [{i}] is an empty string'
