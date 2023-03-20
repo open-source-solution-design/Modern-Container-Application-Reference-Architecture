@@ -90,13 +90,13 @@ def security_group( vpc_id ):
 #------------------------------------#
 def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
 
-    subnets = []
-
 # If you wanted to double the number of subnets because you have few
 # availability zones, you can redefine the variable below to something
 # like: list(itertools.chain(azs, azs)) which would just repeat the
 # same list of AZs twice. The iteration logic will pick it up for
 # subnet creation and create unique names.
+
+    subnets = []
 
     if config.get('az_list'):
         az_list = config.get_object('az_list')
@@ -126,18 +126,22 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
         if az.strip() == "":
             raise f'availability zone specified [{i}] is an empty string'
     
-        resource_name = f'{az}-{net_type}-{project_name}-{stack_name}-{i}'
-        subnet = ec2.Subnet(resource_name=resource_name,
-                            availability_zone=az,
-                            vpc_id=vpc_id,
-                            cidr_block=f"10.100.{subnet_addr}.0/24",
-                            map_public_ip_on_launch=map_eip,
-                            tags={"Project": project_name,
-                                  "Stack": stack_name,
-                                  "kubernetes.io/role/elb": "1"})
-        ec2.RouteTableAssociation(f"route-table-assoc-{net_type}-{az}-{i}",
-                                  route_table_id=route_table_id,
-                                  subnet_id=subnet.id)
-        subnets.append(subnet_id)
+        subnet = ec2.Subnet(
+                resource_name = f'{az}-{net_type}-{project_name}-{stack_name}-{i}',
+                vpc_id=vpc_id,
+                availability_zone=az,
+                cidr_block=f"10.100.{subnet_addr}.0/24",
+                map_public_ip_on_launch=map_eip,
+                tags={
+                    "Project": project_name,
+                    "Stack": stack_name,
+                    }
+                )
+        ec2.RouteTableAssociation(
+                f"route-table-assoc-{net_type}-{az}-{i}",
+                route_table_id=route_table_id,
+                subnet_id=subnet.id
+                )
+        subnets.append(subnet.id)
     
     return subnets
