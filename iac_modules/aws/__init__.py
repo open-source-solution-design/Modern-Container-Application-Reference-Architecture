@@ -27,10 +27,10 @@ def availability_zones():
     return az_list
 
 #------------------------------------#
-def internet_gateway():
+def internet_gateway( vpc_id ):
     igw = ec2.InternetGateway(
             resource_name=f'vpc-ig-{project_name}-{stack_name}',
-            vpc_id=vpc.id,
+            vpc_id=vpc_id,
             tags={
                 "Project": project_name,
                 "Stack": stack_name
@@ -38,10 +38,10 @@ def internet_gateway():
             )
 
 #------------------------------------#
-def route_table( igw_id ):
+def route_table( vpc_id, igw_id ):
     route_table = ec2.RouteTable(
             resource_name=f'vpc-route-table-{project_name}-{stack_name}',
-            vpc_id=vpc.id,
+            vpc_id=vpc_id,
             routes=[ec2.RouteTableRouteArgs(
                 cidr_block='0.0.0.0/0',
                 gateway_id=igw.id)
@@ -56,7 +56,7 @@ def route_table( igw_id ):
 def security_group( vpc_id ):
     security_group = ec2.SecurityGroup(
             resource_name=f'ec2-sg-{project_name}-{stack_name}',
-            vpc_id=vpc.id,
+            vpc_id=vpc_id,
             description="Allow all HTTP(s) traffic to EKS Cluster",
             ingress=[
                 ec2.SecurityGroupIngressArgs(
