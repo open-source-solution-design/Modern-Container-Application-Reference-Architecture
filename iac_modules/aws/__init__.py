@@ -103,16 +103,16 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
     else:
         az_list = get_availability_zones(state="available").names
 
-    replica = list(az_list)
+    az_enum = list(az_list)
 
-    if len(replica) <= 0:
+    if len(az_list) <= 0:
         raise ValueError("There are no usable availability zones")
-    if len(replica) == 1:
+    if len(az_list) == 1:
         pulumi.log.warn("There is only a single usable availability zone")
-    elif len(replica) == 2:
+    elif len(az_list) == 2:
         pulumi.log.warn("There are only two usable availability zones")
     
-    for i, az in enumerate(replica):
+    for i, az in enumerate(az_enum):
         
         if net_type == 'public':
             subnet_addr = i
@@ -122,7 +122,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
             map_eip=False
 
         if not isinstance(az, str):
-            raise f'availability zone specified [{i}] is not a valid string value: [{az_list}]'
+            raise f'availability zone specified [{i}] is not a valid string value: [{az}]'
         if az.strip() == "":
             raise f'availability zone specified [{i}] is an empty string'
     
