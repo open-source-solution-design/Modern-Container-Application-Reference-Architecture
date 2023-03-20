@@ -3,11 +3,10 @@
 import aws
 
 vpc = aws.vpc()
+sg = aws.security_group(vpc.id )
 az_list = aws.availability_zones()
-
 igw = aws.internet_gateway( vpc.id )
-sg = security_group(vpc_id=vpc.id )
-route_table = route_table( vpc.id, igw.id )
+route_table = aws.route_table( vpc.id, igw.id )
 
 subnets=subnets(vpc_id=vpc.id, az_name=az_list, route_table_id=route_table.id, net_type=public )
 
