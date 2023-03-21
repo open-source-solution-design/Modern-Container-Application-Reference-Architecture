@@ -2,6 +2,7 @@
 
 import config
 import pulumi
+import pulumi_aws
 
 from aws import vpc
 from aws import subnets
@@ -26,7 +27,7 @@ ssh_key = local.Command("random",
 
 pulumi.export("sshkey", ssh_key.stdout)
 
-key_pair = pulumi.aws.ec2.KeyPair("deployer", public_key=ssh_key.stdout)
+key_pair = pulumi_aws.ec2.KeyPair("deployer", public_key=ssh_key.stdout)
 
 # Create an AWS resource (S3 Bucket)
 #bucket = s3.Bucket('my-bucket')
