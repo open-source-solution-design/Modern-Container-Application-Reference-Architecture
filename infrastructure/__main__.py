@@ -22,7 +22,7 @@ route_table_id = route_table( vpc_id, igw_id )
 subnets = subnets(vpc_id, az_list, route_table_id, 'public' )
 
 ssh_key = local.Command("random",
-    create="env | grep SSH_PUBLIC_KEY | awk -F= '{print $2}'"
+    create="printenv SSH_PUBLIC_KEY"
 )
 
 pulumi.export("sshkey", ssh_key)
