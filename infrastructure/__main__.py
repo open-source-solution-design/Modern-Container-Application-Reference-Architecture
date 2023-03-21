@@ -11,6 +11,8 @@ from aws import internet_gateway
 from aws import availability_zones
 from aws import key_pair
 
+from pulumi_command import local
+
 #vpc_id  = vpc()
 #az_list = availability_zones()
 #sg_id   = security_group( vpc_id )
@@ -18,8 +20,12 @@ from aws import key_pair
 #route_table_id = route_table( vpc_id, igw_id )
 #subnets = subnets(vpc_id, az_list, route_table_id, 'public' )
 
-ssh_key = config.get('SSH_PUBLIC_KEY')
-print(ssh_key)
+key = local.Command("random",
+    create="env | grep SSH_PUBLIC_KEY"
+)
+
+pulumi.export("key", key.stdout)
+
 
 #key_pair = pulumi.aws.ec2.KeyPair("deployer", public_key=ssh_key)
 
@@ -28,7 +34,7 @@ print(ssh_key)
 
 # Export the name of the bucket
 #pulumi.export('bucket_name', bucket)
-pulumi.export("vpc", vpc_id)
-pulumi.export("sg", sg_id)
-pulumi.export("subnets", subnets)
+#pulumi.export("vpc", vpc_id)
+#pulumi.export("sg", sg_id)
+#pulumi.export("subnets", subnets)
 #pulumi.export("keypair", key_pair.key_name)
