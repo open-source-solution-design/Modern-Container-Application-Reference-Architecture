@@ -22,8 +22,8 @@ def vpc():
     return vpc.id
 
 #------------------------------------#
-def key_pair( name, ssh_public_key ):
-    keypair = ec2.KeyPair( name, ssh_public_key )
+def key_pair( resource_name: str, public_key: Optional[str] = None):
+    keypair = ec2.KeyPair( resource_name, public_key )
     return keypair.key_name
 #------------------------------------#
 def availability_zones():

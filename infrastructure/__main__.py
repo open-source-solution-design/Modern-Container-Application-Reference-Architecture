@@ -1,5 +1,6 @@
 """An AWS Python Pulumi AWS Module"""
 
+import config
 import pulumi
 
 from aws import vpc
@@ -9,8 +10,6 @@ from aws import security_group
 from aws import internet_gateway
 from aws import availability_zones
 from aws import key_pair
-
-import config
 
 vpc_id  = vpc()
 az_list = availability_zones()
