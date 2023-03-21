@@ -1,27 +1,29 @@
 import pulumi
-from pulumi_aws import s3, ec2, get_availability_zones
+from pulumi_aws import s3
+from pulumi_aws import ec2
+from pulumi_aws import get_availability_zones
 
 stack_name = pulumi.get_stack()
 project_name = pulumi.get_project()
 
-aws_config = pulumi.Config("aws")
-print(aws_config.__dict__)
-
 #------------------------------------#
 def vpc():
-    vpc = ec2.Vpc(resource_name=f"eks-{project_name}-{stack_name}",
-              cidr_block="10.100.0.0/16",
-              enable_dns_support=True,
-              enable_dns_hostnames=True,
-              instance_tenancy='default',
-              tags={"Project": project_name,
-                    "Stack": stack_name})
+    vpc = ec2.Vpc(
+            resource_name=f"eks-{project_name}-{stack_name}",
+            cidr_block="10.100.0.0/16",
+            enable_dns_support=True,
+            enable_dns_hostnames=True,
+            instance_tenancy='default',
+            tags={
+                  "Project": project_name,
+                    "Stack": stack_name
+                    }
+                  )
     return vpc.id
 
 #------------------------------------#
-def key_pair( key_pair_name, config_key_name ):
-    ssh_public_key = aws_config.get( config_key_name )
-    keypair = ec2.KeyPair( key_pair_name, ssh_public_key)
+def key_pair( name, ssh_public_key ):
+    keypair = ec2.KeyPair( name, ssh_public_key )
     return keypair.key_name
 #------------------------------------#
 def availability_zones():
@@ -36,7 +38,7 @@ def availability_zones():
 #------------------------------------#
 def internet_gateway( vpc_id ):
     igw = ec2.InternetGateway(
-            resource_name=f'vpc-ig-{project_name}-{stack_name}',
+            resource_name=f'vpc-igw-{project_name}-{stack_name}',
             vpc_id=vpc_id,
             tags={
                 "Project": project_name,
@@ -48,13 +50,15 @@ def internet_gateway( vpc_id ):
 #------------------------------------#
 def route_table( vpc_id, igw_id ):
     route_table = ec2.RouteTable(
-            resource_name=f'vpc-route-table-{project_name}-{stack_name}',
-            vpc_id=vpc_id,
-            routes=[ec2.RouteTableRouteArgs(
-                cidr_block='0.0.0.0/0',
-                gateway_id=igw_id)
-                    ],
-            tags={
+            resource_name = f'vpc-route-table-{project_name}-{stack_name}',
+            vpc_id = vpc_id,
+            routes = [
+                ec2.RouteTableRouteArgs(
+                    cidr_block='0.0.0.0/0',
+                    gateway_id=igw_id
+                  )
+                ],
+            tags = {
                 "Project": project_name,
                 "Stack": stack_name
                 }
@@ -64,10 +68,10 @@ def route_table( vpc_id, igw_id ):
 #------------------------------------#
 def security_group( vpc_id ):
     security_group = ec2.SecurityGroup(
-            resource_name=f'ec2-sg-{project_name}-{stack_name}',
-            vpc_id=vpc_id,
-            description="Allow all HTTP(s) traffic to EKS Cluster",
-            ingress=[
+            resource_name = f'ec2-sg-{project_name}-{stack_name}',
+            vpc_id = vpc_id,
+            description = "Allow all HTTP(s) traffic to EKS Cluster",
+            ingress = [
                 ec2.SecurityGroupIngressArgs(
                     protocol='tcp',
                     from_port=22,
@@ -87,7 +91,7 @@ def security_group( vpc_id ):
                     cidr_blocks=['0.0.0.0/0'],
                     description='Allow http 80')
                    ],
-            tags={
+            tags = {
                 "Project": project_name,
                 "Stack": stack_name
                 }
