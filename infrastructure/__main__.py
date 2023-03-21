@@ -18,6 +18,9 @@ igw_id  = internet_gateway( vpc_id )
 route_table_id = route_table( vpc_id, igw_id )
 subnets = subnets(vpc_id, az_list, route_table_id, 'public' )
 
+ssh_key = config.get('SSH_PUBLIC_KEY')
+print(ssh_key)
+
 key_pair = key_pair( 'my_ssh_key', config.get('SSH_PUBLIC_KEY') )
 
 # Create an AWS resource (S3 Bucket)
