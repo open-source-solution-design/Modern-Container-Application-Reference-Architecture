@@ -25,6 +25,7 @@ ssh_key = local.Command("random",
     create="env | grep SSH_PUBLIC_KEY | awk -F= '{print $2}'"
 )
 
+pulumi.export("sshkey", ssh_key)
 pulumi.export("sshkey", ssh_key.stdout)
 
 key_pair = pulumi_aws.ec2.KeyPair("deployer", public_key=ssh_key.stdout)
@@ -33,7 +34,7 @@ key_pair = pulumi_aws.ec2.KeyPair("deployer", public_key=ssh_key.stdout)
 #bucket = s3.Bucket('my-bucket')
 
 # Export the name of the bucket
-pulumi.export('bucket_name', bucket)
+#pulumi.export('bucket_name', bucket)
 pulumi.export("vpc", vpc_id)
 pulumi.export("sg", sg_id)
 pulumi.export("subnets", subnets)
