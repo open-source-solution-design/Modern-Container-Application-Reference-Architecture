@@ -22,7 +22,7 @@ def vpc():
     return vpc.id
 
 #------------------------------------#
-def key_pair( resource_name: str, public_key: Optional[str] = None):
+def key_pair( resource_name: str, public_key: str ):
     keypair = ec2.KeyPair( resource_name, public_key )
     return keypair.key_name
 #------------------------------------#
