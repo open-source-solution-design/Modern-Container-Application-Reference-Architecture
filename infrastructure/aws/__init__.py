@@ -18,7 +18,7 @@ def vpc():
 
 #------------------------------------#
 def key_pair( key_pair_name, config_key_name ):
-    ssh_public_key = config.require( config_key_name )
+    ssh_public_key = config.get_object( config_key_name )
     keypair = ec2.KeyPair( key_pair_name, ssh_public_key)
     return keypair.key_name
 #------------------------------------#
