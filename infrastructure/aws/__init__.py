@@ -3,7 +3,8 @@ from pulumi_aws import s3, ec2, get_availability_zones
 
 stack_name = pulumi.get_stack()
 project_name = pulumi.get_project()
-config = pulumi.Config('aws')
+config = pulumi.Config()
+data = config.require_object("aws")
 
 #------------------------------------#
 def vpc():
@@ -18,14 +19,14 @@ def vpc():
 
 #------------------------------------#
 def key_pair( key_pair_name, config_key_name ):
-    ssh_public_key = config.get_object( config_key_name )
+    ssh_public_key = data.get( config_key_name )
     keypair = ec2.KeyPair( key_pair_name, ssh_public_key)
     return keypair.key_name
 #------------------------------------#
 def availability_zones():
     """Use availability zones defined in the configuration file if available"""
     if config.get('az_list'):
-        az_list = config.get_object('az_list')
+        az_list = data.get('az_list')
     else:
         az_list = get_availability_zones(state="available").names
   
