@@ -21,7 +21,7 @@ subnets = subnets(vpc_id, az_list, route_table_id, 'public' )
 ssh_key = config.get('SSH_PUBLIC_KEY')
 print(ssh_key)
 
-key_pair = key_pair( 'my_ssh_key', config.get('SSH_PUBLIC_KEY') )
+key_pair = key_pair( 'my_ssh_key', ssh_key )
 
 # Create an AWS resource (S3 Bucket)
 #bucket = s3.Bucket('my-bucket')
