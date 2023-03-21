@@ -1,7 +1,14 @@
 """An AWS Python Pulumi AWS Module"""
 
 import pulumi
-from aws import vpc, security_group, availability_zones, internet_gateway, route_table, subnets 
+
+from aws import vpc
+from aws import subnets
+from aws import route_table
+from aws import security_group
+from aws import internet_gateway
+from aws import availability_zones
+from aws import key_pair
 
 vpc_id  = vpc()
 sg_id   = security_group( vpc_id )
