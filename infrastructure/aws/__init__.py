@@ -5,6 +5,7 @@ stack_name = pulumi.get_stack()
 project_name = pulumi.get_project()
 
 aws_config = pulumi.Config("aws")
+print(aws_config.__dict__)
 
 #------------------------------------#
 def vpc():
