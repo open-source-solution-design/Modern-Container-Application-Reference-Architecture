@@ -27,12 +27,7 @@ def key_pair( name, ssh_public_key ):
     return keypair.key_name
 #------------------------------------#
 def availability_zones():
-    """Use availability zones defined in the configuration file if available"""
-    if config.get('az_list'):
-        az_list = data.get('az_list')
-    else:
-        az_list = get_availability_zones(state="available").names
-  
+    az_list = get_availability_zones(state="available").names
     return az_list
 
 #------------------------------------#
@@ -109,11 +104,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
 
     subnets = []
 
-    if config.get('az_list'):
-        az_list = config.get_object('az_list')
-    else:
-        az_list = get_availability_zones(state="available").names
-
+    az_list = availability_zones()
     az_enum = list(az_list)
 
     if len(az_list) <= 0:
