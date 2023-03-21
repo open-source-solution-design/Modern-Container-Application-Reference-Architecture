@@ -17,7 +17,7 @@ env:
 
 defaults:
   run:
-    working-directory: ./iac_modules
+    working-directory: ./infrastructure
 
 jobs:
   build:
