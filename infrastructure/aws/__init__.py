@@ -17,6 +17,11 @@ def vpc():
     return vpc.id
 
 #------------------------------------#
+def key_pair( key_pair_name, config_key_name ):
+    ssh_public_key = config.require( config_key_name )
+    keypair = ec2.KeyPair( key_pair_name, ssh_public_key)
+    return keypair.key_name
+#------------------------------------#
 def availability_zones():
     """Use availability zones defined in the configuration file if available"""
     if config.get('az_list'):

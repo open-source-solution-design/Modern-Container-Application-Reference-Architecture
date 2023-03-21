@@ -8,6 +8,7 @@ sg_id   = security_group( vpc_id )
 az_list = availability_zones()
 igw_id  = internet_gateway( vpc_id )
 route_table_id = route_table( vpc_id, igw_id )
+key_pair = key_pair('my_ssh_key' ,'SSH_PUBLIC_KEY')
 
 subnets=subnets(vpc_id, az_list, route_table_id, 'public' )
 
@@ -19,3 +20,4 @@ subnets=subnets(vpc_id, az_list, route_table_id, 'public' )
 pulumi.export("vpc", vpc_id)
 pulumi.export("sg", sg_id)
 pulumi.export("subnets", subnets)
+pulumi.export("keypair", key_pair.key_name)
