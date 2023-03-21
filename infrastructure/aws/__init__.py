@@ -3,8 +3,8 @@ from pulumi_aws import s3, ec2, get_availability_zones
 
 stack_name = pulumi.get_stack()
 project_name = pulumi.get_project()
-config = pulumi.Config()
-data = config.require_object("aws")
+
+aws_config = pulumi.Config("aws")
 
 #------------------------------------#
 def vpc():
@@ -19,7 +19,7 @@ def vpc():
 
 #------------------------------------#
 def key_pair( key_pair_name, config_key_name ):
-    ssh_public_key = data.get( config_key_name )
+    ssh_public_key = aws_config.get( config_key_name )
     keypair = ec2.KeyPair( key_pair_name, ssh_public_key)
     return keypair.key_name
 #------------------------------------#
