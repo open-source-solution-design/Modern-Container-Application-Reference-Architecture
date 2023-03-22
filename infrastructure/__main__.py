@@ -1,5 +1,6 @@
 """An AWS Python Pulumi AWS Module"""
 import aws
+import config
 import pulumi
 
 vpc_id  = aws.vpc()
