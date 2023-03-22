@@ -26,11 +26,11 @@ ssh_key = local.Command(
 pulumi.export("sshkey", ssh_key)
 pulumi.export("sshkey", ssh_key.stdout)
 
-key_pair_name = key_pair(
-        "my_ssh_key",
-        public_key=ssh_key.stdout
-    )
-pulumi.export("ssh_public_key", key_pair_name)
+#key_pair_name = key_pair(
+#        "my_ssh_key",
+#        public_key=ssh_key.stdout
+#    )
+#pulumi.export("ssh_public_key", key_pair_name)
 
 pulumi.export("vpc", vpc_id)
 pulumi.export("sg", sg_id)
