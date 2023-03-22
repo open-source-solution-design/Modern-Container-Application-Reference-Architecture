@@ -59,7 +59,6 @@ def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, secuity_group_id ):
 def availability_zones():
     az_list = pulumi_aws.get_availability_zones(state="available").names
     return az_list
-
 #------------------------------------#
 def internet_gateway( vpc_id ):
     igw = pulumi_aws.ec2.InternetGateway(
