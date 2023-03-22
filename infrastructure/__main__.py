@@ -19,7 +19,7 @@ k3s_server = aws.ec2(
         ec2_type  = 't3.large',
         key_name  = key_pair,
         subnet_id = subnets[0],
-        secuity_group_id = sg_id
+        security_group_id = sg_id
         )
 db_server = aws.ec2(
         arch      = 'arm64',
@@ -27,7 +27,7 @@ db_server = aws.ec2(
         ec2_type  = 't4g.medium',
         key_name  = key_pair,
         subnet_id = subnets[0],
-        secuity_group_id = sg_id
+        security_group_id = sg_id
         )
 
 pulumi.export("vpc", vpc_id)

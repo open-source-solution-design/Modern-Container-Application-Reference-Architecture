@@ -23,7 +23,7 @@ def key_pair( resource_name: str, public_key: str ):
     key_pair = pulumi_aws.ec2.KeyPair( resource_name=resource_name, public_key=public_key )
     return key_pair.key_name
 #------------------------------------#
-def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, secuity_group_id ):
+def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, security_group_id ):
     if arch == 'amd64':
         ami = pulumi_aws.ec2.get_ami(
                 owners = ["099720109477"],
