@@ -1,6 +1,7 @@
 from pulumi import get_stack
 from pulumi import get_project
 
+import pulumi_aws
 from pulumi_aws import s3
 from pulumi_aws import ec2
 from pulumi_aws import get_availability_zones
@@ -10,7 +11,7 @@ stack_name = get_stack()
 project_name = get_project()
 #------------------------------------#
 def vpc():
-    vpc = ec2.Vpc(
+    vpc = pulumi_aws.ec2.Vpc(
             resource_name=f"eks-{project_name}-{stack_name}",
             cidr_block="10.100.0.0/16",
             enable_dns_support=True,

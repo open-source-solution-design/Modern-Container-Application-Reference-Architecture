@@ -31,9 +31,9 @@ jobs:
       - name: set pulumi tools
         shell: bash
         run: |
-          sudo apt update && sudo apt upgrade -y
-          curl -fsSL https://get.pulumi.com | sh
-          sudo pip3 install -r requirements.txt
+          sudo rm -rvf /home/runner/.pulumi/
+          curl -o setup.sh https://get.pulumi.com && sh setup.sh --version 3.57.0
+          pip3 install -r requirements.txt
 
       - name: login state backend
         shell: bash
