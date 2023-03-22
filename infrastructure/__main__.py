@@ -16,6 +16,9 @@ igw_id  = internet_gateway( vpc_id )
 route_table_id = route_table( vpc_id, igw_id )
 subnets = subnets(vpc_id, az_list, route_table_id, 'public' )
 
+ssh_public_key=config.get_env('SSH_PUBLIC_KEY')
+pulumi.export("ssh_public_key", ssh_public_key)
+
 key_pair_name = key_pair(
         "my_ssh_key",
         public_key=config.get_env('SSH_PUBLIC_KEY')
