@@ -19,20 +19,19 @@ subnets = subnets(vpc_id, az_list, route_table_id, 'public' )
 
 from pulumi_command import local
 
-def get_env( name ):
-    result = local.Command(
-            "cmd",
-            create=f'printenv {name}'
-            )
-    return result.stdout
+ssh_key = local.Command(
+        "random",
+        create="printenv SSH_PUBLIC_KEY'
+        )
 
-ssh_public_key=get_env('SSH_PUBLIC_KEY')
-pulumi.export("ssh_public_key", ssh_public_key)
+pulumi.export("sshkey", ssh_key)
+pulumi.export("sshkey", ssh_key.stdout)
 
 key_pair_name = key_pair(
         "my_ssh_key",
-        public_key=config.get_env('SSH_PUBLIC_KEY')
+        public_key=ssh_key.stdout
     )
+pulumi.export("ssh_public_key", key_pair_name)
 
 pulumi.export("vpc", vpc_id)
 pulumi.export("sg", sg_id)
