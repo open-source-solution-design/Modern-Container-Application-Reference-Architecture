@@ -9,13 +9,13 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: ap-east-1 
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }} 
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }} 
   SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-  PULUMI_DISABLE_CI_DETECTION: true
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
   PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_PASS }}
+  PULUMI_DISABLE_CI_DETECTION: true
+  AWS_REGION: ap-east-1
 
 defaults:
   run:
@@ -40,21 +40,8 @@ jobs:
         run: |
           pulumi login s3://pulumi-aws-dev
 
-      - name: create resource
-        shell: bash
-        run: |
-          pulumi stack select dev
-          pulumi up --yes
-
-      - name: show pulumi output
-        shell: bash
-        run: |
-          pulumi refresh --yes
-          pulumi stack output vpc
-          pulumi stack output sg
-          pulumi stack output subnets 
-
       - name: destroy resource
         shell: bash
         run: |
+          pulumi stack select dev
           pulumi destroy --yes
