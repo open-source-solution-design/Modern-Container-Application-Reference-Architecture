@@ -157,7 +157,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
         if az.strip() == "":
             raise f'availability zone specified [{i}] is an empty string'
     
-        subnet = pulumi_aws.ec2.Subnet(
+        subnet_instance = pulumi_aws.ec2.Subnet(
                 resource_name = f'{az}-{net_type}-{project_name}-{stack_name}-{i}',
                 vpc_id=vpc_id,
                 availability_zone=az,
@@ -171,8 +171,8 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
         pulumi_aws.ec2.RouteTableAssociation(
                 f"route-table-assoc-{net_type}-{az}-{i}",
                 route_table_id=route_table_id,
-                subnet_id=subnet.id
+                subnet_id=subnet_instance.id
                 )
-        subnets.append(subnet.id)
+        subnets.append(subnet_instance.id)
     
     return subnets
