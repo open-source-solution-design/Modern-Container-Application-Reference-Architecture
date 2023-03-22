@@ -18,7 +18,7 @@ k3s_server = aws.ec2(
         ec2_name  = 'webui.onwalk.net',
         ec2_type  = 't3.large',
         key_name  = key_pair,
-        subnet_id = subnet_id,
+        subnet_id = subnets[0],
         secuity_group_id = sg_id
         )
 db_server = aws.ec2(
@@ -26,7 +26,7 @@ db_server = aws.ec2(
         ec2_name  = 'clickhouse.onwalk.net',
         ec2_type  = 't4g.medium',
         key_name  = key_pair,
-        subnet_id = subnet_id,
+        subnet_id = subnets[0],
         secuity_group_id = sg_id
         )
 
