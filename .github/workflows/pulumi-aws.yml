@@ -31,9 +31,9 @@ jobs:
       - name: set pulumi tools
         shell: bash
         run: |
-          apt update && apt upgrade -y
-          wget https://get.pulumi.com/releases/sdk/pulumi-v3.58.0-linux-x64.tar.gz && tar -xvpf pulumi-v3.58.0-linux-x64.tar.gz  -C /usr/bin
-          pip3 install -r requirements.txt
+          sudo apt update && sudo apt upgrade -y
+          curl -fsSL https://get.pulumi.com | sh
+          sudo pip3 install -r requirements.txt
 
       - name: login state backend
         shell: bash
