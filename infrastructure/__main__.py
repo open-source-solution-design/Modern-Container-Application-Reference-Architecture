@@ -1,5 +1,6 @@
 """An AWS Python Pulumi AWS Module"""
 import config
+import pulumi
 
 from aws import vpc
 from aws import subnets
