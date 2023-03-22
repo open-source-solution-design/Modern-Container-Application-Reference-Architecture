@@ -1,10 +1,7 @@
-from pulumi import get_stack
-from pulumi import get_project
-
 import pulumi_aws
-from pulumi_aws import s3
-from pulumi_aws import ec2
-from pulumi_aws import get_availability_zones
+
+import get_stack from pulumi
+import get_project from pulumi
 
 #-----------global vars----------------------#
 stack_name = get_stack()
@@ -25,30 +22,30 @@ def vpc():
     return vpc.id
 #------------------------------------#
 def key_pair( resource_name: str, public_key: str ):
-    key_pair = ec2.KeyPair( resource_name=resource_name, public_key=public_key )
+    key_pair = pulumi_aws.ec2.KeyPair( resource_name=resource_name, public_key=public_key )
     return key_pair.key_name
 #------------------------------------#
 def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, secuity_group_id ):
     if arch == 'amd64':
-        ami = ec2.get_ami(
+        ami = pulumi_aws.ec2.get_ami(
                 owners = ["099720109477"],
                 filters = [
-                    ec2.GetAmiFilterArgs(
+                    pulumi_aws.ec2.GetAmiFilterArgs(
                         name = "name",
                         values = ["ubuntu-jammy-22.04-amd64-server-*"]
                     )],
                 most_recent = True)
 
     if arch == 'arm64':
-        ami = ec2.get_ami(
+        ami = pulumi_aws.ec2.get_ami(
                 owners = ["099720109477"],
                 filters = [
-                    ec2.GetAmiFilterArgs(
+                    pulumi_aws.ec2.GetAmiFilterArgs(
                         name = "name",
                         values = ["ubuntu-jammy-22.04-arm64-server-*"]
                     )],
                 most_recent = True)
-    instance = ec2.Instance(
+    instance = pulumi_aws.ec2.Instance(
             resource_name=ec2_name,
             ami=ami.id,
             key_name=key_name,
@@ -62,12 +59,12 @@ def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, secuity_group_id ):
     return instance
 #------------------------------------#
 def availability_zones():
-    az_list = get_availability_zones(state="available").names
+    az_list = pulumi_aws.get_availability_zones(state="available").names
     return az_list
 
 #------------------------------------#
 def internet_gateway( vpc_id ):
-    igw = ec2.InternetGateway(
+    igw = pulumi_aws.ec2.InternetGateway(
             resource_name=f'vpc-igw-{project_name}-{stack_name}',
             vpc_id=vpc_id,
             tags={
@@ -79,11 +76,11 @@ def internet_gateway( vpc_id ):
 
 #------------------------------------#
 def route_table( vpc_id, igw_id ):
-    route_table = ec2.RouteTable(
+    route_table = pulumi_aws.ec2.RouteTable(
             resource_name = f'vpc-route-table-{project_name}-{stack_name}',
             vpc_id = vpc_id,
             routes = [
-                ec2.RouteTableRouteArgs(
+                pulumi_aws.ec2.RouteTableRouteArgs(
                     cidr_block='0.0.0.0/0',
                     gateway_id=igw_id
                   )
@@ -97,24 +94,24 @@ def route_table( vpc_id, igw_id ):
 
 #------------------------------------#
 def security_group( vpc_id ):
-    security_group = ec2.SecurityGroup(
+    security_group = pulumi_aws.ec2.SecurityGroup(
             resource_name = f'ec2-sg-{project_name}-{stack_name}',
             vpc_id = vpc_id,
             description = "Allow all HTTP(s) traffic to EKS Cluster",
             ingress = [
-                ec2.SecurityGroupIngressArgs(
+                pulumi_aws.ec2.SecurityGroupIngressArgs(
                     protocol='tcp',
                     from_port=22,
                     to_port=22,
                     cidr_blocks=['0.0.0.0/0'],
                     description='Allow sshd connect'),
-                ec2.SecurityGroupIngressArgs(
+                pulumi_aws.ec2.SecurityGroupIngressArgs(
                     protocol='tcp',
                     from_port=443,
                     to_port=443,
                     cidr_blocks=['0.0.0.0/0'],
                     description='Allow https 443'),
-                ec2.SecurityGroupIngressArgs(
+                pulumi_aws.ec2.SecurityGroupIngressArgs(
                     protocol='tcp',
                     from_port=80,
                     to_port=80,
@@ -139,7 +136,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
 
     subnets = []
 
-    az_list = availability_zones()
+    az_list = pulumi_aws.availability_zones()
     az_enum = list(az_list)
 
     if len(az_list) <= 0:
@@ -163,7 +160,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
         if az.strip() == "":
             raise f'availability zone specified [{i}] is an empty string'
     
-        subnet = ec2.Subnet(
+        subnet = pulumi_aws.ec2.Subnet(
                 resource_name = f'{az}-{net_type}-{project_name}-{stack_name}-{i}',
                 vpc_id=vpc_id,
                 availability_zone=az,
@@ -174,7 +171,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
                     "Stack": stack_name,
                     }
                 )
-        ec2.RouteTableAssociation(
+        pulumi_aws.ec2.RouteTableAssociation(
                 f"route-table-assoc-{net_type}-{az}-{i}",
                 route_table_id=route_table_id,
                 subnet_id=subnet.id
