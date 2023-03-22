@@ -1,5 +1,6 @@
 import os
+from pulumi import Output
 
 def get(input):
-    output = Output.from_input(input)
-    return output.apply( os.environ[key_name] )
+    vaule = Output.from_input(input)
+    return value.apply( os.environ[key_name] )
