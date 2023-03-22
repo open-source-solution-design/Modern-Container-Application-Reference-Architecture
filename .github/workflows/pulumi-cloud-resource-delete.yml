@@ -1,4 +1,4 @@
-name: iac_modules for aws with pulumi tools
+name: delete aws cloud resources
 
 on:
   push:
