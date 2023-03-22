@@ -21,9 +21,8 @@ from pulumi_command import local
 
 ssh_key = local.Command(
         "random",
-        create="printenv SSH_PUBLIC_KEY'
+        create="printenv SSH_PUBLIC_KEY"
         )
-
 pulumi.export("sshkey", ssh_key)
 pulumi.export("sshkey", ssh_key.stdout)
 
