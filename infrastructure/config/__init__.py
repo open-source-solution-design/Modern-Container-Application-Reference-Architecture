@@ -4,7 +4,7 @@ from pulumi_command import remote
 def get_env( name ):
     env = local.Command(
             "command",
-            create=f'printenv {name}'
+            create=f"printenv {name}"
             )
     return env.stdout
 

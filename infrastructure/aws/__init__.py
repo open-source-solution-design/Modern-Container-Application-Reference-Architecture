@@ -15,16 +15,48 @@ def vpc():
             enable_dns_hostnames=True,
             instance_tenancy='default',
             tags={
-                  "Project": project_name,
-                    "Stack": stack_name
-                    }
-                  )
+                "Project": project_name,
+                "Stack": stack_name
+                }
+            )
     return vpc.id
-
 #------------------------------------#
 def key_pair( resource_name: str, public_key: str ):
-    keypair = ec2.KeyPair( resource_name, public_key )
-    return keypair.key_name
+    key_pair = ec2.KeyPair( resource_name=resource_name, public_key=public_key )
+    return key_pair.key_name
+#------------------------------------#
+def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, secuity_group_id ):
+    if arch == 'amd64':
+        ami = ec2.get_ami(
+                owners = ["099720109477"],
+                filters = [
+                    ec2.GetAmiFilterArgs(
+                        name = "name",
+                        values = ["ubuntu-jammy-22.04-amd64-server-*"]
+                    )],
+                most_recent = True)
+
+    if arch == 'arm64':
+        ami = ec2.get_ami(
+                owners = ["099720109477"],
+                filters = [
+                    ec2.GetAmiFilterArgs(
+                        name = "name",
+                        values = ["ubuntu-jammy-22.04-arm64-server-*"]
+                    )],
+                most_recent = True)
+    instance = ec2.Instance(
+            resource_name=ec2_name,
+            ami=ami.id,
+            key_name=key_name,
+            subnet_id=subnet_id,
+            instance_type = ec2_type,
+            vpc_security_group_ids = [ security_group_id ],
+            tags = {
+                "Name": ec2_name
+                }
+            )
+    return instance
 #------------------------------------#
 def availability_zones():
     az_list = get_availability_zones(state="available").names
