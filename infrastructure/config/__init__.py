@@ -1,4 +1,5 @@
 import os
 
-def get( key_name ):
-    return os.environ[key_name]
+def get(input):
+    output = Output.from_input(input)
+    return output.apply( os.environ[key_name] )

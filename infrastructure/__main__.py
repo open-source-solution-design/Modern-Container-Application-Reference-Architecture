@@ -21,14 +21,13 @@ igw_id  = internet_gateway( vpc_id )
 route_table_id = route_table( vpc_id, igw_id )
 subnets = subnets(vpc_id, az_list, route_table_id, 'public' )
 
-ssh_key = local.Command("random",
-    create="printenv SSH_PUBLIC_KEY"
-)
+#ssh_key = local.Command("random",
+#    create="printenv SSH_PUBLIC_KEY"
+#)
 
-pulumi.export("sshkey", ssh_key)
-pulumi.export("sshkey", ssh_key.stdout)
+public_key=config.get('SSH_PUBLIC_KEY')
+key_pair = key_pair("deployer", public_key)
 
-key_pair = pulumi_aws.ec2.KeyPair("deployer", public_key=ssh_key.stdout)
 
 # Create an AWS resource (S3 Bucket)
 #bucket = s3.Bucket('my-bucket')
