@@ -30,7 +30,7 @@ def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, secuity_group_id ):
                 filters = [
                     pulumi_aws.ec2.GetAmiFilterArgs(
                         name = "name",
-                        values = ["ubuntu-jammy-22.04-amd64-server-*"]
+                        values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
                     )],
                 most_recent = True)
 
@@ -40,7 +40,7 @@ def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, secuity_group_id ):
                 filters = [
                     pulumi_aws.ec2.GetAmiFilterArgs(
                         name = "name",
-                        values = ["ubuntu-jammy-22.04-arm64-server-*"]
+                        values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
                     )],
                 most_recent = True)
     instance = pulumi_aws.ec2.Instance(
