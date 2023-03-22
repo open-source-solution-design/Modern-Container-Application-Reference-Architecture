@@ -21,7 +21,7 @@ from pulumi_command import local
 
 def get_env( name ):
     result = local.Command(
-            "command",
+            "cmd",
             create=f'printenv {name}'
             )
     return result.stdout
