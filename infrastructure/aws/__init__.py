@@ -1,15 +1,14 @@
+from pulumi import get_stack
+from pulumi import get_project
+
 from pulumi_aws import s3
 from pulumi_aws import ec2
 from pulumi_aws import get_availability_zones
 
-from pulumi import get_stack
-from pulumi import get_project
-
 #-----------global vars----------------------#
 stack_name = get_stack()
 project_name = get_project()
-
-#--------------------------------------------#
+#------------------------------------#
 def vpc():
     vpc = ec2.Vpc(
             resource_name=f"eks-{project_name}-{stack_name}",
@@ -18,9 +17,10 @@ def vpc():
             enable_dns_hostnames=True,
             instance_tenancy='default',
             tags={
-                "Project": project_name,
-                "Stack": stack_name
-                })
+                  "Project": project_name,
+                  "Stack": stack_name
+                  }
+            )
     return vpc.id
 #------------------------------------#
 def key_pair( resource_name: str, public_key: str ):
