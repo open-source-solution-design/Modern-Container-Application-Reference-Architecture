@@ -9,7 +9,7 @@ igw_id  = aws.internet_gateway( vpc_id )
 route_table_id = aws.route_table( vpc_id, igw_id )
 subnets = aws.subnets(vpc_id, az_list, route_table_id, 'public' )
 
-ssh_key  = conig.get_env('SSH_PUBLIC_KEY')
+ssh_key  = config.get_env('SSH_PUBLIC_KEY')
 key_pair = aws.key_pair(resource_name="my_ssh_key", public_key=ssh_key)
 
 k3s_server = aws.ec2(
