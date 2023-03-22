@@ -1,11 +1,9 @@
+import pulumi
 import pulumi_aws
 
-import get_stack from pulumi
-import get_project from pulumi
-
-#-----------global vars----------------------#
-stack_name = get_stack()
-project_name = get_project()
+#-----------global vars---------------#
+stack_name = pulumi.get_stack()
+project_name = pulumi.get_project()
 #------------------------------------#
 def vpc():
     vpc = pulumi_aws.ec2.Vpc(
