@@ -133,7 +133,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
 
     subnets = []
 
-    az_list = pulumi_aws.availability_zones()
+    az_list = availability_zones()
     az_enum = list(az_list)
 
     if len(az_list) <= 0:
