@@ -35,4 +35,4 @@ if __name__ == '__main__':
 
     render_template('templates/id_rsa', 'hosts/id_rsa', vars)
     render_template('templates/inventory', 'hosts/inventory', vars)
-    os.chmod(hosts/id_rsa, stat.S_IRUSR)
+    os.chmod('hosts/id_rsa', stat.S_IRUSR)

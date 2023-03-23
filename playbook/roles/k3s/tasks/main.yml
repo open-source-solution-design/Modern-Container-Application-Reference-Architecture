@@ -6,9 +6,6 @@
   script: files/setup-ingress-with-nodePort.sh {{ lb_ip }}
   when: inventory_hostname in groups[group]
 
-
 - name: Setup DNS Provider
   script: files/setup-dns-provider.sh {{ dns_ak }}  {{ dns_sk }}
   when: inventory_hostname in groups[group]
-
-
