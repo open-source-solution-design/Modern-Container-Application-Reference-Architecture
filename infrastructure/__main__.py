@@ -2,6 +2,7 @@
 import aws
 import config
 import pulumi
+import pulumi_command
 
 vpc_id  = aws.vpc()
 az_list = aws.availability_zones()
@@ -36,3 +37,13 @@ pulumi.export("subnets", subnets)
 pulumi.export("key_pair", key_pair)
 pulumi.export("k3s_server_public_ip", k3s_server.public_ip )
 pulumi.export("db_server_public_ip",  db_server.public_ip )
+
+inventory_file = pulumi.Output.all(
+        k3s_server=k3s_server.public_ip,
+        db_server=db_server.public_ip
+        ).apply("python3 scripts/render.py ../playbook/hosts/ args['k3s_server'] args['db_server']")
+
+install_log_agent_cmd = pulumi_command.local.Command(
+        "InstallAgent",
+        create="cd ../playbook/ && ansible-playbook -i hosts/inventory jobs/init_log_agent -D"
+        )

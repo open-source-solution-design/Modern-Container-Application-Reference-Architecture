@@ -1,0 +1,30 @@
+- name: update /etc/hostname
+  template: src=templates/hostname dest=/etc/hostname owner=root group=root mode=0644 unsafe_writes=yes
+
+- name: Set hostname
+  shell: "hostname -F /etc/hostname"
+
+- name: Update /etc/hosts
+  template: src=templates/hosts dest=/etc/hosts owner=root group=root mode=0644 force=yes unsafe_writes=yes
+
+- name: Set logrotate for monitor-agent log
+  template: src=templates/logrotate-monitor-agent dest=/etc/logrotate.d/monitor-agent owner=root group=root mode=0644 force=yes unsafe_writes=yes
+
+- name: Install packages
+  shell: "yum makecache && yum install -y audit"
+  when: ansible_facts['distribution'] != "Ubuntu"
+
+- name: Install packages
+  shell: "apt install -y auditd"
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: Restart crond service
+  shell: "systemctl restart crond"
+  when: ansible_facts['distribution'] != "Ubuntu"
+
+- name: Restart crond service
+  shell: "systemctl restart cron"
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: Set timezone
+  shell: "timedatectl set-timezone Asia/Shanghai"
