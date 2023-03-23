@@ -1,12 +1,9 @@
 name: delete aws cloud resources
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
   workflow_dispatch:
+    branches:
+      - main
 
 env:
   SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
