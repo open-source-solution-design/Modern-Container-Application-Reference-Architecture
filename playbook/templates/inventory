@@ -1,8 +1,8 @@
 [master]
-k3s-server               ansible_host={{ vars.k3s_server_ip }}
+k3s-server               ansible_host={{ vars.k3s_server_public_ip }}
 
 [node]
-db-server                ansible_host={{ vars.db_server_ip }} 
+db-server                ansible_host={{ vars.db_server_public_ip }} 
 
 [all:vars]
 ansible_port=22

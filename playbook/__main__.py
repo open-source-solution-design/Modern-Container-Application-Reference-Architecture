@@ -1,12 +1,12 @@
 """An AWS Python Pulumi AWS Module"""
 import pulumi_command
 
-k3s_server_ip = pulumi_command.local.Command( "get_k3s_server_ip", create="pulumi stack output k3s_server_public_ip" )
-db_server_ip = pulumi_command.local.Command( "get_db_server_ip", create="pulumi stack output db_server_public_ip" )
+k3s_server_public_ip = pulumi_command.local.Command( "k3s_server_public_ip", create="pulumi stack output k3s_server_public_ip" )
+db_server_public_ip = pulumi_command.local.Command( "db_server_public_ip", create="pulumi stack output db_server_public_ip" )
 
 render_inventory_cmd = pulumi_command.local.Command(
         "Render",
-        create="python3 scripts/render.py hosts/ k3s_server_ip db_server_ip"
+        create="python3 scripts/render.py hosts/ k3s_server_public_ip db_server_public_ip"
         )
 
 install_k3s_cluster_cmd = pulumi_command.local.Command(

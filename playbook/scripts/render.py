@@ -31,8 +31,8 @@ if __name__ == '__main__':
     vars = {}
     vars.update( {
     'ssh_private_key': ssh_private_key,
-    'k3s_server_ip': sys.argv[2],
-    'db_server_ip': sys.argv[3],
+    'k3s_server_public_ip': sys.argv[2],
+    'db_server_public_ip': sys.argv[3],
     'dns_ak': dns_ak,
     'dns_sk': dns_sk
      } )
