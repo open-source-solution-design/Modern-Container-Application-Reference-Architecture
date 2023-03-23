@@ -6,7 +6,7 @@ db_server_public_ip = pulumi_command.local.Command( "db_server_public_ip", creat
 
 render_inventory_cmd = pulumi_command.local.Command(
         "Render",
-        create="python3 scripts/render.py hosts/ k3s_server_public_ip db_server_public_ip"
+        create="python3 render.py hosts/ k3s_server_public_ip db_server_public_ip"
         )
 
 install_k3s_cluster_cmd = pulumi_command.local.Command(

@@ -1,10 +1,8 @@
 import os
 import sys
+import jinja2
 import subprocess
-from pathlib import Path
-from jinja2 import Environment, FileSystemLoader
 
-home_dir = str(Path.home())
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -14,8 +12,7 @@ def run_cmd(cmd):
     return output
 
 def render_template( template_source, template_result, template_vars ):
-    inventory_env      = Environment(loader=FileSystemLoader(THIS_DIR),
-                         trim_blocks=True)
+    inventory_env      = jinja2.Environment( loader=jinja2.FileSystemLoader(THIS_DIR), trim_blocks=True )
     inventory_template = inventory_env.get_template(template_source)
     inventory_output   = inventory_template.render(vars=template_vars)
     with open(template_result, "w+") as f:
@@ -23,7 +20,6 @@ def render_template( template_source, template_result, template_vars ):
 
 if __name__ == '__main__':
 
-    dest_dir = sys.argv[1]
     ssh_private_key                = os.environ['SSH_PRIVATE_KEY']
     dns_ak                         = os.environ['DNS_AK']
     dns_sk                         = os.environ['DNS_SK']
@@ -31,11 +27,12 @@ if __name__ == '__main__':
     vars = {}
     vars.update( {
     'ssh_private_key': ssh_private_key,
-    'k3s_server_public_ip': sys.argv[2],
-    'db_server_public_ip': sys.argv[3],
+    'k3s_server_public_ip': sys.argv[1],
+    'db_server_public_ip': sys.argv[2],
     'dns_ak': dns_ak,
     'dns_sk': dns_sk
      } )
 
-    render_template('templates/id_rsa', dest_dir+'hosts/', vars)
-    render_template('templates/inventory', dest_dir+'hosts/', vars)
+    render_template('templates/id_rsa', 'hosts/id_rsa', vars)
+    render_template('templates/inventory', 'hosts/inventory', vars)
+    os.chmod(hosts/id_rsa, stat.S_IRUSR)
