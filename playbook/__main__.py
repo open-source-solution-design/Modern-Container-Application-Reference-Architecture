@@ -36,19 +36,26 @@ vars['k3s_server_public_ip'] = data['k3s_server_public_ip']
 
 render_template('templates/id_rsa', 'hosts/id_rsa', vars)
 render_template('templates/inventory', 'hosts/inventory', vars)
-os.chmod('hosts/id_rsa', stat.S_IRUSR)
 
-install_k3s_cluster_cmd = pulumi_command.local.Command(
+setup_permission = pulumi_command.local.Command(
+        "SetupPermission",
+        create="chmod 0400 hosts/id_rsa"
+        )
+
+install_k3s_cluster = pulumi_command.local.Command(
         "SetupK3S",
-        create="ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D"
+        create="ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D",
+        opts=pulumi.ResourceOptions(depends_on=[setup_permission])
         )
 
-install_monitor_cmd = pulumi_command.local.Command(
+install_monitor = pulumi_command.local.Command(
         "InstallMonitor",
-        create="ansible-playbook -i hosts/inventory jobs/init_monitor -D"
+        create="ansible-playbook -i hosts/inventory jobs/init_monitor -D",
+        opts=pulumi.ResourceOptions(depends_on=[install_k3s_cluster])
         )
 
-install_log_agent_cmd = pulumi_command.local.Command(
+install_log_agent = pulumi_command.local.Command(
         "InstallAgent",
-        create="ansible-playbook -i hosts/inventory jobs/init_log_agent -D"
+        create="ansible-playbook -i hosts/inventory jobs/init_log_agent -D",
+        opts=pulumi.ResourceOptions(depends_on=[install_k3s_cluster])
         )
