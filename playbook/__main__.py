@@ -23,27 +23,20 @@ def render_template( template_source, template_result, template_vars ):
     with open(template_result, "w+") as f:
         f.write(inventory_output)
 
-ssh_private_key                = os.environ['SSH_PRIVATE_KEY']
-dns_ak                         = os.environ['DNS_AK']
-dns_sk                         = os.environ['DNS_SK']
-
 data = json.loads(
         run_cmd('pulumi stack output --json')
         )
 
-pulumi.export("data", data)
-
-vars.update( {
-  'ssh_private_key': ssh_private_key,
-  'k3s_server_public_ip': data['k3s_server_public_ip'],
-  'db_server_public_ip': data['db_server_public_ip'],
-  'dns_ak': dns_ak,
-  'dns_sk': dns_sk
- } )
+vars = {}
+vars['dns_ak'] = os.environ['DNS_AK']
+vars['dns_sk'] = os.environ['DNS_SK']
+vars['ssh_private_key'] = os.environ['SSH_PRIVATE_KEY']
+vars['db_server_public_ip'] = data['db_server_public_ip']
+vars['k3s_server_public_ip'] = data['k3s_server_public_ip']
 
 render_template('templates/id_rsa', 'hosts/id_rsa', vars)
-os.chmod('hosts/id_rsa', stat.S_IRUSR)
 render_template('templates/inventory', 'hosts/inventory', vars)
+os.chmod('hosts/id_rsa', stat.S_IRUSR)
 
 install_k3s_cluster_cmd = pulumi_command.local.Command(
         "SetupK3S",
