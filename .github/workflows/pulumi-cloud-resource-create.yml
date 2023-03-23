@@ -52,16 +52,6 @@ jobs:
           pulumi stack select dev
           pulumi up --yes
 
-      - name: show pulumi output
-        shell: bash
-        run: |
-          pulumi refresh --yes
-          pulumi stack output vpc
-          pulumi stack output sg
-          pulumi stack output subnets
-          pulumi stack output k3s_server_public_ip
-          pulumi stack output db_server_public_ip
-
   set_resources:
     runs-on: ubuntu-latest
     needs: [create_resources]
