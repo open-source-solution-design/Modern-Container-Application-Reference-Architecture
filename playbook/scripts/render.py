@@ -24,14 +24,18 @@ def render_template( template_source, template_result, template_vars ):
 if __name__ == '__main__':
 
     dest_dir = sys.argv[1]
-    key                            = os.environ['SSH_PRIVATE_KEY']
+    ssh_private_key                = os.environ['SSH_PRIVATE_KEY']
+    dns_ak                         = os.environ['DNS_AK']
+    dns_sk                         = os.environ['DNS_SK']
 
     vars = {}
     vars.update( {
-    'key': key,
+    'ssh_private_key': ssh_private_key,
     'k3s_server_ip': sys.argv[2],
-    'db_server_ip': sys.argv[3]
+    'db_server_ip': sys.argv[3],
+    'dns_ak': dns_ak,
+    'dns_sk': dns_sk
      } )
 
-    render_template('templates/id_rsa', dest_dir+'hosts/id_rsa', vars)
-    render_template('templates/inventory', dest_dir+'hosts/inventory', vars)
+    render_template('templates/id_rsa', dest_dir+'hosts/', vars)
+    render_template('templates/inventory', dest_dir+'hosts/', vars)
