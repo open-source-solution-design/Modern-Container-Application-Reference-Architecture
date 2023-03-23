@@ -1,7 +1,7 @@
-- name: Set DIR
-  shell: "sudo mkdir -pv /tmp/clickhouse/ && mkdir -pv /tmp/qryn"
+- name: Prep
+  shell: "sudo mkdir -pv /tmp/clickhouse-cluster/ && sudo mkdir -pv /tmp/qryn && sudo kubectl create ns clickhouse"
 
-- name: sync deploy yamls
+- name: sync clickhouse deploy yaml
   template: src=templates/{{ item }}  dest=/tmp/{{ item }} owner=root group=root mode=0644 force=yes unsafe_writes=yes
   with_items:
     - clickhouse-cluster/clickhouse-config.yaml
@@ -13,7 +13,7 @@
     - qryn/qryn-service.yaml
 
 - name: Setup ClickHouse Server
-  shell: "cd /tmp/clickhouse && kubectl apply -f ."
+  shell: "cd /tmp/clickhouser-cluster && kubectl apply -f ."
   when: inventory_hostname in groups[group]
 
 - name: Setup Qryn Server
