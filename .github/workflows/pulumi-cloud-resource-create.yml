@@ -67,15 +67,10 @@ jobs:
           curl -o setup.sh https://get.pulumi.com && sh setup.sh --version 3.57.0
           pip3 install -r requirements.txt
 
-      - name: login state backend
-        working-directory: ./playbook
-        shell: bash
-        run: |
-          pulumi login s3://pulumi-aws-dev
-
       - name: set resource with ansible-playbook
         working-directory: ./playbook
         shell: bash
         run: |
+          pulumi login s3://pulumi-aws-dev
           pulumi stack select dev
-          pulumi up --yes
+          python3 __main__.py
