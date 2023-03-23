@@ -107,20 +107,20 @@ def security_group( vpc_id ):
                     from_port=80,
                     to_port=80,
                     cidr_blocks=['0.0.0.0/0'],
-                    description='Allow http 80')
+                    description='Allow http 80'),
                 pulumi_aws.ec2.SecurityGroupIngressArgs(
                     protocol='tcp',
                     from_port=443,
                     to_port=443,
                     cidr_blocks=['0.0.0.0/0'],
-                    description='Allow https 443'),
+                    description='Allow https 443')
                    ],
             egress=[
                 pulumi_aws.ec2.SecurityGroupEgressArgs(
                     from_port=0,
                     to_port=0,
                     protocol="-1",
-                    cidr_blocks=["0.0.0.0/0"],
+                    cidr_blocks=["0.0.0.0/0"]
                     )],
             tags = {
                 "Project": project_name,
@@ -149,9 +149,9 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
         pulumi.log.warn("There is only a single usable availability zone")
     elif len(az_list) == 2:
         pulumi.log.warn("There are only two usable availability zones")
-    
+
     for i, az in enumerate(az_enum):
-        
+
         if net_type == 'public':
             subnet_addr = i
             map_eip=True
@@ -163,7 +163,7 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
             raise f'availability zone specified [{i}] is not a valid string value: [{az}]'
         if az.strip() == "":
             raise f'availability zone specified [{i}] is an empty string'
-    
+
         subnet_instance = pulumi_aws.ec2.Subnet(
                 resource_name = f'{az}-{net_type}-{project_name}-{stack_name}-{i}',
                 vpc_id=vpc_id,
@@ -181,5 +181,5 @@ def subnets( vpc_id, az_name, route_table_id, net_type='private' ):
                 subnet_id=subnet_instance.id
                 )
         subnets.append(subnet_instance.id)
-    
+
     return subnets

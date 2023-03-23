@@ -10,6 +10,7 @@ on:
     paths:
       - '.github/workflows/pulumi-cloud-resource-create.yml'
   workflow_dispatch:
+    branches: [ 'main' ]
 
 env:
   SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
