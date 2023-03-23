@@ -92,7 +92,7 @@ def route_table( vpc_id, igw_id ):
 #------------------------------------#
 def security_group( vpc_id ):
     security_group = pulumi_aws.ec2.SecurityGroup(
-            resource_name = f'ec2-sg-{project_name}-{stack_name}',
+            resource_name = f'ec2-default-sg-{project_name}-{stack_name}',
             vpc_id = vpc_id,
             description = "Allow all HTTP(s) traffic to EKS Cluster",
             ingress = [
@@ -104,17 +104,24 @@ def security_group( vpc_id ):
                     description='Allow sshd connect'),
                 pulumi_aws.ec2.SecurityGroupIngressArgs(
                     protocol='tcp',
-                    from_port=443,
-                    to_port=443,
-                    cidr_blocks=['0.0.0.0/0'],
-                    description='Allow https 443'),
-                pulumi_aws.ec2.SecurityGroupIngressArgs(
-                    protocol='tcp',
                     from_port=80,
                     to_port=80,
                     cidr_blocks=['0.0.0.0/0'],
                     description='Allow http 80')
+                pulumi_aws.ec2.SecurityGroupIngressArgs(
+                    protocol='tcp',
+                    from_port=443,
+                    to_port=443,
+                    cidr_blocks=['0.0.0.0/0'],
+                    description='Allow https 443'),
                    ],
+            egress=[
+                pulumi_aws.ec2.SecurityGroupEgressArgs(
+                    from_port=0,
+                    to_port=0,
+                    protocol="-1",
+                    cidr_blocks=["0.0.0.0/0"],
+                    )],
             tags = {
                 "Project": project_name,
                 "Stack": stack_name
