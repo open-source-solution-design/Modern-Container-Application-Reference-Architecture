@@ -1,4 +1,4 @@
-name: setup mysql 
+name: setup postgresql 
 
 on:
   workflow_dispatch:
