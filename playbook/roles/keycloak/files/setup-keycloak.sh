@@ -6,7 +6,7 @@ export domain=$3
 export secret=$4
 export namespace=$5
 
-cat > keycloak-vaules.yaml << EOF
+cat > keycloak-values.yaml << EOF
 postgresql:
   enabled: false
 ingress:
@@ -28,6 +28,6 @@ externalDatabase:
   password: "$keycloak_db_password"
 EOF
 
-helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add bitnami https://charts.bitnami.com/bitnami || echo true
 helm repo update
-helm upgrade --install keycloak bitnami/keycloak -n $namespace -f keycloak-vaules.yaml
+helm upgrade --install keycloak bitnami/keycloak -n $namespace -f keycloak-values.yaml
