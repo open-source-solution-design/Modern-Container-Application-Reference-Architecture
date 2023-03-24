@@ -16,7 +16,7 @@
     - qryn/qryn-service.yaml
 
 - name: Setup ClickHouse Server
-  shell: "cd /tmp/clickhouser-cluster && kubectl apply -f ."
+  shell: "cd /tmp/clickhouse-cluster && kubectl apply -f ."
   when: inventory_hostname in groups[group]
 
 - name: Setup Qryn Server
