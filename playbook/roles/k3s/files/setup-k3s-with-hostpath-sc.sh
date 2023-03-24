@@ -6,8 +6,8 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.24.7+k3s1 sh -s - \
 	--data-dir=/opt/rancher/k3s \
 	--kube-apiserver-arg service-node-port-range=0-50000
 
-#export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 sudo wget --no-check-certificate https://mirrors.onwalk.net/tools/linux-amd64/helm.tar.gz && sudo tar -xvpf helm.tar.gz -C /usr/local/bin/
 sudo chmod 755 /usr/local/bin/helm
-sudo helm repo add artifact https://artifact.onwalk.net/chartrepo/k8s/ | echo true
-sudo helm repo up
+helm repo add artifact https://artifact.onwalk.net/chartrepo/k8s/ | echo true
+helm repo up

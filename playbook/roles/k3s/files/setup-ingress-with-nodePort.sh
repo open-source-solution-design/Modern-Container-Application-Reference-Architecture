@@ -41,9 +41,9 @@ spec:
     targetPort: 443
 EOF
 
-sudo helm repo add nginx-stable https://helm.nginx.com/stable || echo true
-sudo helm repo up
-sudo kubectl create namespace ingress || echo true
-sudo helm upgrade --install nginx nginx-stable/nginx-ingress --version=0.15.0 --namespace ingress -f value.yaml
-sudo kubectl apply -f nginx-cm.yaml
-sudo kubectl patch svc nginx-nginx-ingress -n ingress --patch-file nginx-svc-patch.yaml
+helm repo add nginx-stable https://helm.nginx.com/stable || echo true
+helm repo up
+kubectl create namespace ingress || echo true
+helm upgrade --install nginx nginx-stable/nginx-ingress --version=0.15.0 --namespace ingress -f value.yaml
+kubectl apply -f nginx-cm.yaml
+kubectl patch svc nginx-nginx-ingress -n ingress --patch-file nginx-svc-patch.yaml

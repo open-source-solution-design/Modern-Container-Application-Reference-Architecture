@@ -19,8 +19,7 @@ alibabacloud:
   zoneType: public
 EOF
 
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-sudo helm repo add bitnami https://charts.bitnami.com/bitnami || echo true
-sudo helm repo update
-sudo kubectl create namespace external-dns || echo true
-sudo helm upgrade --install external-dns -f external-dns-values.yaml bitnami/external-dns -n external-dns
+helm repo add bitnami https://charts.bitnami.com/bitnami || echo true
+helm repo update
+kubectl create namespace external-dns || echo true
+helm upgrade --install external-dns -f external-dns-values.yaml bitnami/external-dns -n external-dns
