@@ -65,4 +65,3 @@ jobs:
           lb_ip=$k3s_server_public_ip
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
-          ansible-playbook -i hosts/inventory jobs/init_monitor -D
