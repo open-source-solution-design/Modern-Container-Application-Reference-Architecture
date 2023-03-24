@@ -23,7 +23,7 @@ auth:
 externalDatabase:
   host: "postgresql.database.svc.cluster.local"
   port: 5432
-  user: keycloak
+  user: postgres
   database: keycloak
   password: "$keycloak_db_password"
 EOF
