@@ -1,0 +1,10 @@
+- name: set postgresql
+  hosts: all
+  user: root
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: postgresql
+      vars:
+        group: master

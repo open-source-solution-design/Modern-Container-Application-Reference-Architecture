@@ -1,0 +1,13 @@
+- name: setup redis 
+  hosts: all
+  user: root
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: keycloak
+      vars:
+        group: master
+        namespace: itsm
+        domain: onwalk.net
+        secret: keycloak-tls

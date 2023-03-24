@@ -1,0 +1,3 @@
+- name: Setup PostgreSQL Server
+  script: setup-postgresql.sh  
+  when: inventory_hostname in groups[group]
