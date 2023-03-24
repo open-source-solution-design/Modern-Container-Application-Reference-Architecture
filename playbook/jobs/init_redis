@@ -1,0 +1,10 @@
+- name: setup redis 
+  hosts: all
+  user: root
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: redis
+      vars:
+        group: master

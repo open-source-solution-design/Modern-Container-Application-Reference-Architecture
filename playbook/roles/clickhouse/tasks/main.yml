@@ -6,7 +6,7 @@
   with_items:
     - clickhouse-cluster/clickhouse-config.yaml
     - clickhouse-cluster/clickhouse-service.yaml
-    - clickhouse-cluster/clickhouse-ingressyaml
+    - clickhouse-cluster/clickhouse-ingress.yaml
     - clickhouse-cluster/clickhouse-user-config.yaml
     - clickhouse-cluster/clickhouse-statefulset.yml
     - qryn/qryn-deployment.yaml
