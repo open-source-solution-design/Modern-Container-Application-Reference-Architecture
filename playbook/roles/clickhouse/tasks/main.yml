@@ -1,5 +1,8 @@
-- name: Prep
-  shell: "sudo mkdir -pv /tmp/clickhouse-cluster/ && sudo mkdir -pv /tmp/qryn && sudo kubectl create ns clickhouse"
+- name: Prep DIR
+  shell: "mkdir -pv /tmp/clickhouse-cluster/ && mkdir -pv /tmp/qryn"
+
+- name: Prep NameSpace
+  shell: "kubectl create namespace clickhouse || echo true"
 
 - name: sync clickhouse deploy yaml
   template: src=templates/{{ item }}  dest=/tmp/{{ item }} owner=root group=root mode=0644 force=yes unsafe_writes=yes
