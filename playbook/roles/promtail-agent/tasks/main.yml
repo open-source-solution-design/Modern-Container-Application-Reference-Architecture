@@ -1,7 +1,3 @@
-- name: Remove fluent-bit service
-  shell: "systemctl disable fluent-bit && systemctl stop fluent-bit"
-  when: inventory_hostname in groups[group]
-
 - name: Pre setting
   shell: "rm -f /usr/bin/promtail; mkdir -pv /etc/promtail/ && touch /var/log/positions.yaml"
   when: inventory_hostname in groups[group]
