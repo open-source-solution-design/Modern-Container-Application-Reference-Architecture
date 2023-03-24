@@ -20,7 +20,7 @@ defaults:
     working-directory: ./playbook
 
 jobs:
-  k3s-cluster:
+  clikhouse:
     runs-on: ubuntu-latest
 
     steps:
