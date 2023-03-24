@@ -17,7 +17,7 @@ key_pair = aws.key_pair(resource_name="my_ssh_key", public_key=ssh_key)
 k3s_server = aws.ec2(
         arch      = 'amd64',
         ec2_name  = 'webui.onwalk.net',
-        ec2_type  = 't3.large',
+        ec2_type  = 't3.xlarge',
         key_name  = key_pair,
         subnet_id = subnets[0],
         security_group_id = sg_id
@@ -25,7 +25,7 @@ k3s_server = aws.ec2(
 db_server = aws.ec2(
         arch      = 'arm64',
         ec2_name  = 'clickhouse.onwalk.net',
-        ec2_type  = 't4g.medium',
+        ec2_type  = 't4g.small',
         key_name  = key_pair,
         subnet_id = subnets[0],
         security_group_id = sg_id

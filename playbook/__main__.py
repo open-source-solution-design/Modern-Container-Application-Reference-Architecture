@@ -48,12 +48,6 @@ install_k3s_cluster = pulumi_command.local.Command(
         opts=pulumi.ResourceOptions(depends_on=[setup_permission])
         )
 
-install_monitor = pulumi_command.local.Command(
-        "InstallMonitor",
-        create="ansible-playbook -i hosts/inventory jobs/init_monitor -D",
-        opts=pulumi.ResourceOptions(depends_on=[install_k3s_cluster])
-        )
-
 install_log_agent = pulumi_command.local.Command(
         "InstallAgent",
         create="ansible-playbook -i hosts/inventory jobs/init_log_agent -D",
