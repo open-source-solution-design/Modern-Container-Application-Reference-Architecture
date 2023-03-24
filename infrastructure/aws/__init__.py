@@ -23,7 +23,7 @@ def key_pair( resource_name: str, public_key: str ):
     key_pair = pulumi_aws.ec2.KeyPair( resource_name=resource_name, public_key=public_key )
     return key_pair.key_name
 #------------------------------------#
-def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, security_group_id ):
+def ec2( arch, ec2_name, ec2_type, disk_size=50, disk_type='gp3',key_name, subnet_id, security_group_id ):
     if arch == 'amd64':
         ami = pulumi_aws.ec2.get_ami(
                 owners = ["099720109477"],
@@ -44,11 +44,13 @@ def ec2( arch, ec2_name, ec2_type, key_name, subnet_id, security_group_id ):
                     )],
                 most_recent = True)
     instance = pulumi_aws.ec2.Instance(
-            resource_name=ec2_name,
             ami=ami.id,
+            resource_name=ec2_name,
+            instance_type = ec2_type,
+            volumeSize = disk_size,
+            volumeType = disk_type,
             key_name=key_name,
             subnet_id=subnet_id,
-            instance_type = ec2_type,
             vpc_security_group_ids = [ security_group_id ],
             tags = {
                 "Name": ec2_name
