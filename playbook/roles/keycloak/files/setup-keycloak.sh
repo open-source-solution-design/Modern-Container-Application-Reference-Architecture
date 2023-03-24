@@ -30,4 +30,4 @@ EOF
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
-helm upgrade --install keycloak bitnami/keycloak -n $namespace --create-namespace -f keycloak-vaules.yaml
+helm upgrade --install keycloak bitnami/keycloak -n $namespace -f keycloak-vaules.yaml
