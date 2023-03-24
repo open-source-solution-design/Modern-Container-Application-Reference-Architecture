@@ -5,11 +5,11 @@
 
 - name: set fact join command
   set_fact:
-    keycloak_db_password : "{{ command_raw.stdout_lines[0] }}"
+    keycloak_db_password : "{{ command_raw.stdout }}"
   when: inventory_hostname in groups[group][0]
 
-- name: Show Debug Info
-  debug: var=command_raw verbosity=0
+#- name: Show Debug Info
+#  debug: var=command_raw verbosity=0
 
 - name: Setup Keycloak Server
   script: files/setup-keycloak.sh {{ hostvars[groups[group][0]].keycloak_db_password }} {{ keycloak_ui_password }} {{ domain }} {{ secret }} {{ namespace }} 
