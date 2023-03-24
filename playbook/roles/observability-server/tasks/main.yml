@@ -5,7 +5,7 @@
 
 - name: set fact join command
   set_fact:
-    mysql_db_password : "{{ command_raw.stdout_lines[0] }}"
+    mysql_db_password : "{{ command_raw.stdout }}"
   when: inventory_hostname in groups[group][0]
 
 - name: Setup OpenLdap Server

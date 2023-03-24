@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 export domain=$1
 export secret=$2
 export namespace=$3
@@ -46,7 +46,7 @@ deepflow:
       ip: mysql.database.svc.cluster.local
       port: 3306
       username: root
-      password: {{ mysql_db_password }}
+      password: $mysql_db_password
 prometheus:
   enabled: true
   alertmanager:
