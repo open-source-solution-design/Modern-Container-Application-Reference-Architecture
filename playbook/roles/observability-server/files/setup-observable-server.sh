@@ -54,9 +54,10 @@ prometheus:
   prometheus-pushgateway:
     enabled: false
   kube-state-metrics:
-    enabled: false
+    enabled: true
   server:
     ingress:
+      enabled: true 
       ingressClassName: nginx
       hosts:
         - prometheus.${domain}
@@ -75,7 +76,19 @@ prometheus:
         - /etc/config/alerting_rules.yml
 alertmanager:
   configmapReload:
-    enabled: false
+    enabled: true
+  ingress:
+    enabled: true
+    className: "nginx"
+    hosts:
+      - host: alertmanager.$domain
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: ${secret}
+        hosts:
+          - alertmanager.$domain
   config:
     global:
       resolve_timeout: 5m
