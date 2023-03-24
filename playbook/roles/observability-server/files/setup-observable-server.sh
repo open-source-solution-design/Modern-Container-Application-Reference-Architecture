@@ -5,7 +5,8 @@ export secret=$2
 export namespace=$3
 export mysql_db_password=$4
 
-kubectl label nodes k3s-server prometheus=true --overwrite
+node_name=`kubectl get nodes | awk '{print $1}' | tail -n 1`
+kubectl label nodes $node_name prometheus=true --overwrite
 
 cat > values.yaml << EOF
 deepflow:
