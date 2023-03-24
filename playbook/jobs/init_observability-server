@@ -1,0 +1,13 @@
+- name: setup observability server 
+  hosts: all
+  user: root
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: observability-server
+      vars:
+        group: master
+        namespace: monitoring
+        domain: onwalk.net
+        secret: obs-tls
