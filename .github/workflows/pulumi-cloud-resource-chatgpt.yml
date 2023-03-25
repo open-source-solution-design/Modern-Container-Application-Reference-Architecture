@@ -1,4 +1,4 @@
-name: setup redis 
+name: setup chatgpt 
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ defaults:
     working-directory: ./playbook
 
 jobs:
-  redis:
+  chatgpt:
     runs-on: ubuntu-latest
 
     steps:
