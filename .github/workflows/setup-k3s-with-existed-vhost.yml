@@ -50,3 +50,4 @@ jobs:
           lb_ip=35.178.182.138
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D

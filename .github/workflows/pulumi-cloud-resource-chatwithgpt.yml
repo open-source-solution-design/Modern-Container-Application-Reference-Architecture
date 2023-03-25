@@ -1,4 +1,4 @@
-name: setup chatgpt 
+name: setup chatwithgpt
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ defaults:
     working-directory: ./playbook
 
 jobs:
-  chatgpt:
+  chatwithgpt:
     runs-on: ubuntu-latest
 
     steps:
@@ -64,4 +64,4 @@ jobs:
           dns_sk=$DNS_SK
           lb_ip=$k3s_server_public_ip
           EOF
-          ansible-playbook -i hosts/inventory jobs/init_chatgpt -D
+          ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
