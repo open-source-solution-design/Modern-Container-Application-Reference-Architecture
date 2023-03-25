@@ -14,7 +14,7 @@ case `uname -m` in
         loongarch64) ARCH=loongarch64; ;;
         *) echo "un-supported arch, exit ..."; exit 1; ;;
 esac
-
+rm -rf helm.tar.gz* /usr/local/bin/helm || echo true 
 sudo wget --no-check-certificate https://mirrors.onwalk.net/tools/linux-${ARCH}/helm.tar.gz && sudo tar -xvpf helm.tar.gz -C /usr/local/bin/
 sudo chmod 755 /usr/local/bin/helm
 helm repo add artifact https://artifact.onwalk.net/chartrepo/k8s/ | echo true
