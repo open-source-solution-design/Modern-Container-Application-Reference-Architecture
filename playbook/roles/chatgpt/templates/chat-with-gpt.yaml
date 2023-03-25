@@ -57,7 +57,7 @@ spec:
       containers:
       - image: nginx:latest
         imagePullPolicy: Always
-        name: nginx
+        name: artifact.onwalk.net/public/chat-with-gpt:latest
         ports:
         - containerPort: 3000
           name: http
