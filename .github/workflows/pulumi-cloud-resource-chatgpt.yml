@@ -1,14 +1,6 @@
-name: create aws cloud resources
+name: setup redis 
 
 on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - '.github/workflows/pulumi-cloud-resource-create.yml'
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - '.github/workflows/pulumi-cloud-resource-create.yml'
   workflow_dispatch:
     branches: [ 'main' ]
 
@@ -25,43 +17,16 @@ env:
 
 defaults:
   run:
-    working-directory: ./infrastructure
+    working-directory: ./playbook
 
 jobs:
-  create_resources:
+  redis:
     runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: set pulumi tools
-        shell: bash
-        run: |
-          sudo apt install jq ansible -y
-          sudo rm -rvf /home/runner/.pulumi/
-          curl -o setup.sh https://get.pulumi.com && sh setup.sh --version 3.57.0
-          pip3 install -r requirements.txt
-
-      - name: login state backend
-        shell: bash
-        run: |
-          pulumi login s3://pulumi-aws-dev
-
-      - name: create resource
-        shell: bash
-        run: |
-          pulumi stack select dev
-          pulumi up --yes
-
-  set_resources:
-    runs-on: ubuntu-latest
-    needs: [create_resources]
 
     steps:
       - uses: actions/checkout@v3
 
       - name: run playbook
-        working-directory: ./playbook
         shell: bash
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
@@ -99,7 +64,4 @@ jobs:
           dns_sk=$DNS_SK
           lb_ip=$k3s_server_public_ip
           EOF
-          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
-          #ansible-playbook -i hosts/inventory jobs/init_mysql -D
-          #ansible-playbook -i hosts/inventory jobs/init_log_agent -D
-          #ansible-playbook -i hosts/inventory jobs/init_clickhouse -D
+          ansible-playbook -i hosts/inventory jobs/init_chatgpt -D

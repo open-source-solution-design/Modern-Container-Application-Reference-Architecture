@@ -1,0 +1,11 @@
+- name: Prep NameSpace
+  shell: "kubectl create namespace chatgpt || echo true"
+
+- name: sync clickhouse deploy yaml
+  template: src=templates/{{ item }}  dest=/tmp/{{ item }} owner=root group=root mode=0644 force=yes unsafe_writes=yes
+  with_items:
+    - chat-with-gpt.yaml
+
+- name: Setup ChatGPT Server
+  shell: "kubectl apply -f /tmp/chat-with-gpt.yaml"
+  when: inventory_hostname in groups[group]

@@ -1,0 +1,13 @@
+- name: set chatgpt with ec2 nodes
+  hosts: all
+  user: root
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: chatgpt
+      vars:
+        group: master
+        namespace: chatgpt
+        domain: onwalk.net
+        secret: chatgpt-tls
