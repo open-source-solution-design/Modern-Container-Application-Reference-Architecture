@@ -13,7 +13,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
   PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_PASS }}
   PULUMI_DISABLE_CI_DETECTION: true
-  AWS_REGION: ap-east-1
+  AWS_REGION: ap-south-1
 
 defaults:
   run:
@@ -35,10 +35,9 @@ jobs:
           sudo rm -rvf /home/runner/.pulumi/
           curl -o setup.sh https://get.pulumi.com && sh setup.sh --version 3.57.0
 
-          pulumi login s3://pulumi-aws-dev
+          pulumi login s3://pulumi-status
           pulumi stack select dev
 
-          db_server_public_ip=`pulumi stack output --json | jq '.db_server_public_ip'`
           k3s_server_public_ip=`pulumi stack output --json | jq '.k3s_server_public_ip'`
           
           mkdir -pv ~/.ssh/
@@ -52,16 +51,13 @@ jobs:
           [master]
           k3s-server               ansible_host=$k3s_server_public_ip
           
-          [node]
-          db-server                ansible_host=$db_server_public_ip
-          
           [all:vars]
+          dns_ak=$DNS_AK
+          dns_sk=$DNS_SK
           ansible_port=22
+          lb_ip=$k3s_server_public_ip
           ansible_ssh_user=ubuntu
           ansible_ssh_private_key_file=~/.ssh/id_rsa
           ansible_host_key_checking=False
-          dns_ak=$DNS_AK
-          dns_sk=$DNS_SK
-          lb_ip=$k3s_server_public_ip
           EOF
           ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D

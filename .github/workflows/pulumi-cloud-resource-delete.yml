@@ -35,7 +35,7 @@ jobs:
       - name: login state backend
         shell: bash
         run: |
-          pulumi login s3://pulumi-aws-dev
+          pulumi login s3://pulumi-status
 
       - name: destroy resource
         shell: bash

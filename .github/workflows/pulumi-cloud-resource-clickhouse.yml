@@ -35,7 +35,7 @@ jobs:
           sudo rm -rvf /home/runner/.pulumi/
           curl -o setup.sh https://get.pulumi.com && sh setup.sh --version 3.57.0
 
-          pulumi login s3://pulumi-aws-dev
+          pulumi login s3://pulumi-status
           pulumi stack select dev
 
           db_server_public_ip=`pulumi stack output --json | jq '.db_server_public_ip'`

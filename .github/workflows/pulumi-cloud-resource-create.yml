@@ -21,7 +21,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
   PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_PASS }}
   PULUMI_DISABLE_CI_DETECTION: true
-  AWS_REGION: ap-east-1
+  AWS_REGION: ap-northeast-1
 
 defaults:
   run:
@@ -45,7 +45,7 @@ jobs:
       - name: login state backend
         shell: bash
         run: |
-          pulumi login s3://pulumi-aws-dev
+          pulumi login s3://pulumi-status
 
       - name: create resource
         shell: bash
@@ -70,10 +70,10 @@ jobs:
           sudo rm -rvf /home/runner/.pulumi/
           curl -o setup.sh https://get.pulumi.com && sh setup.sh --version 3.57.0
 
-          pulumi login s3://pulumi-aws-dev
+          pulumi login s3://pulumi-status
           pulumi stack select dev
 
-          db_server_public_ip=`pulumi stack output --json | jq '.db_server_public_ip'`
+          #db_server_public_ip=`pulumi stack output --json | jq '.db_server_public_ip'`
           k3s_server_public_ip=`pulumi stack output --json | jq '.k3s_server_public_ip'`
           
           mkdir -pv ~/.ssh/
@@ -87,8 +87,8 @@ jobs:
           [master]
           k3s-server               ansible_host=$k3s_server_public_ip
           
-          [node]
-          db-server                ansible_host=$db_server_public_ip
+          # [node]
+          #db-server                ansible_host=$db_server_public_ip
           
           [all:vars]
           ansible_port=22
@@ -100,6 +100,7 @@ jobs:
           lb_ip=$k3s_server_public_ip
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
           #ansible-playbook -i hosts/inventory jobs/init_mysql -D
           #ansible-playbook -i hosts/inventory jobs/init_log_agent -D
           #ansible-playbook -i hosts/inventory jobs/init_clickhouse -D

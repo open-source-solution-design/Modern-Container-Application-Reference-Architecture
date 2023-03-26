@@ -16,16 +16,8 @@ key_pair = aws.key_pair(resource_name="my_ssh_key", public_key=ssh_key)
 
 k3s_server = aws.ec2(
         arch      = 'arm64',
-        ec2_type  = 't4g.xlarge',
-        ec2_name  = 'webui.onwalk.net',
-        key_name  = key_pair,
-        subnet_id = subnets[0],
-        security_group_id = sg_id
-        )
-db_server = aws.ec2(
-        arch      = 'amd64',
-        ec2_type  = 't3.small',
-        ec2_name  = 'clickhouse.onwalk.net',
+        ec2_type  = 't4g.small',
+        ec2_name  = 'chatgpt.ap-south-1.onwalk.net',
         key_name  = key_pair,
         subnet_id = subnets[0],
         security_group_id = sg_id
@@ -36,4 +28,3 @@ pulumi.export("sg", sg_id)
 pulumi.export("subnets", subnets)
 pulumi.export("key_pair", key_pair)
 pulumi.export("k3s_server_public_ip", k3s_server.public_ip )
-pulumi.export("db_server_public_ip",  db_server.public_ip )
