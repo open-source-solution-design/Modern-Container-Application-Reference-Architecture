@@ -3,7 +3,11 @@
   when: inventory_hostname in groups[group]
 
 - name: Setup Ingress
-  script: files/setup-ingress-with-nodePort.sh {{ lb_ip }}
+  script: files/setup-ingress.sh {{ ingress_ip }}
+  when: inventory_hostname in groups[group]
+
+- name: Setup Egress
+  script: files/setup-egress.sh {{ egress_ip }}
   when: inventory_hostname in groups[group]
 
 - name: Setup DNS Provider
