@@ -18,12 +18,22 @@ case `uname -m` in
 esac
 rm -rf helm.tar.gz* /usr/local/bin/helm || echo true 
 sudo wget --no-check-certificate https://mirrors.onwalk.net/tools/linux-${ARCH}/helm.tar.gz && sudo tar -xvpf helm.tar.gz -C /usr/local/bin/
-
-CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt)
-curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${ARCH}.tar.gz{,.sha256sum}
-sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum && sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin && rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
-cilium install && cilium status --wait
-
 sudo chmod 755 /usr/local/bin/helm
+
+helm install cilium cilium/cilium --version 1.13.1 \
+  --namespace kube-system \
+  --set global.kubeProxyReplacement=strict \
+  --set global.masquerade=false \
+  --set global.nodePort.enabled=true \
+  --set global.tunnel=disabled \
+  --set nodeinit.enabled=true \
+  --set nodeinit.reconfigureKubelet=true \
+  --set cni.binPath=/opt/cni/bin \
+  --set cni.customConf=true \
+  --set cni.confTemplate=/etc/cilium/cilium-cni.conf.tmpl \
+  --set hubble.enabled=true \
+  --set hubble.listenAddress=":4244" \
+  --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,http}"
+
 helm repo add artifact https://artifact.onwalk.net/chartrepo/k8s/ | echo true
 helm repo up
