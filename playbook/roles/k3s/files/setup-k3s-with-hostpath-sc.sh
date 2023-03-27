@@ -1,9 +1,12 @@
 mkdir -pv /opt/rancher/k3s
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.24.7+k3s1 sh -s - \
-	--disable=traefik \
-	--write-kubeconfig-mode 644 \
-	--write-kubeconfig ~/.kube/config \
-	--data-dir=/opt/rancher/k3s \
+	--disable=traefik                                    \
+	--flannel-backend=none                               \
+	--disable-network-policy                             \
+	--write-kubeconfig-mode 644                          \
+	--write-kubeconfig ~/.kube/config                    \
+	--data-dir=/opt/rancher/k3s                          \
+	--cni /opt/rancher/k3s/server/manifests/cilium.yaml  \
 	--kube-apiserver-arg service-node-port-range=0-50000
 
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
