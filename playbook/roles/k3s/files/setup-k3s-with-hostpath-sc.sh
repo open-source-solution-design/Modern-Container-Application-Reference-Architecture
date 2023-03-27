@@ -1,8 +1,9 @@
 mkdir -pv /opt/rancher/k3s
-curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.24.7+k3s1 sh -s - \
+curl -sfL https://get.k3s.io | sh -s - \
 	--disable=traefik                                    \
 	--flannel-backend=none                               \
 	--disable-network-policy                             \
+	--disable-kube-proxy                                 \
 	--write-kubeconfig-mode 644                          \
 	--write-kubeconfig ~/.kube/config                    \
 	--data-dir=/opt/rancher/k3s                          \
@@ -21,19 +22,12 @@ sudo wget --no-check-certificate https://mirrors.onwalk.net/tools/linux-${ARCH}/
 sudo chmod 755 /usr/local/bin/helm
 
 helm install cilium cilium/cilium --version 1.13.1 \
-  --namespace kube-system \
-  --set global.kubeProxyReplacement=strict \
-  --set global.masquerade=false \
-  --set global.nodePort.enabled=true \
-  --set global.tunnel=disabled \
-  --set nodeinit.enabled=true \
-  --set nodeinit.reconfigureKubelet=true \
-  --set cni.binPath=/opt/cni/bin \
-  --set cni.customConf=true \
-  --set cni.confTemplate=/etc/cilium/cilium-cni.conf.tmpl \
-  --set hubble.enabled=true \
-  --set hubble.listenAddress=":4244" \
-  --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,http}"
+	--namespace kube-system           \
+	--set egressGateway.enabled=true  \
+	--set bpf.masquerade=true         \
+	--set kubeProxyReplacement=strict \
+	--set operator.replicas=1 \
+	--set l7Proxy=false
 
 helm repo add artifact https://artifact.onwalk.net/chartrepo/k8s/ | echo true
 helm repo up
