@@ -27,7 +27,6 @@ jobs:
           export ANSIBLE_HOST_KEY_CHECKING=False
 
           sudo apt install jq ansible -y
-          sudo rm -rvf /home/runner/.pulumi/
 
           mkdir -pv ~/.ssh/
           cat > ~/.ssh/id_rsa << EOF
@@ -38,7 +37,7 @@ jobs:
           
           cat > hosts/inventory << EOF
           [master]
-          tky-connector.onwalk.net               ansible_host=52.193.120.213
+          tky-connector.onwalk.net               ansible_host=52.197.190.152
           
           [all:vars]
           ansible_port=22
@@ -47,8 +46,6 @@ jobs:
           ansible_host_key_checking=False
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=52.193.120.213
-          egress_ip=52.193.120.213
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
