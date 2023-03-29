@@ -7,7 +7,7 @@
   when: inventory_hostname in groups[group]
 
 - name: Setup Egress
-  script: files/setup-egress.sh {{ egress_ip }}
+  script: files/setup-egress.sh {{ egress_ip }} {{ namespace }}
   when: inventory_hostname in groups[group]
 
 - name: Setup DNS Provider

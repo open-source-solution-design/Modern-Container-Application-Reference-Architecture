@@ -1,5 +1,6 @@
 #!/bin/bash
 ip=$1
+namespace=$2
 
 cat > /tmp/egress.yaml << EOF
 apiVersion: cilium.io/v2
@@ -11,6 +12,7 @@ spec:
   - podSelector:
       matchLabels:
         role: egress-gateway
+        io.kubernetes.pod.namespace: $namespace
   destinationCIDRs:
   - "0.0.0.0/0"
   egressGateway:

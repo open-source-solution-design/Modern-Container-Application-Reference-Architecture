@@ -8,3 +8,4 @@
         name: k3s
       vars:
         group: master
+        namespace: default
