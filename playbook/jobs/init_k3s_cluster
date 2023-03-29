@@ -8,5 +8,5 @@
         name: k3s
       vars:
         group: master
-        k3s_public_ip: 52.193.120.213
-        ingress_ip: 52.193.120.213
+        k3s_public_ip: 52.197.190.152
+        ingress_ip: 52.197.190.152
