@@ -9,3 +9,4 @@
       vars:
         group: master
         k3s_public_ip: 52.193.120.213
+        ingress_ip: 52.193.120.213
