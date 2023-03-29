@@ -1,5 +1,5 @@
 - name: Setup K3S Server
-  script: files/setup-k3s-with-hostpath-sc.sh  
+  script: files/setup-k3s-with-hostpath-sc.sh {{ k3s_public_ip }}  
   when: inventory_hostname in groups[group]
 
 - name: Setup Ingress

@@ -8,4 +8,4 @@
         name: k3s
       vars:
         group: master
-        namespace: default
+        k3s_public_ip: 52.193.120.213
