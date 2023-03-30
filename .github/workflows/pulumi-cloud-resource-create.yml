@@ -100,7 +100,7 @@ jobs:
           lb_ip=$k3s_server_public_ip
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
-          ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
+          #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
           #ansible-playbook -i hosts/inventory jobs/init_mysql -D
           #ansible-playbook -i hosts/inventory jobs/init_log_agent -D
           #ansible-playbook -i hosts/inventory jobs/init_clickhouse -D

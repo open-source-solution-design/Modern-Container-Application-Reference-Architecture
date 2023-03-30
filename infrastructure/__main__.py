@@ -16,8 +16,8 @@ key_pair = aws.key_pair(resource_name="my_ssh_key", public_key=ssh_key)
 
 k3s_server = aws.ec2(
         arch      = 'arm64',
-        ec2_type  = 't4g.small',
-        ec2_name  = 'chatgpt.ap-south-1.onwalk.net',
+        ec2_type  = 't4g.large',
+        ec2_name  = 'mochat.ap-northeast-1.onwalk.net',
         key_name  = key_pair,
         subnet_id = subnets[0],
         security_group_id = sg_id
