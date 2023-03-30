@@ -13,6 +13,8 @@ sh ~/.acme.sh/acme.sh --set-default-ca --server zerossl --issue --force --dns dn
 cat ~/.acme.sh/${domain}_ecc/${domain}.cer > ${domain}.pem
 cat ~/.acme.sh/${domain}_ecc/ca.cer >> ${domain}.pem
 cat ~/.acme.sh/${domain}_ecc/${domain}.key > ${domain}.key
+sudo cp ${domain}.pem /etc/ssl/
+sudo cp ${domain}.key /etc/ssl/
 
 kubectl create namespace $namespace || echo true
 kubectl delete secret tls $secret -n $namespace || echo true
