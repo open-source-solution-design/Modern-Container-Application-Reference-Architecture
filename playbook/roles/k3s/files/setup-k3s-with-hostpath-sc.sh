@@ -7,7 +7,6 @@ curl -sfL https://get.k3s.io | sh -s - \
 	--disable=traefik,servicelb                          \
 	--write-kubeconfig-mode 644                          \
 	--write-kubeconfig ~/.kube/config                    \
-	--node-external-ip $k3s_public_ip                    \
 	--data-dir=/opt/rancher/k3s                          \
 	--kube-apiserver-arg service-node-port-range=0-50000
 
