@@ -14,10 +14,10 @@ subnets = aws.subnets(vpc_id, az_list, route_table_id, 'public' )
 ssh_key  = config.get_env('SSH_PUBLIC_KEY')
 key_pair = aws.key_pair(resource_name="my_ssh_key", public_key=ssh_key)
 
-k3s_server = aws.ec2(
+mochat = aws.ec2(
         arch      = 'arm64',
         ec2_type  = 't4g.small',
-        ec2_name  = 'mochat.ap-northeast-1.onwalk.net',
+        ec2_name  = 'mochat.ap-east-1.onwalk.net',
         key_name  = key_pair,
         subnet_id = subnets[0],
         security_group_id = sg_id
@@ -27,4 +27,4 @@ pulumi.export("vpc", vpc_id)
 pulumi.export("sg", sg_id)
 pulumi.export("subnets", subnets)
 pulumi.export("key_pair", key_pair)
-pulumi.export("k3s_server_public_ip", k3s_server.public_ip )
+pulumi.export("k3s_server_public_ip", mochat.public_ip )

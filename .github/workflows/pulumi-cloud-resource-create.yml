@@ -21,7 +21,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
   PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_PASS }}
   PULUMI_DISABLE_CI_DETECTION: true
-  AWS_REGION: ap-northeast-1
+  AWS_REGION: ap-east-1
 
 defaults:
   run:
