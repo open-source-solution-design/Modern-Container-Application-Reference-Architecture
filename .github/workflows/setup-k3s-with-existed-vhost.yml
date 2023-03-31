@@ -37,7 +37,7 @@ jobs:
           
           cat > hosts/inventory << EOF
           [master]
-          tky-connector.onwalk.net               ansible_host=52.197.190.152
+          mochat.onwalk.net               ansible_host=43.198.94.182
           
           [all:vars]
           ansible_port=22
@@ -48,4 +48,4 @@ jobs:
           dns_sk=$DNS_SK
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
-          ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
+          #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
