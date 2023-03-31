@@ -45,7 +45,7 @@ jobs:
       - name: login state backend
         shell: bash
         run: |
-          pulumi login s3://pulumi-status
+          pulumi login s3://pulumi-backend-hk
 
       - name: create resource
         shell: bash
