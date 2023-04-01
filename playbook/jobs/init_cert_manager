@@ -1,0 +1,13 @@
+- name: setup chatwithgpt app in k3s 
+  hosts: all
+  user: root
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: cert-manager
+      vars:
+        group: master
+        domain: onwalk.net
+        namespace: default
+        secret: default-tls
