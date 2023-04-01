@@ -14,10 +14,10 @@ subnets = aws.subnets(vpc_id, az_list, route_table_id, 'public' )
 ssh_key  = config.get_env('SSH_PUBLIC_KEY')
 key_pair = aws.key_pair(resource_name="my_ssh_key", public_key=ssh_key)
 
-k3s_server = aws.ec2(
+new_server = aws.ec2(
         arch      = 'amd64',
         ec2_type  = 't3.large',
-        ec2_name  = 'k3s_server.onwalk.net',
+        ec2_name  = 'new_server.onwalk.net',
         key_name  = key_pair,
         subnet_id = subnets[0],
         security_group_id = sg_id
@@ -27,4 +27,4 @@ pulumi.export("vpc", vpc_id)
 pulumi.export("sg", sg_id)
 pulumi.export("subnets", subnets)
 pulumi.export("key_pair", key_pair)
-pulumi.export("k3s_server_public_ip", k3s_server.public_ip )
+pulumi.export("k3s_server_public_ip", new_server.public_ip )
