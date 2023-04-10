@@ -3,10 +3,13 @@
 export domain=$1
 export secret=$2
 export namespace=$3
+export password=$4
 
 cat > openldap-vaules.yaml << EOF
 global:
   ldapDomain: $domain
+  adminPassword: $password
+  configPassword: $password
 phpldapadmin:
   enabled: true
   ingress:

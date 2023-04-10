@@ -1,5 +1,5 @@
 - name: Setup OpenLdap Server
-  script: files/setup-openldap.sh {{ domain }} {{ secret }} {{ namespace }}  
+  script: files/setup-openldap.sh {{ domain }} {{ secret }} {{ namespace }} {{ admin_password }}
   when: inventory_hostname in groups[group]
 
 - name: sync ldap ingress config

@@ -12,5 +12,5 @@
 #  debug: var=command_raw verbosity=0
 
 - name: Setup Keycloak Server
-  script: files/setup-keycloak.sh {{ hostvars[groups[group][0]].keycloak_db_password }} {{ keycloak_ui_password }} {{ domain }} {{ secret }} {{ namespace }} 
+  script: files/setup-keycloak.sh {{ hostvars[groups[group][0]].keycloak_db_password }} {{ admin_password }} {{ domain }} {{ secret }} {{ namespace }}
   when: inventory_hostname in groups[group]

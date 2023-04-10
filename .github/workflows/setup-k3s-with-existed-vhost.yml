@@ -48,7 +48,7 @@ jobs:
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=18.162.44.15
-          keycloak_ui_password=$OIDC_ADMIN_PASSWORD
+          admin_password=$OIDC_ADMIN_PASSWORD
           EOF
           #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
