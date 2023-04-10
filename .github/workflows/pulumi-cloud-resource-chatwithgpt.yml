@@ -35,7 +35,7 @@ jobs:
           sudo rm -rvf /home/runner/.pulumi/
           curl -o setup.sh https://get.pulumi.com && sh setup.sh --version 3.57.0
 
-          pulumi login s3://pulumi-status
+          pulumi login s3://pulumi-backend-hk?region=ap-east-1
           pulumi stack select dev
 
           k3s_server_public_ip=`pulumi stack output --json | jq '.k3s_server_public_ip'`
