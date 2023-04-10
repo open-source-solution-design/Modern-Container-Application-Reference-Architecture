@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export k3s_public_ip=$1
-
 mkdir -pv /opt/rancher/k3s
 curl -sfL https://get.k3s.io | sh -s - \
 	--disable=traefik,servicelb                          \

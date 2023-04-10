@@ -98,7 +98,6 @@ jobs:
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=$k3s_server_public_ip
-          k3s_public_ip=$k3s_server_public_ip
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           #ansible-playbook -i hosts/inventory jobs/init_mysql -D
