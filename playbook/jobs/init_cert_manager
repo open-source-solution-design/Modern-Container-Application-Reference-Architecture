@@ -11,3 +11,10 @@
         domain: onwalk.net
         namespace: default
         secret: default-tls
+    - include_role:
+        name: cert-manager
+      vars:
+        group: master
+        domain: onwalk.net
+        namespace: artifact
+        secret: harbor-tls

@@ -37,7 +37,7 @@ jobs:
           
           cat > hosts/inventory << EOF
           [master]
-          mochat.onwalk.net               ansible_host=43.198.94.182
+          hk-connector.onwalk.net               ansible_host=18.163.46.95
           
           [all:vars]
           ansible_port=22
@@ -46,8 +46,9 @@ jobs:
           ansible_host_key_checking=False
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=43.198.94.182
-          k3s_public_ip=43.198.94.182
+          ingress_ip=18.163.46.95
+          k3s_public_ip=18.163.46.95
           EOF
-          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
+          ansible-playbook -i hosts/inventory jobs/init_cert_manager -D
