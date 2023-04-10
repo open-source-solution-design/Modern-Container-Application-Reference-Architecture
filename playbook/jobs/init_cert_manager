@@ -16,5 +16,5 @@
       vars:
         group: master
         domain: onwalk.net
-        namespace: artifact
+        namespace: harbor
         secret: harbor-tls
