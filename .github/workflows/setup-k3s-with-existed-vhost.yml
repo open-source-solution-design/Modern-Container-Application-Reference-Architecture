@@ -9,6 +9,7 @@ env:
   DNS_SK: ${{ secrets.DNS_SK }}
   SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  OIDC_ADMIN_PASSWORD: ${{ secrets.OIDC_ADMIN_PASSWORD }}
 
 defaults:
   run:
