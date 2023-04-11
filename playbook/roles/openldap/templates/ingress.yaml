@@ -16,3 +16,30 @@ spec:
               name: http
         path: /
         pathType: ImplementationSpecific
+---
+apiVersion: k8s.nginx.org/v1alpha1
+kind: GlobalConfiguration
+metadata:
+  name: nginx-configuration
+  namespace: ingress
+spec:
+  listeners:
+  - name: ldap-tcp
+    port: 389
+    protocol: TCP
+---
+apiVersion: k8s.nginx.org/v1alpha1
+kind: TransportServer
+metadata:
+  name: ldap-tcp
+  namespace: itsm
+spec:
+  listener:
+    name: ldap-tcp
+    protocol: TCP
+  upstreams:
+  - name: ldap-app
+    service: openldap-headless
+    port: 389
+  action:
+    pass: ldap-app

@@ -10,6 +10,10 @@ global:
   ldapDomain: $domain
   adminPassword: $password
   configPassword: $password
+service:
+  type: NodePort
+  ldapPortNodePort: 389
+  sslLdapPortNodePort: 636
 phpldapadmin:
   enabled: true
   ingress:
