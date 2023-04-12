@@ -5,3 +5,4 @@
 - name: Post Setup PostgreSQL Server
   script: files/post-setup-postgresql.sh {{ db_namespace }}
   when: inventory_hostname in groups[group]
+  ignore_errors: yes
