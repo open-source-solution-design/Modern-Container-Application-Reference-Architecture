@@ -11,3 +11,4 @@
         namespace: itsm
         domain: onwalk.net
         secret: keycloak-tls
+        db_namespace: database

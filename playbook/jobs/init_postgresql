@@ -8,3 +8,4 @@
         name: postgresql
       vars:
         group: master
+        db_namespace: database
