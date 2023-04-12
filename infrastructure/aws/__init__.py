@@ -119,6 +119,12 @@ def security_group( vpc_id ):
                     description='Allow http 80'),
                 pulumi_aws.ec2.SecurityGroupIngressArgs(
                     protocol='tcp',
+                    from_port=389,
+                    to_port=389,
+                    cidr_blocks=['0.0.0.0/0'],
+                    description='Allow LDAP 389'),
+                pulumi_aws.ec2.SecurityGroupIngressArgs(
+                    protocol='tcp',
                     from_port=443,
                     to_port=443,
                     cidr_blocks=['0.0.0.0/0'],
