@@ -54,7 +54,7 @@ jobs:
           pulumi stack select dev
           pulumi up --yes
 
-  set_resources:
+  setup_resources:
     runs-on: ubuntu-latest
     needs: [create_resources]
 
@@ -108,6 +108,6 @@ jobs:
           #ansible-playbook -i hosts/inventory jobs/init_redis -D
           #ansible-playbook -i hosts/inventory jobs/init_cert_manager -D
           #ansible-playbook -i hosts/inventory jobs/init_log_agent -D
-          #ansible-playbook -i hosts/inventory jobs/init_clickhouse -D
-          #ansible-playbook -i hosts/inventory jobs/init_observability-server -D
+          ansible-playbook -i hosts/inventory jobs/init_clickhouse -D
+          ansible-playbook -i hosts/inventory jobs/init_observability-server -D
           #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
