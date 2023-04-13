@@ -13,11 +13,21 @@
   register: ck_node_ips_raw
   when: inventory_hostname in groups[group][0]
 
-- name: set fact join command
+- name: set fact join command for ck_node_ip1
   set_fact:
-    ck_node_ips : "{{ ck_node_ips_raw.stdout }}"
+    ck_node_ip1 : "{{ ck_node_ips_raw.stdout_lines[0] }}"
+  when: inventory_hostname in groups[group][0]
+
+- name: set fact join command for ck_node_ip2
+  set_fact:
+    ck_node_ip2 : "{{ ck_node_ips_raw.stdout_lines[1] }}"
+  when: inventory_hostname in groups[group][0]
+
+- name: set fact join command for ck_node_ip3
+  set_fact:
+    ck_node_ip3 : "{{ ck_node_ips_raw.stdout_lines[2] }}"
   when: inventory_hostname in groups[group][0]
 
 - name: Setup OpenLdap Server
-  script: files/setup-observable-server.sh {{ domain }} {{ secret }} {{ namespace }} {{ mysql_db_password }} {{ ck_node_ips[0] }} {{ ck_node_ips[1] }} {{ ck_node_ips[2] }}
+  script: files/setup-observable-server.sh {{ domain }} {{ secret }} {{ namespace }} {{ mysql_db_password }} {{ ck_node_ip1 }} {{ ck_node_ip2 }} {{ ck_node_ip3 }}
   when: inventory_hostname in groups[group]
