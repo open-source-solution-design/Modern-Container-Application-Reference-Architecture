@@ -22,6 +22,7 @@ env:
   PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_PASS }}
   PULUMI_DISABLE_CI_DETECTION: true
   AWS_REGION: ap-east-1
+  OIDC_ADMIN_PASSWORD: ${{ secrets.OIDC_ADMIN_PASSWORD }}
 
 defaults:
   run:
@@ -98,6 +99,7 @@ jobs:
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=$k3s_server_public_ip
+          admin_password=$OIDC_ADMIN_PASSWORD
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_openldap -D
