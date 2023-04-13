@@ -100,6 +100,8 @@ jobs:
           ingress_ip=$k3s_server_public_ip
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_openldap -D
+          ansible-playbook -i hosts/inventory jobs/init_keycloak -D
           #ansible-playbook -i hosts/inventory jobs/init_mysql -D
           #ansible-playbook -i hosts/inventory jobs/init_redis -D
           #ansible-playbook -i hosts/inventory jobs/init_cert_manager -D
