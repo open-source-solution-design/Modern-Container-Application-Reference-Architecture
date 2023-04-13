@@ -8,6 +8,7 @@
         name: observability-server
       vars:
         group: master
+        db_namespace: database
         namespace: monitoring
         domain: onwalk.net
         secret: obs-tls

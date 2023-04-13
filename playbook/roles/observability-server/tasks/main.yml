@@ -1,13 +1,23 @@
-- name: get db password
+- name: get mysql db password
   shell: 'kubectl get secret --namespace database mysql -o jsonpath="{.data.mysql-root-password}" | base64 -d'
-  register: command_raw
+  register: mysql_db_password_raw
   when: inventory_hostname in groups[group][0]
 
 - name: set fact join command
   set_fact:
-    mysql_db_password : "{{ command_raw.stdout }}"
+    mysql_db_password : "{{ mysql_db_password_raw.stdout }}"
+  when: inventory_hostname in groups[group][0]
+
+- name: get clickhouse node ips
+  shell: "kubectl  get pods -n clickhouse -o wide | grep  clickhouse  | awk '{print $6}'"
+  register: ck_node_ips_raw
+  when: inventory_hostname in groups[group][0]
+
+- name: set fact join command
+  set_fact:
+    ck_node_ips : "{{ ck_node_ips_raw.stdout }}"
   when: inventory_hostname in groups[group][0]
 
 - name: Setup OpenLdap Server
-  script: files/setup-observable-server.sh {{ domain }} {{ secret }} {{ namespace }} {{ mysql_db_password }}
+  script: files/setup-observable-server.sh {{ domain }} {{ secret }} {{ namespace }} {{ mysql_db_password }} {{ ck_node_ips[0] }} {{ ck_node_ips[1] }} {{ ck_node_ips[2] }}
   when: inventory_hostname in groups[group]

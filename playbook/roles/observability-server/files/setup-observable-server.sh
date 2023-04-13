@@ -4,6 +4,9 @@ export domain=$1
 export secret=$2
 export namespace=$3
 export mysql_db_password=$4
+export ck_node_ip1=$5
+export ck_node_ip2=$6
+export ck_node_ip3=$7
 
 node_name=`kubectl get nodes | awk '{print $1}' | tail -n 1`
 kubectl label nodes $node_name prometheus=true --overwrite
@@ -35,11 +38,11 @@ deepflow:
       username: default
       password: ''
       hosts:
-      - ip: 10.1.2.3
+      - ip: $ck_node_ip1
         port: 9000
-      - ip: 10.1.2.4
+      - ip: $ck_node_ip2
         port: 9000
-      - ip: 10.1.2.5
+      - ip: $ck_node_ip3
         port: 9000
     externalMySQL:
       enabled: true
