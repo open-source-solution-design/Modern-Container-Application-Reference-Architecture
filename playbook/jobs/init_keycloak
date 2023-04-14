@@ -1,4 +1,4 @@
-- name: setup redis 
+- name: setup openldap 
   hosts: all
   user: root
   become: yes
@@ -9,6 +9,10 @@
       vars:
         group: master
         namespace: itsm
-        domain: onwalk.net
-        secret: keycloak-tls
         db_namespace: database
+        domain: onwalk.net
+        auto_issuance: true
+        update_secret: true
+        secret: keycloak-tls
+        key_file: '/etc/ssl/onwalk.net.key'
+        cert_file: '/etc/ssl/onwalk.net.cert'

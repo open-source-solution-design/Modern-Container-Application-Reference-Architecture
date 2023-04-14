@@ -8,6 +8,10 @@
         name: chatwithgpt
       vars:
         group: master
-        domain: onwalk.net
         namespace: chatwithgpt
+        domain: onwalk.net
+        auto_issuance: true
+        update_secret: true
         secret: chatwithgpt-tls
+        key_file: '/etc/ssl/onwalk.net.key'
+        cert_file: '/etc/ssl/onwalk.net.cert'

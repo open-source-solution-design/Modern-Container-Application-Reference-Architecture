@@ -8,13 +8,21 @@
         name: cert-manager
       vars:
         group: master
-        domain: onwalk.net
         namespace: default
+        domain: onwalk.net
+        auto_issuance: true
+        update_secret: true
         secret: default-tls
+        key_file: '/etc/ssl/onwalk.net.key'
+        cert_file: '/etc/ssl/onwalk.net.cert'
     - include_role:
         name: cert-manager
       vars:
         group: master
-        domain: onwalk.net
         namespace: harbor
+        domain: onwalk.net
+        auto_issuance: true
+        update_secret: true
         secret: harbor-tls
+        key_file: '/etc/ssl/onwalk.net.key'
+        cert_file: '/etc/ssl/onwalk.net.cert'

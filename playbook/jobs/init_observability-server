@@ -8,7 +8,11 @@
         name: observability-server
       vars:
         group: master
-        db_namespace: database
         namespace: monitoring
+        db_namespace: database
         domain: onwalk.net
         secret: obs-tls
+        auto_issuance: true
+        update_secret: true
+        key_file: '/etc/ssl/onwalk.net.key'
+        cert_file: '/etc/ssl/onwalk.net.cert'

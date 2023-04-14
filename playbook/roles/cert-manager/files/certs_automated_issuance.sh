@@ -1,10 +1,8 @@
 #!/bin/bash
 
-export Ali_Key=$1
-export Ali_Secret=$2
-export domain=$3
-export secret=$4
-export namespace=$5
+export domain=$1
+export Ali_Key=$2
+export Ali_Secret=$3
 
 curl https://get.acme.sh | sh -s email=156405189@qq.com
 
@@ -15,7 +13,3 @@ cat ~/.acme.sh/${domain}_ecc/ca.cer >> ${domain}.pem
 cat ~/.acme.sh/${domain}_ecc/${domain}.key > ${domain}.key
 sudo cp ${domain}.pem /etc/ssl/
 sudo cp ${domain}.key /etc/ssl/
-
-kubectl create namespace $namespace || echo true
-kubectl delete secret tls $secret -n $namespace || echo true
-kubectl create secret tls $secret --cert=${domain}.pem --key=${domain}.key -n $namespace
