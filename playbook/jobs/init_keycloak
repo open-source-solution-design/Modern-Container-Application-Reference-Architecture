@@ -15,4 +15,4 @@
         update_secret: true
         secret: keycloak-tls
         key_file: '/etc/ssl/onwalk.net.key'
-        cert_file: '/etc/ssl/onwalk.net.cert'
+        cert_file: '/etc/ssl/onwalk.net.pem'
