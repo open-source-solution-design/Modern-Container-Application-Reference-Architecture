@@ -59,8 +59,10 @@ prometheus:
   kube-state-metrics:
     enabled: true
   server:
+    extraArgs:
+      enable-feature: remote-write-receiver
     ingress:
-      enabled: true 
+      enabled: true
       ingressClassName: nginx
       hosts:
         - prometheus.${domain}
@@ -116,4 +118,4 @@ EOF
 
 helm repo add stable https://artifact.onwalk.net/chartrepo/public/ || echo true
 helm repo update
-helm upgrade --install observable-server stable/observableserver -n ${namespace} -f values.yaml
+helm upgrade --install observability-server stable/observableserver -n ${namespace} -f values.yaml
