@@ -1,5 +1,5 @@
 - name: Setup MySQL Server
-  script: files/setup-mysql.sh  
+  script: files/setup-mysql.sh
   when: inventory_hostname in groups[group]
 
 - name: Post Setup MySQL Server

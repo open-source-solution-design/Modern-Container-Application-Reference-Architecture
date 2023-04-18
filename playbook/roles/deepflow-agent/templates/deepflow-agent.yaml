@@ -1,0 +1,3 @@
+controller-ips:
+  - {{ cluster_node }}
+vtap-group-id-request: "{{ cluster_id }}"

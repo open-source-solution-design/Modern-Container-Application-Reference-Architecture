@@ -24,9 +24,9 @@ spec:
             - name: CLICKHOUSE_AUTH
               value: "default"
             - name: CLICKHOUSE_PORT
-              value: "80"
+              value: "8123"
             - name: CLICKHOUSE_SERVER
-              value: "clickhouse.onwalk.net"
+              value: "{{ ck_node_ip1 }}"
           image: qxip/qryn
           name: qryn
           ports:
@@ -34,4 +34,3 @@ spec:
           resources: {}
       restartPolicy: Always
 status: {}
-

@@ -20,4 +20,3 @@
 - name: Install packages
   shell: "apt install -y auditd"
   when: ansible_facts['distribution'] == "Ubuntu"
-

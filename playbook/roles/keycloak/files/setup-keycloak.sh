@@ -28,6 +28,7 @@ externalDatabase:
   password: "$keycloak_db_password"
 EOF
 
-helm repo add bitnami https://charts.bitnami.com/bitnami || echo true
+helm repo add  stable https://artifact.onwalk.net/chartrepo/public/ || echo true
 helm repo update
-helm upgrade --install keycloak bitnami/keycloak -n $namespace -f keycloak-values.yaml
+kubectl create ns ${namespace} || echo true
+helm upgrade --install keycloak stable/keycloak -n $namespace -f keycloak-values.yaml

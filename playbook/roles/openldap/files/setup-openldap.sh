@@ -38,7 +38,7 @@ ltb-passwd:
       - openldap-ltb.${domain}
 EOF
 
-helm repo add helm-openldap https://jp-gouin.github.io/helm-openldap/
+helm repo add  stable https://artifact.onwalk.net/chartrepo/public/
 helm repo up
 kubectl create ns ${namespace} || echo true
-helm upgrade --install openldap helm-openldap/openldap-stack-ha -n ${namespace} --create-namespace -f openldap-vaules.yaml
+helm upgrade --install openldap stable/openldap-stack-ha -n ${namespace} --create-namespace -f openldap-vaules.yaml

@@ -12,6 +12,6 @@
   script: files/setup-observable-server.sh {{ domain }} {{ secret }} {{ namespace }} {{ mysql_db_password }}
   when: inventory_hostname in groups[group]
 
-- name: Check alerting rules config 
-  shell: promtool check rules /path/to/example.rules.yml 
+- name: Check alerting rules config
+  shell: promtool check rules /path/to/example.rules.yml
   when: inventory_hostname in groups[group]
