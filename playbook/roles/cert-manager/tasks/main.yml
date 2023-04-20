@@ -1,7 +1,3 @@
 - name: Setup Kube cert secret
   script: files/certs_automated_issuance.sh {{ domain }} {{ dns_ak }} {{ dns_sk }}
   when: (inventory_hostname in groups[group]) and (auto_issuance == true)
-
-- name: Setup Kube cert secret
-  script: files/update-certs-secret.sh {{ secret }} {{ key_file }} {{ cert_file }} {{ namespace }}
-  when: inventory_hostname in groups[group] and (update_secret == true)

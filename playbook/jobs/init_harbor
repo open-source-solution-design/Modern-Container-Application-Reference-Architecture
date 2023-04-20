@@ -8,11 +8,11 @@
         name: keycloak
       vars:
         group: master
-        namespace: itsm
-        db_namespace: database
+        namespace: harbor
         domain: onwalk.net
         auto_issuance: true
+        db_namespace: database
         tls:
-          - secret_name: keycloak-tls
+          - secret_name: harbor-tls
             keyfile: /etc/ssl/onwalk.net.key
             certfile: /etc.ssl/onwalk.net.pem

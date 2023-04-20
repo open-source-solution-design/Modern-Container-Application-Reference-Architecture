@@ -1,4 +1,5 @@
 dependencies:
+  - role: redis
   - role: postgresql
   - role: cert-manager
   - role: secret-manger

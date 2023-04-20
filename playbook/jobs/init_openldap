@@ -11,7 +11,7 @@
         namespace: itsm
         domain: onwalk.net
         auto_issuance: true
-        update_secret: true
-        secret: openldap-tls
-        key_file: '/etc/ssl/onwalk.net.key'
-        cert_file: '/etc/ssl/onwalk.net.pem'
+        tls:
+          - secret_name: openldap-tls
+            keyfile: /etc/ssl/onwalk.net.key
+            certfile: /etc.ssl/onwalk.net.pem

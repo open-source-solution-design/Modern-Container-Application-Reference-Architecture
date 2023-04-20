@@ -1,0 +1,30 @@
+- name: get db password
+  shell: 'kubectl get secret --namespace database postgresql -o jsonpath="{.data.postgres-password}" | base64 -d'
+  register: db_password_raw
+  when: inventory_hostname in groups[group][0]
+
+- name: set fact join command
+  set_fact:
+    db_password : "{{ db_password_raw.stdout }}"
+  when: inventory_hostname in groups[group][0]
+
+#- name: Show Debug Info
+#  debug: var=db_password_raw verbosity=0
+
+- name: Setup Gitlab Server
+  script: files/setup.sh           \
+          {{ domain }}             \
+          {{ namespace }}          \
+          {{ object_bucket }}      \
+          {{ gitlab_secret }}      \
+          {{ gitlab_stmp_secret }} \
+          {{ smtp_port }}          \
+          {{ smtp_domain }}        \
+          {{ smtp_address }}       \
+          {{ smtp_username }}      \
+          {{ smtp_emailfrom }}     \
+          {{ smtp_display_name }}  \
+          {{ oidc_issuer_url }}    \
+          {{ oidc_client_id }}     \
+          {{ oidc_client_token }}
+  when: inventory_hostname in groups[group]
