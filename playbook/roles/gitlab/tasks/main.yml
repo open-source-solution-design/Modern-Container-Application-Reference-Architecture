@@ -12,7 +12,7 @@
 #  debug: var=db_password_raw verbosity=0
 
 - name: Setup Gitlab Server
-  script: files/setup.sh {{ domain }} {{ namespace }} {{ gitlab_secret }}
+  script: files/setup.sh {{ domain }} {{ namespace }} {{ gitlab_secret }} {{ gitlab_sso_secret }}
   when: inventory_hostname in groups[group]
     
 #- name: Setup Gitlab Server

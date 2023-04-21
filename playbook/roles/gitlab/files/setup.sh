@@ -2,7 +2,8 @@
 
 domain=$1
 namespace=$2
-gitlab_secret=$4
+gitlab_secret=$3
+gitlab_sso_secret=$4
 
 cat > gitlab-values.yaml <<EOF
 global:
@@ -24,6 +25,13 @@ global:
   appConfig:
     omniauth:
       enabled: true
+      syncProfileAttributes: [email]
+      allowSingleSignOn: ['openid_connect']
+      autoLinkLdapUser: false
+      autoLinkSamlUser: false
+      providers:
+	- secret: $gitlab_sso_secret
+          key: provider
 registry:
   enabled: true
   ingress:
