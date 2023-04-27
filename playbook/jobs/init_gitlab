@@ -11,6 +11,9 @@
         namespace: gitlab
         domain: onwalk.net
         auto_issuance: true
+        generic:
+            - name: gitlab-sso-secret
+              value: "provider=/tmp/provider.yaml"
         tls:
           - secret_name: gitlab-tls
             keyfile: /etc/ssl/onwalk.net.key

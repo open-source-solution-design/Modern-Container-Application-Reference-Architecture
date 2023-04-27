@@ -9,53 +9,53 @@ cat > gitlab-values.yaml <<EOF
 global:
   edition: ce
   hosts:
-    https: true
     domain: $domain
     gitlab:
       name: gitlab.$domain
+    https: true
   ingress:
     class: nginx
-    enabled: true
     configureCertmanager: false
+    enabled: true
     tls:
       enabled: true
-      secretName: ${gitlab_secret}
+      secretName: $gitlab_secret
   minio:
     enabled: true
   appConfig:
     omniauth:
       enabled: true
-      syncProfileAttributes: [email]
-      allowSingleSignOn: ['openid_connect']
       autoLinkLdapUser: false
       autoLinkSamlUser: false
+      blockAutoCreatedUsers: false
+      autoSignInWithProvider: null
+      autoLinkUser:
+        - 'openid_connect'
+      allowSingleSignOn:
+        - 'openid_connect'
       providers:
-	- secret: $gitlab_sso_secret
-          key: provider
-registry:
-  enabled: true
-  ingress:
-    enabled: false
-gitlab-exporter:
-  enabled: false
+      - secret: $gitlab_sso_secret
+        key: provider
 kas:
   enabled: false
 nginx-ingress:
   enabled: false
+postgresql:
+  metrics:
+    enabled: false
 prometheus:
   install: false
 redis:
   metrics:
     enabled: false
-postgresql:
-  metrics:
-    enabled: false
+upgradeCheck:
+  enabled: false
 certmanager:
   install: false
   installCRDs: false
   startupapicheck:
     enabled: false
-upgradeCheck:
+gitlab-exporter:
   enabled: false
 EOF
 
