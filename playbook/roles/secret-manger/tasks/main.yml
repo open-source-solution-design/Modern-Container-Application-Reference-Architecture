@@ -2,7 +2,7 @@
   shell: "kubectl create ns {{ namespace }} || echo true"
 
 - name: "cluster {{ ClusterContext }} : Clean OLD Secret"
-  shell: "kubectl delete secret {{ item.secret_name }} --all -n  {{ namespace }}"
+  shell: "kubectl delete secret {{ item.secret_name }} -n  {{ namespace }}"
   ignore_errors: yes
   loop: "{{ generic }}"
   when: generic is defined
@@ -28,7 +28,7 @@
   when: secrets is defined
 
 - name: "cluster {{ ClusterContext }} : Clean OLD Secret"
-  shell: "kubectl delete secret {{ item.secret_name }} --all -n {{ namespace }}"
+  shell: "kubectl delete secret {{ item.secret_name }} -n {{ namespace }}"
   ignore_errors: yes
   loop: "{{ tls }}"
   when: tls is defined
