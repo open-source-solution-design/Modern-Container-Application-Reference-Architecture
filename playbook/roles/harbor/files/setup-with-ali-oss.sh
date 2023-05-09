@@ -44,7 +44,7 @@ persistence:
       accesskeyid: $ak
       accesskeysecret: $sk
       region: "oss-cn-wulanchabu"
-      bucket: "artifact-s3"
+      bucket: "harbor-s3"
       endpoint: "oss-cn-wulanchabu.aliyuncs.com"
 externalURL: https://harbor.${domain}
 EOF
