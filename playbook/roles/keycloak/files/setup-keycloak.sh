@@ -1,10 +1,10 @@
 #!/bin/bash
 
-export keycloak_db_password=$1
-export keycloak_ui_password=$2
-export domain=$3
-export secret=$4
-export namespace=$5
+export domain=$1
+export secret=$2
+export namespace=$3
+export keycloak_ui_password=$4
+export keycloak_db_password=$5
 
 cat > keycloak-values.yaml << EOF
 postgresql:

@@ -12,7 +12,12 @@
 #  debug: var=command_raw verbosity=0
 
 - name: Setup Keycloak Server
-  script: files/setup-keycloak.sh {{ hostvars[groups[group][0]].keycloak_db_password }} {{ admin_password }} {{ domain }} {{ tls.secret_name }} {{ namespace }}
+  script: files/setup-keycloak.sh  \ 
+          {{ domain }}             \ 
+          {{ tls.secret_name }}    \
+          {{ namespace }}          \
+          {{ admin_password }}     \
+          {{ hostvars[groups[group][0]].keycloak_db_password }} 
   when: inventory_hostname in groups[group]
 
 #- name: Sync aws-gloabl-oidc-broker deploy yaml
@@ -20,6 +25,6 @@
 #  with_items:
 #    - aws-gloabl-oidc-broker.yaml
 
-- name: Setup aws-gloabl-oidc-broker
-  shell: "kubectl apply -f /tmp/aws-gloabl-oidc-broker.yaml"
-  when: inventory_hostname in groups[group]
+#- name: Setup aws-gloabl-oidc-broker
+#  shell: "kubectl apply -f /tmp/aws-gloabl-oidc-broker.yaml"
+#  when: inventory_hostname in groups[group]
