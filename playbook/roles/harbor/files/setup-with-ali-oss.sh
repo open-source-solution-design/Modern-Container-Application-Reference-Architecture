@@ -52,4 +52,4 @@ EOF
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 helm repo add harbor https://helm.goharbor.io
 helm repo update
-helm upgrade --install artifact harbor/harbor -f harbor-config.yaml --version 1.11.2 -n $namespace
+helm upgrade --install artifact harbor/harbor -f harbor-config.yaml --version 1.11.1 -n $namespace
