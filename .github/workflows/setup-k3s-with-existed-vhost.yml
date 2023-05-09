@@ -38,7 +38,7 @@ jobs:
           
           cat > hosts/inventory << EOF
           [master]
-          common-artifact.apollo-ev.com               ansible_host=43.192.28.196
+          common-artifact.apollo-ev.com               ansible_host=8.130.11.192
           
           [all:vars]
           ansible_port=22
@@ -47,11 +47,12 @@ jobs:
           ansible_host_key_checking=False
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=43.192.28.196
+          ingress_ip=8.130.11.192
           admin_password=$OIDC_ADMIN_PASSWORD
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_harbor -D
+          ansible-playbook -i hosts/inventory jobs/init_keycloak -D
           #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
           #ansible-playbook -i hosts/inventory jobs/init_cert_manager -D
           #ansible-playbook -i hosts/inventory jobs/init_openldap -D
-          #ansible-playbook -i hosts/inventory jobs/init_keycloak -D

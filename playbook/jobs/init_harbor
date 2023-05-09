@@ -1,4 +1,4 @@
-- name: setup openldap 
+- name: setup harbor 
   hosts: all
   user: root
   become: yes
