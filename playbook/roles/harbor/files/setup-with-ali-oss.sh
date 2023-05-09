@@ -19,7 +19,7 @@ expose:
       notarySecretName: $secret_name
   ingress:
     hosts:
-      core: harbor.${domain}
+      core: artifact.${domain}
       notary: notary.${domain}
     className: "nginx"
 database:
@@ -46,7 +46,7 @@ persistence:
       region: "oss-cn-wulanchabu"
       bucket: "harbor-s3"
       endpoint: "oss-cn-wulanchabu.aliyuncs.com"
-externalURL: https://harbor.${domain}
+externalURL: https://artifact.${domain}
 EOF
 
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
