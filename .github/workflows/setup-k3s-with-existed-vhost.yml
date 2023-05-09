@@ -26,7 +26,6 @@ jobs:
         shell: bash
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
-
           sudo apt install jq ansible -y
 
           mkdir -pv ~/.ssh/
@@ -35,7 +34,8 @@ jobs:
           EOF
           sudo chmod 0400 ~/.ssh/id_rsa
           md5sum ~/.ssh/id_rsa
-          
+
+          mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
           mirrors.onwalk.net               ansible_host=8.130.11.192
