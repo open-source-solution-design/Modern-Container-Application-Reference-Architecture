@@ -16,7 +16,7 @@
   when: generic is defined
 
 - name: "cluster {{ ClusterContext }} : Clean OLD Secret"
-  shell: "kubectl delete secret {{ item.secret_name }} --all -n  {{ namespace }}"
+  shell: "kubectl delete secret {{ item.secret_name }} -n  {{ namespace }}"
   ignore_errors: yes
   loop: "{{ secret }}"
   when: secret is defined
