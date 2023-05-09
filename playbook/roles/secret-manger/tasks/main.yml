@@ -1,6 +1,5 @@
 - name: "cluster {{ ClusterContext }} : Create namespace"
-  shell: "kubectl create ns ${namespace} || echo true"
-  ignore_errors: yes
+  shell: "kubectl create ns {{ namespace }} || echo true"
 
 - name: "cluster {{ ClusterContext }} : Clean OLD Secret"
   shell: "kubectl delete secret {{ item.secret_name }} --all -n  {{ namespace }}"
