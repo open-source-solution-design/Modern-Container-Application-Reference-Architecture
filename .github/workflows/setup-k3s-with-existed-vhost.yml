@@ -7,6 +7,10 @@ on:
 env:
   DNS_AK: ${{ secrets.DNS_AK }}
   DNS_SK: ${{ secrets.DNS_SK }}
+  AWS_AK: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SK: ${{ secrets.AWS_SECRET_KEY }}
+  ALI_AK: ${{ secrets.ALI_AK }}
+  ALI_SK: ${{ secrets.ALI_SK }}
   SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   OIDC_ADMIN_PASSWORD: ${{ secrets.OIDC_ADMIN_PASSWORD }}
@@ -45,6 +49,8 @@ jobs:
           ansible_ssh_user=root
           ansible_ssh_private_key_file=~/.ssh/id_rsa
           ansible_host_key_checking=False
+          ali_ak=$ALI_AK
+          ali_sk=$ALI_SK
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=8.130.11.192

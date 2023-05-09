@@ -1,16 +1,32 @@
-playbook/roles/harbor/tasks/main.yml- name: get db password
-  shell: 'kubectl get secret --namespace database postgresql -o jsonpath="{.data.postgres-password}" | base64 -d'
-  register: command_raw
+- name: get redis password
+  shell: 'kubectl get secret --namespace redis redis -o jsonpath="{.data.redis-password}" | base64 -d'
+  register: redis_command_raw
   when: inventory_hostname in groups[group][0]
 
 - name: set fact join command
   set_fact:
-    keycloak_db_password : "{{ command_raw.stdout }}"
+    redis_password : "{{ redis_command_raw.stdout }}"
+
+- name: get db password
+  shell: 'kubectl get secret --namespace database postgresql -o jsonpath="{.data.postgres-password}" | base64 -d'
+  register: db_command_raw
+  when: inventory_hostname in groups[group][0]
+
+- name: set fact join command
+  set_fact:
+    pg_db_password : "{{ db_command_raw.stdout }}"
   when: inventory_hostname in groups[group][0]
 
 #- name: Show Debug Info
 #  debug: var=command_raw verbosity=0
 
 - name: Setup harbor Server
-  script: files/setup.sh {{ hostvars[groups[group][0]].keycloak_db_password }} {{ admin_password }} {{ domain }} {{ secret }} {{ namespace }}
+  script: files/setup-with-aws-s3.sh \
+                         {{ ali_ak }} \
+                         {{ ali_sk }} \
+                         {{ domain }} \
+                         {{ namespace }} \
+                         {{ tls.secret_name }} \
+                         {{ hostvars[groups[group][0]].redis_password }} \
+                         {{ hostvars[groups[group][0]].pd_db_password }} 
   when: inventory_hostname in groups[group]

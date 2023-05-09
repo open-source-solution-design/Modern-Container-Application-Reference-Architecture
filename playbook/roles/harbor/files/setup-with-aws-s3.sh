@@ -1,8 +1,10 @@
 #!/bin/bash
 
-domain=$1
-ak=$2
-sk=$3
+ak=$1
+sk=$2
+domain=$3
+namespace=$4
+secret_name=$5
 
 cat > harbor-config.yaml << EOF
 expose:
@@ -11,8 +13,8 @@ expose:
     enabled: true
     certSource: secret
     secret:
-      secretName: "harbor-tls"
-      notarySecretName: "harbor-tls"
+      secretName: $secret_name
+      notarySecretName: $secret_name
   ingress:
     hosts:
       core: artifact.${domain}
@@ -30,9 +32,6 @@ externalURL: https://artifact.${domain}
 EOF
 
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-kubectl create namespace artifact
-kubectl delete secret harbor-tls -n artifact
-kubectl create secret tls harbor-tls --cert=/etc/ssl/${domain}.pem --key=/etc/ssl/${domain}.key -n artifact
 helm repo add harbor https://helm.goharbor.io
 helm repo update
-helm upgrade --install artifact harbor/harbor -f harbor-config.yaml -n artifact
+helm upgrade --install artifact harbor/harbor -f harbor-config.yaml -n $namespace
