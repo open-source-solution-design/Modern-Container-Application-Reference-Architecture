@@ -1,9 +1,9 @@
-playbook/roles/harbor/tasks/main.yml- name: get redis password
+- name: get redis password
   shell: 'kubectl get secret --namespace redis redis -o jsonpath="{.data.redis-password}" | base64 -d'
   register: redis_command_raw
   when: inventory_hostname in groups[group][0]
 
-- name: set fact join command
+- name: set fact join command for redis
   set_fact:
     redis_password : "{{ redis_command_raw.stdout }}"
 
@@ -12,7 +12,7 @@ playbook/roles/harbor/tasks/main.yml- name: get redis password
   register: db_command_raw
   when: inventory_hostname in groups[group][0]
 
-- name: set fact join command
+- name: set fact join command for pg_db
   set_fact:
     pg_db_password : "{{ db_command_raw.stdout }}"
   when: inventory_hostname in groups[group][0]
