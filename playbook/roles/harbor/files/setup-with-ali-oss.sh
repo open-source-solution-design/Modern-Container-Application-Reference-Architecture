@@ -5,7 +5,7 @@ sk=$2
 domain=$3
 namespace=$4
 secret_name=$5
-redis_passwd=$6
+redis_password=$6
 pg_db_password=$7
 
 cat > harbor-config.yaml << EOF
@@ -36,7 +36,7 @@ redis:
   type: external
   external:
     addr: "redis-master.redis.svc.cluster.local:6379"
-#    password: "$redis_password"
+    password: "$redis_password"
 persistence:
   imageChartStorage:
     type: oss
