@@ -1,4 +1,4 @@
-- name: set k3s cluster with ec2 nodes
+- name: set k3s cluster with vhosts
   hosts: all
   user: root
   become: yes
