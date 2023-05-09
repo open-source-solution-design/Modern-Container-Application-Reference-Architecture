@@ -27,7 +27,7 @@ database:
   external:
     host: "postgresql.database.svc.cluster.local"
     port: "5432"
-    username: "user"
+    username: "postgres"
     password: "$pg_db_password"
     coreDatabase: "registry"
     notaryServerDatabase: "notary_server"
