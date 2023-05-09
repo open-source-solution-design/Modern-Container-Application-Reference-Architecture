@@ -1,12 +1,25 @@
 #!/bin/bash
 
 mkdir -pv /opt/rancher/k3s
-curl -sfL https://get.k3s.io | sh -s - \
+
+ping -c 1 google.com > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  echo "当前主机在国际网络上"
+  curl -sfL https://get.k3s.io | sh -s - \
 	--disable=traefik,servicelb                          \
 	--write-kubeconfig-mode 644                          \
 	--write-kubeconfig ~/.kube/config                    \
 	--data-dir=/opt/rancher/k3s                          \
 	--kube-apiserver-arg service-node-port-range=0-50000
+else
+  echo "当前主机在大陆网络上"
+  curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -s - \
+	--disable=traefik,servicelb                          \
+	--write-kubeconfig-mode 644                          \
+	--write-kubeconfig ~/.kube/config                    \
+	--data-dir=/opt/rancher/k3s                          \
+	--kube-apiserver-arg service-node-port-range=0-50000
+fi
 
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
