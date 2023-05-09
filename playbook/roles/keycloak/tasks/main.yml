@@ -12,12 +12,7 @@
 #  debug: var=command_raw verbosity=0
 
 - name: Setup Keycloak Server
-  script: files/setup-keycloak.sh  \ 
-          {{ domain }}             \ 
-          {{ tls.secret_name }}    \
-          {{ namespace }}          \
-          {{ admin_password }}     \
-          {{ hostvars[groups[group][0]].keycloak_db_password }} 
+  script: files/setup-keycloak.sh {{ domain }} {{ tls.secret_name }} {{ namespace }} {{ admin_password }} {{ hostvars[groups[group][0]].keycloak_db_password }} 
   when: inventory_hostname in groups[group]
 
 #- name: Sync aws-gloabl-oidc-broker deploy yaml
