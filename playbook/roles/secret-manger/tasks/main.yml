@@ -31,7 +31,7 @@
   when: tls is defined
 
 - name: "cluster {{ ClusterContext }} : Create New tls secret"
-  shell: "kubectl create secret tls {{ item.name }}                   \
+  shell: "kubectl create secret tls {{ item.secret_name }}                   \
           --key={{ item.keyfile }}                                    \
           --cert={{ item.certfile }}                                  \
           -n {{ namespace }}"
