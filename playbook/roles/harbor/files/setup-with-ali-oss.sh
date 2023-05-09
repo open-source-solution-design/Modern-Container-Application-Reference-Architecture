@@ -36,7 +36,7 @@ redis:
   type: external
   external:
     addr: "redis-master.redis.svc.cluster.local:6379"
-    password: "$redis_password"
+#    password: "$redis_password"
 persistence:
   imageChartStorage:
     type: oss
