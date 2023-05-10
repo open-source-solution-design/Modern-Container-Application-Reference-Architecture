@@ -22,6 +22,8 @@ expose:
       core: artifact.${domain}
       notary: notary.${domain}
     className: "nginx"
+notary:
+  enabled: false
 database:
   type: external
   external:
