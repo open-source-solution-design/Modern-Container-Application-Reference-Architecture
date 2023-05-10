@@ -19,11 +19,11 @@
   with_items:
     - clickhouse-cluster/clickhouse-config.yaml
     - clickhouse-cluster/clickhouse-service.yaml
-    - clickhouse-cluster/clickhouse-ingress.yaml
     - clickhouse-cluster/clickhouse-user-config.yaml
     - clickhouse-cluster/clickhouse-statefulset.yml
     - qryn/qryn-deployment.yaml
     - qryn/qryn-service.yaml
+    - qryn/qryn-ingress.yaml
 
 - name: Setup ClickHouse Server
   shell: "cd /tmp/clickhouse-cluster && kubectl apply -f ."

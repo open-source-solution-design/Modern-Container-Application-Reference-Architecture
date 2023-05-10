@@ -19,7 +19,6 @@
 - name: Setup Gitlab Server
   script: files/setup.sh {{ domain }} {{ namespace }} {{ gitlab_secret }} {{ gitlab_sso_secret }}
   when: inventory_hostname in groups[group]
-    
 #- name: Setup Gitlab Server
 #  script: files/setup.sh           \
 #          {{ domain }}             \
@@ -32,7 +31,7 @@
 #          {{ smtp_address }}       \
 #          {{ smtp_username }}      \
 #          {{ smtp_emailfrom }}     \
-#          {{ smtp_display_name }}  
+#          {{ smtp_display_name }}  \
 #          {{ oidc_issuer_url }}    \
 #          {{ oidc_client_id }}     \
 #          {{ oidc_client_token }}

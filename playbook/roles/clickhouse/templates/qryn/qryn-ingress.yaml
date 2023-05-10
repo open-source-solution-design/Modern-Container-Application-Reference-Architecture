@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-gateway
+  namespace: clickhouse
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: loki.apollo-ev.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: qryn
+            port:
+              number: 3100
+        path: /
+        pathType: Prefix

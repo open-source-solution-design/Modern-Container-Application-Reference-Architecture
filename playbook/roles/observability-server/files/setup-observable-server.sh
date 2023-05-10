@@ -9,7 +9,7 @@ export ck_node_ip2=$6
 export ck_node_ip3=$7
 
 node_name=`kubectl get nodes | awk '{print $1}' | tail -n 1`
-kubectl label nodes $node_name prometheus=true --overwrite
+kubectl label nodes $node_name app=prometheus --overwrite
 
 cat > values.yaml << EOF
 deepflow:
@@ -118,4 +118,5 @@ EOF
 
 helm repo add stable https://artifact.onwalk.net/chartrepo/public/ || echo true
 helm repo update
+kubectl delete deploy  observability-server-prometheus-server -n ${namespace} || echo true
 helm upgrade --install observability-server stable/observableserver -n ${namespace} -f values.yaml

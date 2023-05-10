@@ -7,8 +7,11 @@ namespace=$4
 secret_name=$5
 redis_password=$6
 pg_db_password=$7
+storage_type=$8
 
 cat > harbor-config.yaml << EOF
+notary:
+  enabled: false
 expose:
   type: ingress
   tls:
@@ -22,8 +25,7 @@ expose:
       core: artifact.${domain}
       notary: notary.${domain}
     className: "nginx"
-notary:
-  enabled: false
+externalURL: https://artifact.${domain}
 database:
   type: external
   external:
@@ -41,6 +43,10 @@ redis:
     password: "$redis_password"
 persistence:
   imageChartStorage:
+EOF
+
+if [[ "$storage_type" == 'oss' ]] ; then
+cat >> harbor-config.yaml << EOF
     type: oss
     oss:
       accesskeyid: $ak
@@ -48,8 +54,19 @@ persistence:
       region: "oss-cn-wulanchabu"
       bucket: "harbor-s3"
       endpoint: "oss-cn-wulanchabu.aliyuncs.com"
-externalURL: https://artifact.${domain}
 EOF
+fi
+
+if [[ "$storage_type" == 's3' ]] ; then
+cat >> harbor-config.yaml << EOF
+    type: s3
+    s3:
+      region: cn-northwest-1
+      bucket: apollo-artifact
+      accesskey: $ak
+      secretkey: $sk
+EOF
+fi
 
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 helm repo add harbor https://helm.goharbor.io
