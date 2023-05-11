@@ -11,7 +11,7 @@
         namespace: harbor
         domain: onwalk.net
         db_namespace: database
-        auto_issuance: true
+        auto_issuance: false
         update_secret: true
         storage_type: oss
         tls:
