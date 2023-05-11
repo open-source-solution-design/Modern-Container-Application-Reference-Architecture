@@ -59,8 +59,8 @@ jobs:
           smtp_password=$SMTP_PASSWORD
           gitlab_odic_client_token=$GITLAB_OIDC_CLIENT_TOKEN
           EOF
-          ansible-playbook -i hosts/inventory jobs/init_ssl_cert -D
-          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          #ansible-playbook -i hosts/inventory jobs/init_ssl_cert -D
+          #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_gitlab -D
           #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
           #ansible-playbook -i hosts/inventory jobs/init_harbor -D

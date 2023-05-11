@@ -29,8 +29,8 @@
   shell: 'kubectl delete secret {{ item.secret_name }} -n  {{ namespace }} || echo true; kubectl create secret generic {{ item.secret_name }} --from-literal={{ item.key }}="{{ item.value }}" -n {{ namespace }}'
   loop:
     - { secret_name: 'gitlab-sso-secret', key: 'provider', value: "/tmp/provider.yaml" }
-    - { secret_name: 'gitlab-db-secret', key: 'password', value: hostvars[groups[group][0]].pg_db_password }
-    - { secret_name: 'gitlab-redis-secret', key: 'password', value: hostvars[groups[group][0]].redis_password }
+    - { secret_name: 'gitlab-db-secret', key: 'password', value: {{ hostvars[groups[group][0]].pg_db_password }} }
+    - { secret_name: 'gitlab-redis-secret', key: 'password', value: {{ hostvars[groups[group][0]].redis_password }} }
 
 - name:  "cluster {{ ClusterContext }} Create SMTP Secret"
   shell: 'kubectl delete secret {{ item.secret_name }} -n  {{ namespace }} || echo true; kubectl create secret generic {{ item.secret_name }} --from-literal={{ item.key }}={{ smtp_password }} -n {{ namespace }}'
