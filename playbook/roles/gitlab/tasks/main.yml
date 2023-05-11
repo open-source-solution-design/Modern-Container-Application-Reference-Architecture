@@ -1,11 +1,20 @@
-- name: get db password
-  shell: 'kubectl get secret --namespace database postgresql -o jsonpath="{.data.postgres-password}" | base64 -d'
-  register: db_password_raw
+- name: get redis password
+  shell: 'kubectl get secret --namespace redis redis -o jsonpath="{.data.redis-password}" | base64 -d'
+  register: redis_command_raw
   when: inventory_hostname in groups[group][0]
 
-- name: set fact join command
+- name: set fact join command for redis
   set_fact:
-    db_password : "{{ db_password_raw.stdout }}"
+    redis_password : "{{ redis_command_raw.stdout }}"
+
+- name: get db password
+  shell: 'kubectl get secret --namespace database postgresql -o jsonpath="{.data.postgres-password}" | base64 -d'
+  register: db_command_raw
+  when: inventory_hostname in groups[group][0]
+
+- name: set fact join command for mysql_db
+  set_fact:
+    pg_db_password : "{{ db_command_raw.stdout }}"
   when: inventory_hostname in groups[group][0]
 
 #- name: Show Debug Info
@@ -16,23 +25,13 @@
   with_items:
     - provider.yaml
 
+- name:  "cluster {{ ClusterContext }} Create New Generic Secret from Key/Vaule"
+  shell: 'kubectl delete secret {{ item.secret_name }} -n  {{ namespace }} || echo true; kubectl create secret generic {{ item.secret_name }} --from-literal={{ item.key }}="{{ item.value }}" -n {{ namespace }}'
+  loop:
+    - { secret_name: 'gitlab-sso-secret', key: 'password', value: "provider=/tmp/provider.yaml" }
+    - { secret_name: 'gitlab-db-secret', key: 'password', value: 'hostvars[groups[group][0]].pg_db_password' }
+    - { secret_name: 'gitlab-redis-secret', key: 'password', value: 'hostvars[groups[group][0]].redis_password' }
+
 - name: Setup Gitlab Server
-  script: files/setup.sh {{ domain }} {{ namespace }} {{ gitlab_secret }} {{ gitlab_sso_secret }}
+  script: files/setup.sh {{ domain }} {{ namespace }} 'gitlab-tls' 'gitlab-db-secret' 'gitlab-sso-secret' 'gitlab-smtp-secret' 'gitlab-redis-secret'
   when: inventory_hostname in groups[group]
-#- name: Setup Gitlab Server
-#  script: files/setup.sh           \
-#          {{ domain }}             \
-#          {{ namespace }}          \
-#          {{ object_bucket }}      \
-#          {{ gitlab_secret }}      \
-#          {{ gitlab_stmp_secret }} \
-#          {{ smtp_port }}          \
-#          {{ smtp_domain }}        \
-#          {{ smtp_address }}       \
-#          {{ smtp_username }}      \
-#          {{ smtp_emailfrom }}     \
-#          {{ smtp_display_name }}  \
-#          {{ oidc_issuer_url }}    \
-#          {{ oidc_client_id }}     \
-#          {{ oidc_client_token }}
-#  when: inventory_hostname in groups[group]

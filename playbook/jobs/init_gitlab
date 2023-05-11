@@ -1,37 +1,26 @@
-- name: setup openldap 
+- name: setup gitlab 
   hosts: all
   user: root
   become: yes
   gather_facts: yes
   tasks:
     - include_role:
-        name: keycloak
+        name: gitlab
       vars:
         group: master
         namespace: gitlab
         domain: onwalk.net
         auto_issuance: true
-        generic:
-            - name: gitlab-sso-secret
-              value: "provider=/tmp/provider.yaml"
+        update_secret: true  
+        oidc_issuer_url: 'https://keycloak.onwalk.net/realms/cloud-sso'
+        oidc_client_id: 'gitlab-oidc'
+        oidc_client_token: {{ OIDC_CLIENT_TOKEN }} 
+        oidc_client_redirect_uri: 'https://gitlab.onwalk.net/users/auth/openid_connect/callback'
         tls:
           - secret_name: gitlab-tls
-            keyfile: /etc/ssl/onwalk.net.key
+            keyfile: /etc/sl/onwalk.net.key
             certfile: /etc.ssl/onwalk.net.pem
         secret:
           - secret_name: gitlab-smtp-secret
             key: password
-            value: "{{ stmp_password }}"
-        namespace: {{ namespace }}
-        object_bucket: {{ object_bucket }}
-        gitlab_secret: 'gitlab-tls'
-        gitlab_stmp_secret: 'gitlab-smtp-secret'
-        smtp_port: {{ smtp_port }}
-        smtp_domain: {{ smtp_domain }}
-        smtp_address: {{ smtp_address }}
-        smtp_username: {{ smtp_username }}
-        smtp_emailfrom: {{ smtp_emailfrom }}
-        smtp_display_name: {{ smtp_display_name }}
-        oidc_client_id: {{ oidc_client_id }}
-        oidc_issuer_url: {{ oidc_issuer_url }}
-        oidc_client_token: {{ oidc_client_token }} 
+            value: "{{ SMTP_PASSWORD }}"

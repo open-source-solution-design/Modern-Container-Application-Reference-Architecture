@@ -10,8 +10,9 @@
         group: master
         namespace: harbor
         domain: onwalk.net
-        auto_issuance: false
         db_namespace: database
+        auto_issuance: true
+        update_secret: true
         storage_type: oss
         tls:
           - secret_name: harbor-tls
