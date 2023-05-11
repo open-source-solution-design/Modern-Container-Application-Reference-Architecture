@@ -36,7 +36,7 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          vpn.onwalk.net               ansible_host=43.206.90.100
+          vpn.onwalk.net               ansible_host=20.18.50.198
           
           [all:vars]
           ansible_port=22
@@ -45,7 +45,7 @@ jobs:
           ansible_host_key_checking=False
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=43.206.90.100
+          ingress_ip=20.18.50.198
           EOF
           #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_nginx_oss -D
