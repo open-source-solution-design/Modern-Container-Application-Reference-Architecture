@@ -10,5 +10,5 @@ check_empty() {
 check_empty "$1" "Please provide harbor admin password"
 
 export admin_passowrd=$1
-curl -X PUT -u "admin:$admin_password" -H "Content-Type: application/json" -ki 192.168.123.50/api/v2.0/configurations -d @/tmp/harbor-oidc-config.json
+curl -X PUT -u "admin:$admin_password" -H "Content-Type: application/json" -ki https://artifact.onwalk.ne/api/v2.0/configurations -d @/tmp/harbor-oidc-config.json
 rm -f /tmp/harbor-oidc-config.json
