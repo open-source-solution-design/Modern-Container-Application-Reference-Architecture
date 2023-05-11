@@ -9,6 +9,7 @@
       vars:
         group: master
         namespace: gitlab
+        db_namespace: database
         domain: onwalk.net
         auto_issuance: true
         update_secret: true  
