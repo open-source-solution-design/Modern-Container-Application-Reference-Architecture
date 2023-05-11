@@ -24,3 +24,11 @@
   script: files/setup.sh {{ ali_ak }} {{ ali_sk }} {{ domain }} {{ namespace }} {{ item.secret_name }} {{ hostvars[groups[group][0]].redis_password }} {{ hostvars[groups[group][0]].pg_db_password }} {{ storage_type }}
   loop: "{{ tls }}"
   when: inventory_hostname in groups[group]
+
+- name: Sync harbor-oidc-config.json
+  template: src=templates/{{ item }}  dest=/tmp/{{ item }} owner=root group=root mode=0644 force=yes unsafe_writes=yes
+  with_items:
+    - harbor-oidc-config.json 
+
+- name: Setup harbor oidc config
+  script: files/post-setup.sh {{ HARBOR_ADMIN_PASSWORD }} 
