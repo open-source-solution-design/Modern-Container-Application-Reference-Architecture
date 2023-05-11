@@ -113,4 +113,4 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 helm repo add gitlab https://charts.gitlab.io/
 helm repo up
 kubectl create namespace gitlab || true
-helm upgrade --install gitlab gitlab/gitlab --version=6.6.1 --namespace gitlab -f gitlab-values.yaml --timeout 100 --debug
+helm upgrade --install gitlab gitlab/gitlab --version=6.6.1 --namespace gitlab -f gitlab-values.yaml --timeout=1m --debug
