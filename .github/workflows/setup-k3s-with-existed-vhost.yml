@@ -56,6 +56,7 @@ jobs:
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=20.18.50.198
+          smtp_password=$SMTP_PASSWORD
           gitlab_odic_client_token=$GITLAB_OIDC_CLIENT_TOKEN
           EOF
           ansible-playbook -i hosts/inventory jobs/init_gitlab -D
