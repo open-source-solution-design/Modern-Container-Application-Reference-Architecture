@@ -14,5 +14,5 @@ args:
   issuer: 'https://keycloak.onwalk.net/realms/cloud-sso'
   client_options:
     identifier: 'gitlab-oidc'
-    secret: 'xxxxxxxxxxxxxxx'
+    secret: '{{ gitlab_odic_client_token }}'
     redirect_uri: 'https://gitlab.onwalk.net/users/auth/openid_connect/callback'

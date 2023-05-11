@@ -11,11 +11,11 @@ env:
   AWS_SK: ${{ secrets.AWS_SECRET_KEY }}
   ALI_AK: ${{ secrets.ALI_AK }}
   ALI_SK: ${{ secrets.ALI_SK }}
-  SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
   SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-  OIDC_CLIENT_TOKEN: ${{ secrets.OIDC_CLIENT_TOKEN }}
   OIDC_ADMIN_PASSWORD: ${{ secrets.OIDC_ADMIN_PASSWORD }}
+  GITLAB_OIDC_CLIENT_TOKEN: ${{ secrets.GILAB_OIDC_CLIENT_TOKEN }}
   HARBOR_ADMIN_PASSWORD: ${{ secrets.HARBOR_ADMIN_PASSWORD }}
 
 defaults:
@@ -55,7 +55,7 @@ jobs:
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=20.18.50.198
-          OIDC_CLIENT_TOKEN=$OIDC_CLIENT_TOKEN
+          gitlab_odic_client_token=$GITLAB_OIDC_CLIENT_TOKEN
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_gitlab -D
@@ -98,6 +98,6 @@ jobs:
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=8.130.11.192
-          HARBOR_ADMIN_PASSWORD=$HARBOR_ADMIN_PASSWORD
+          harbor_admin_password=$HARBOR_ADMIN_PASSWORD
           EOF
           ansible-playbook -i hosts/inventory jobs/init_harbor -D

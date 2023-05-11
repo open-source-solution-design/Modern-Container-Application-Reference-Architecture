@@ -31,4 +31,4 @@
     - harbor-oidc-config.json 
 
 - name: Setup harbor oidc config
-  script: files/post-setup.sh {{ HARBOR_ADMIN_PASSWORD }} 
+  script: files/post-setup.sh {{ harbor_admin_password }} 
