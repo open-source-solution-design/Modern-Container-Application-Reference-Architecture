@@ -1,4 +1,4 @@
-name: setup k3s cluster with existed vhost 
+.github/workflows/setup-k3s-with-existed-vhost.ymlname: setup k3s cluster with existed vhost 
 
 on:
   workflow_dispatch:
@@ -16,6 +16,7 @@ env:
   SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
   OIDC_ADMIN_PASSWORD: ${{ secrets.OIDC_ADMIN_PASSWORD }}
   GITLAB_OIDC_CLIENT_TOKEN: ${{ secrets.GITLAB_OIDC_CLIENT_TOKEN }}
+  HARBOR_OIDC_CLIENT_TOKEN: ${{ secrets.HARBOR_OIDC_CLIENT_TOKEN }}
   HARBOR_ADMIN_PASSWORD: ${{ secrets.HARBOR_ADMIN_PASSWORD }}
 
 defaults:
@@ -99,5 +100,6 @@ jobs:
           dns_sk=$DNS_SK
           ingress_ip=8.130.11.192
           harbor_admin_password=$HARBOR_ADMIN_PASSWORD
+          harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
           EOF
           ansible-playbook -i hosts/inventory jobs/init_harbor -D
