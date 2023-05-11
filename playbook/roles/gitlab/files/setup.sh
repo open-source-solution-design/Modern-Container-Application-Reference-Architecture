@@ -96,7 +96,7 @@ certmanager:
 postgresql:
   install: false
 redis:
-  enabled: false
+  install: false
 kas:
   enabled: false
 nginx-ingress:
