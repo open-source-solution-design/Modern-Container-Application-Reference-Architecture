@@ -1,0 +1,11 @@
+- name: Prep NameSpace
+  shell: "kubectl create namespace nginx || echo true"
+
+- name: Sync deploy yaml
+  template: src=templates/{{ item }}  dest=/tmp/{{ item }} owner=root group=root mode=0644 force=yes unsafe_writes=yes
+  with_items:
+    - mirrors-nginx.yaml
+
+- name: Setup Mirrors Server
+  shell: "kubectl apply -f /tmp/mirrors-nginx.yaml"
+  when: inventory_hostname in groups[group]
