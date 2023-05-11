@@ -93,6 +93,8 @@ global:
 certmanager:
   install: false
   installCRDs: false
+  startupapicheck:
+    enabled: false
 postgresql:
   install: false
 redis:

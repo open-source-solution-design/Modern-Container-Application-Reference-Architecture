@@ -8,10 +8,5 @@
         name: cert-manager
       vars:
         group: master
-        namespace: gitlab
         domain: onwalk.net
         auto_issuance: true
-        tls:
-          - secret_name: gitlab-tls
-            keyfile: /etc/ssl/onwalk.net.key
-            certfile: /etc/ssl/onwalk.net.pem
