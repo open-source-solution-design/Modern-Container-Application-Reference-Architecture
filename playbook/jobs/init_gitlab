@@ -12,10 +12,10 @@
         domain: onwalk.net
         auto_issuance: true
         update_secret: true  
-        oidc_issuer_url: 'https://keycloak.onwalk.net/realms/cloud-sso'
-        oidc_client_id: 'gitlab-oidc'
-        oidc_client_token: {{ OIDC_CLIENT_TOKEN }} 
-        oidc_client_redirect_uri: 'https://gitlab.onwalk.net/users/auth/openid_connect/callback'
+#        gitlab_oidc_issuer_url: 'https://keycloak.onwalk.net/realms/cloud-sso'
+#        gitlab_oidc_client_id: 'gitlab-oidc'
+#        gitlab_oidc_client_token: 'xxxxxxxx' 
+#        gitlab_oidc_client_redirect_uri: 'https://gitlab.onwalk.net/users/auth/openid_connect/callback'
         tls:
           - secret_name: gitlab-tls
             keyfile: /etc/sl/onwalk.net.key
