@@ -93,16 +93,10 @@ global:
 certmanager:
   install: false
   installCRDs: false
-  startupapicheck:
-    enabled: false
 postgresql:
   install: false
-  metrics:
-    enabled: false
 redis:
-  install: false
-  metrics:
-    enabled: false
+  enabled: false
 kas:
   enabled: false
 nginx-ingress:
