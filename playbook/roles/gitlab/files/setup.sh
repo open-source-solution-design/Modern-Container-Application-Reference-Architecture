@@ -90,27 +90,28 @@ global:
       providers:
       - secret: $gitlab_sso_secret
         key: provider
-kas:
-  enabled: false
-nginx-ingress:
-  enabled: false
-postgresql:
-  install: false
-  metrics:
-    enabled: false
-prometheus:
-  install: false
-redis:
-  metrics:
-    enabled: false
-upgradeCheck:
-  enabled: false
 certmanager:
   install: false
   installCRDs: false
   startupapicheck:
     enabled: false
+postgresql:
+  install: false
+  metrics:
+    enabled: false
+redis:
+  install: false
+  metrics:
+    enabled: false
+kas:
+  enabled: false
+nginx-ingress:
+  enabled: false
 gitlab-exporter:
+  enabled: false
+prometheus:
+  install: false
+upgradeCheck:
   enabled: false
 EOF
 
