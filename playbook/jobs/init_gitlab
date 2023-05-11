@@ -19,8 +19,8 @@
 #        gitlab_oidc_client_redirect_uri: 'https://gitlab.onwalk.net/users/auth/openid_connect/callback'
         tls:
           - secret_name: gitlab-tls
-            keyfile: /etc/sl/onwalk.net.key
-            certfile: /etc.ssl/onwalk.net.pem
+            keyfile: /etc/ssl/onwalk.net.key
+            certfile: /etc/ssl/onwalk.net.pem
         secret:
           - secret_name: gitlab-smtp-secret
             key: password
