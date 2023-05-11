@@ -14,5 +14,5 @@
         update_secret: true  
         tls:
           - secret_name: nginx-tls
-            keyfile: /etc/sl/onwalk.net.key
-            certfile: /etc.ssl/onwalk.net.pem
+            keyfile: /etc/ssl/onwalk.net.key
+            certfile: /etc/ssl/onwalk.net.pem
