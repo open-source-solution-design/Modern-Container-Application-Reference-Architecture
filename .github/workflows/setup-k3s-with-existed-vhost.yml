@@ -23,7 +23,7 @@ defaults:
     working-directory: ./playbook
 
 jobs:
-  k3s-cluster:
+  setup-gitlab:
     runs-on: ubuntu-latest
 
     steps:
@@ -52,21 +52,23 @@ jobs:
           ansible_ssh_user=ubuntu
           ansible_ssh_private_key_file=~/.ssh/id_rsa
           ansible_host_key_checking=False
-          ali_ak=$ALI_AK
-          ali_sk=$ALI_SK
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           ingress_ip=20.18.50.198
-          admin_password=$OIDC_ADMIN_PASSWORD
-          HARBOR_ADMIN_PASSWORD=$HARBOR_ADMIN_PASSWORD
           EOF
-          #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_gitlab -D
           #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
           #ansible-playbook -i hosts/inventory jobs/init_harbor -D
           #ansible-playbook -i hosts/inventory jobs/init_keycloak -D
           #ansible-playbook -i hosts/inventory jobs/init_cert_manager -D
           #ansible-playbook -i hosts/inventory jobs/init_openldap -D
+  setup-harbor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
       - name: Setup Habor in K3S
         shell: bash
         run: |
@@ -83,17 +85,18 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          mirrors.onwalk.net               ansible_host=20.18.50.198
+          mirrors.onwalk.net               ansible_host=8.130.11.192
           
           [all:vars]
           ansible_port=22
           ansible_ssh_user=root
           ansible_ssh_private_key_file=~/.ssh/id_rsa
           ansible_host_key_checking=False
+          ali_ak=$ALI_AK
           ali_sk=$ALI_SK
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=20.18.50.198
+          ingress_ip=8.130.11.192
           HARBOR_ADMIN_PASSWORD=$HARBOR_ADMIN_PASSWORD
           EOF
           ansible-playbook -i hosts/inventory jobs/init_harbor -D
