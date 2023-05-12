@@ -17,3 +17,6 @@
           - secret_name: gitlab-tls
             keyfile: /etc/ssl/apollo-ev.com.key
             certfile: /etc/ssl/apollo-ev.com.pem
+        gitlab_oidc_client_id: gitlab_oidc
+        gitlab_oidc_isser: 'https://keycloak.apollo-ev.com/realms/cloud-sso'
+        gitlab_oidc_redirect_uri: 'https://gitlab.apollo-ev.com/users/auth/openid_connect/callback'
