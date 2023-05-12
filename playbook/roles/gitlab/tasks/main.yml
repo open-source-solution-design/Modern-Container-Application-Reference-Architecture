@@ -46,5 +46,5 @@
     - { secret_name: 'gitlab-smtp-secret', key: 'password' }
 
 - name: Setup Gitlab Server
-  script: files/setup.sh {{ domain }} {{ namespace }} 'gitlab-tls' 'gitlab-db-secret' 'gitlab-sso-secret' 'gitlab-smtp-secret' 'gitlab-redis-secret'
+  script: files/setup.sh {{ domain }} {{ namespace }} 'gitlab-tls' 'gitlab-sso-secret' 'gitlab-smtp-secret' 'gitlab-redis-secret'
   when: inventory_hostname in groups[group]
