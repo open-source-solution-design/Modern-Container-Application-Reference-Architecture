@@ -89,7 +89,7 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          mirrors.onwalk.net               ansible_host=8.130.11.192
+          common-artifact.apollo-ev.com               ansible_host=43.192.11.208
           
           [all:vars]
           ansible_port=22
@@ -100,7 +100,7 @@ jobs:
           ali_sk=$ALI_SK
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=8.130.11.192
+          ingress_ip=10.1.1.206
           harbor_admin_password=$HARBOR_ADMIN_PASSWORD
           harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
           EOF
