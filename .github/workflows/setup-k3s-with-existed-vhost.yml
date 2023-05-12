@@ -104,5 +104,5 @@ jobs:
           harbor_admin_password=$HARBOR_ADMIN_PASSWORD
           harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
           EOF
-          #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_harbor -D
