@@ -89,11 +89,11 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          common-artifact.apollo-ev.com               ansible_host=43.192.11.208
+          common-artifact.apollo-ev.com               ansible_host=52.83.75.244
           
           [all:vars]
           ansible_port=22
-          ansible_ssh_user=root
+          ansible_ssh_user=ubuntu
           ansible_ssh_private_key_file=~/.ssh/id_rsa
           ansible_host_key_checking=False
           ali_ak=$ALI_AK
