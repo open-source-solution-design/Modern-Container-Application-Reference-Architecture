@@ -9,7 +9,7 @@
       vars:
         group: master
         namespace: harbor
-        domain: apollo-ev.pem
+        domain: apollo-ev.com
         db_namespace: database
         auto_issuance: false
         update_secret: true
