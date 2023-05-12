@@ -57,7 +57,7 @@ jobs:
           dns_sk=$DNS_SK
           ingress_ip=10.1.3.112
           smtp_password=$SMTP_PASSWORD
-          gitlab_odic_client_token=$GITLAB_OIDC_CLIENT_TOKEN
+          gitlab_oidc_client_token=$GITLAB_OIDC_CLIENT_TOKEN
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_gitlab -D
