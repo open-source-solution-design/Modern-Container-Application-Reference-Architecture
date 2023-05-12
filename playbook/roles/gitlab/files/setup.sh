@@ -10,18 +10,18 @@ check_empty() {
 check_empty "$1" "Please provide a domain name as the first argument"
 check_empty "$2" "Please provide a namespace as the second argument"
 check_empty "$3" "Please provide a GitLab secret as the third argument"
-#check_empty "$4" "Please provide a GitLab database secret as the fourth argument"
-check_empty "$4" "Please provide a GitLab SSO secret as the fifth argument"
-check_empty "$5" "Please provide a GitLab SMTP secret as the sixth argument"
-check_empty "$6" "Please provide a GitLab Redis secret as the seventh argument"
+check_empty "$4" "Please provide a GitLab database secret as the fourth argument"
+check_empty "$5" "Please provide a GitLab SSO secret as the fifth argument"
+check_empty "$6" "Please provide a GitLab SMTP secret as the sixth argument"
+check_empty "$7" "Please provide a GitLab Redis secret as the seventh argument"
 
 domain=$1
 namespace=$2
 gitlab_secret=$3
-#gitlab_db_secret=$4
-gitlab_sso_secret=$4
-gitlab_smtp_secret=$5
-gitlab_redis_secret=$6
+gitlab_db_secret=$4
+gitlab_sso_secret=$5
+gitlab_smtp_secret=$6
+gitlab_redis_secret=$7
 
 cat > gitlab-values.yaml <<EOF
 global:
@@ -43,14 +43,14 @@ global:
   gitaly:
     persistence:
       enabled: true
-  #psql:
-  #  host: postgresql.database.svc.cluster.local
-  #  port: 5432
-  #  username: gitlab
-  #  database: gitlabhq_production
-  #  password:
-  #    secret: $gitlab_db_secret
-  #    key: password
+  psql:
+    host: postgresql.database.svc.cluster.local
+    port: 5432
+    username: gitlab
+    database: gitlabhq_production
+    password:
+      secret: $gitlab_db_secret
+      key: password
   redis:
     host: redis-master.redis.svc.cluster.local
     port: 6379
@@ -96,7 +96,7 @@ certmanager:
   startupapicheck:
     enabled: false
 postgresql:
-  install: true
+  install: false
 redis:
   install: false
 kas:
