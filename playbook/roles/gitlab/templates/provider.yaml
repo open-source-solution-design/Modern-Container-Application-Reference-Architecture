@@ -1,4 +1,4 @@
-playbook/roles/gitlab/templates/provider.yamlname: 'openid_connect'
+name: 'openid_connect'
 label: 'keycloak-sso'
 args:
   name: 'openid_connect'
