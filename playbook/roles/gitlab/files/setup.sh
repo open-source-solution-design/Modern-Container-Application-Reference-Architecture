@@ -58,25 +58,24 @@ global:
       enabled: true
       secret: $gitlab_redis_secret
       key: password
+  smtp:
+    tls: true
+    enabled: true
+    port: 465
+    domain: exmail.qq.com
+    address: smtp.exmail.qq.com
+    user_name: 'manbuzhe2009@qq.com'
+    password:
+      secret: $gitlab_smtp_secret
+      key: password
+    authentication: "login"
+    starttls_auto: false
+    openssl_verify_mode: "peer"
+    pool: true
   appConfig:
     email:
       from: 'manbuzhe2009@qq.com'
       display_name: GitLab-System
-    smtp:
-      tls: true
-      enabled: true
-      port: 465
-      domain: exmail.qq.com
-      address: smtp.exmail.qq.com
-      user_name: 'manbuzhe2009@qq.com'
-      password:
-        secret: $gitlab_smtp_secret
-        key: password
-      authentication: "login"
-      starttls_auto: false
-      openssl_verify_mode: "peer"
-      pool: true
-  appConfig:
     omniauth:
       enabled: true
       autoLinkLdapUser: false
