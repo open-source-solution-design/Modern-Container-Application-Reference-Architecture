@@ -9,12 +9,12 @@
       vars:
         group: master
         namespace: harbor
-        domain: apollo-ev.com
+        domain: onwalk.net
         db_namespace: database
-        auto_issuance: false
+        auto_issuance: true
         update_secret: true
         storage_type: oss
         tls:
           - secret_name: harbor-tls
-            keyfile: /etc/ssl/apollo-ev.com.key
-            certfile: /etc/ssl/apollo-ev.com.pem
+            keyfile: /etc/ssl/onwalk.net.key
+            certfile: /etc/ssl/onwalk.net.pem
