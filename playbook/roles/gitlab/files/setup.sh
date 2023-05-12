@@ -29,7 +29,7 @@ global:
   hosts:
     domain: $domain
     gitlab:
-      name: gitlab.$domain
+      name: code.$domain
     https: true
   ingress:
     class: nginx
