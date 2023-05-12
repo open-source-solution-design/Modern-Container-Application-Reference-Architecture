@@ -26,7 +26,7 @@
     - provider.yaml
 
 - name:  "cluster {{ ClusterContext }} Create New Generic Secret from Key/Vaule"
-  shell: 'kubectl delete secret {{ item.secret_name }} -n  {{ namespace }} || echo true; kubectl create secret generic {{ item.secret_name }} --from-literal={{ item.key }}="{{ item.value }}" -n {{ namespace }}'
+  shell: 'kubectl delete secret {{ item.secret_name }} -n  {{ namespace }} || echo true; kubectl create secret generic {{ item.secret_name }} --from-file="{{ item.key }}={{ item.value }}" -n {{ namespace }}'
   loop:
     - { secret_name: 'gitlab-sso-secret', key: 'provider', value: "/tmp/provider.yaml" }
 
