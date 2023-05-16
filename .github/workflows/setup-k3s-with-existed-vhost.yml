@@ -24,50 +24,7 @@ defaults:
     working-directory: ./playbook
 
 jobs:
-  setup-gitlab:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Gitlab in K3S
-        shell: bash
-        run: |
-          export ANSIBLE_HOST_KEY_CHECKING=False
-          sudo apt install jq ansible -y
-
-          mkdir -pv ~/.ssh/
-          cat > ~/.ssh/id_rsa << EOF
-          ${SSH_PRIVATE_KEY}
-          EOF
-          sudo chmod 0400 ~/.ssh/id_rsa
-          md5sum ~/.ssh/id_rsa
-
-          mkdir -pv hosts/ 
-          cat > hosts/inventory << EOF
-          [master]
-          common-gitlab.apollo-ev.com   ansible_host=47.91.19.2
-          
-          [all:vars]
-          ansible_port=22
-          ansible_ssh_user=root
-          ansible_ssh_private_key_file=~/.ssh/id_rsa
-          ansible_host_key_checking=False
-          dns_ak=$DNS_AK
-          dns_sk=$DNS_SK
-          ingress_ip=47.91.19.2
-          smtp_password=$SMTP_PASSWORD
-          gitlab_oidc_client_token=$GITLAB_OIDC_CLIENT_TOKEN
-          EOF
-          #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
-          #ansible-playbook -i hosts/inventory jobs/init_gitlab -D
-          ansible-playbook -i hosts/inventory jobs/init_ssl_cert -D
-          #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
-          #ansible-playbook -i hosts/inventory jobs/init_harbor -D
-          #ansible-playbook -i hosts/inventory jobs/init_keycloak -D
-          #ansible-playbook -i hosts/inventory jobs/init_cert_manager -D
-          #ansible-playbook -i hosts/inventory jobs/init_openldap -D
-  setup-harbor:
+  setup-keycloak:
     runs-on: ubuntu-latest
 
     steps:
@@ -89,7 +46,131 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          common-gitlab.apollo-ev.com               ansible_host=20.222.214.219
+          mirrors.onwalk.net               ansible_host=8.130.11.192
+          
+          [all:vars]
+          ansible_port=8022
+          ansible_ssh_user=root
+          ansible_ssh_private_key_file=~/.ssh/id_rsa
+          ansible_host_key_checking=False
+          ali_ak=$ALI_AK
+          ali_sk=$ALI_SK
+          dns_ak=$DNS_AK
+          dns_sk=$DNS_SK
+          ingress_ip=8.130.11.192
+          harbor_admin_password=$HARBOR_ADMIN_PASSWORD
+          harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
+          EOF
+          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_keycloak -D -C
+  setup-gitlab:
+    runs-on: ubuntu-latest
+    needs: [setup-keycloak]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Gitlab in K3S
+        shell: bash
+        run: |
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          sudo apt install jq ansible -y
+
+          mkdir -pv ~/.ssh/
+          cat > ~/.ssh/id_rsa << EOF
+          ${SSH_PRIVATE_KEY}
+          EOF
+          sudo chmod 0400 ~/.ssh/id_rsa
+          md5sum ~/.ssh/id_rsa
+
+          mkdir -pv hosts/ 
+          cat > hosts/inventory << EOF
+          [master]
+          gitlab.onwalk.net   ansible_host=20.48.21.165
+          
+          [all:vars]
+          ansible_port=8022
+          ansible_ssh_user=ubuntu
+          ansible_ssh_private_key_file=~/.ssh/id_rsa
+          ansible_host_key_checking=False
+          dns_ak=$DNS_AK
+          dns_sk=$DNS_SK
+          ingress_ip=20.48.21.165
+          smtp_password=$SMTP_PASSWORD
+          gitlab_oidc_client_token=$GITLAB_OIDC_CLIENT_TOKEN
+          EOF
+          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_gitlab -D -C
+          #ansible-playbook -i hosts/inventory jobs/init_ssl_cert -D
+          #ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
+          #ansible-playbook -i hosts/inventory jobs/init_harbor -D
+          #ansible-playbook -i hosts/inventory jobs/init_keycloak -D
+          #ansible-playbook -i hosts/inventory jobs/init_cert_manager -D
+          #ansible-playbook -i hosts/inventory jobs/init_openldap -D
+  setup-harbor:
+    runs-on: ubuntu-latest
+    needs: [setup-keycloak]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Habor in K3S
+        shell: bash
+        run: |
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          sudo apt install jq ansible -y
+
+          mkdir -pv ~/.ssh/
+          cat > ~/.ssh/id_rsa << EOF
+          ${SSH_PRIVATE_KEY}
+          EOF
+          sudo chmod 0400 ~/.ssh/id_rsa
+          md5sum ~/.ssh/id_rsa
+
+          mkdir -pv hosts/ 
+          cat > hosts/inventory << EOF
+          [master]
+          mirrors.onwalk.net               ansible_host=8.130.11.192
+          
+          [all:vars]
+          ansible_port=22
+          ansible_ssh_user=root
+          ansible_ssh_private_key_file=~/.ssh/id_rsa
+          ansible_host_key_checking=False
+          ali_ak=$ALI_AK
+          ali_sk=$ALI_SK
+          dns_ak=$DNS_AK
+          dns_sk=$DNS_SK
+          ingress_ip=8.130.11.192
+          harbor_admin_password=$HARBOR_ADMIN_PASSWORD
+          harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
+          EOF
+          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_harbor -D -C
+  setup-Grafana:
+    runs-on: ubuntu-latest
+    needs: [setup-keycloak]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Habor in K3S
+        shell: bash
+        run: |
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          sudo apt install jq ansible -y
+
+          mkdir -pv ~/.ssh/
+          cat > ~/.ssh/id_rsa << EOF
+          ${SSH_PRIVATE_KEY}
+          EOF
+          sudo chmod 0400 ~/.ssh/id_rsa
+          md5sum ~/.ssh/id_rsa
+
+          mkdir -pv hosts/ 
+          cat > hosts/inventory << EOF
+          [master]
+          gitlab.onwalk.net               ansible_host=20.48.21.165
           
           [all:vars]
           ansible_port=8022
@@ -100,9 +181,9 @@ jobs:
           ali_sk=$ALI_SK
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=20.222.214.219
+          ingress_ip=20.48.21.165
           harbor_admin_password=$HARBOR_ADMIN_PASSWORD
           harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
-          ansible-playbook -i hosts/inventory jobs/init_harbor -D
+          ansible-playbook -i hosts/inventory jobs/init_observability-server -D -C

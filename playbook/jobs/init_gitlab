@@ -10,13 +10,13 @@
         group: master
         namespace: gitlab
         db_namespace: database
-        domain: apollo-ev.com
-        auto_issuance: false
+        domain: onwalk.net
+        auto_issuance: true
         update_secret: true  
         tls:
           - secret_name: gitlab-tls
-            keyfile: /etc/ssl/apollo-ev.com.key
-            certfile: /etc/ssl/apollo-ev.com.pem
+            keyfile: /etc/ssl/onwalk.net.key
+            certfile: /etc/ssl/onwalk.net.pem
         gitlab_oidc_client_id: code_oidc
-        gitlab_oidc_isser: 'https://keycloak.apollo-ev.com/realms/cloud-sso'
-        gitlab_oidc_redirect_uri: 'https://code.apollo-ev.com/users/auth/openid_connect/callback'
+        gitlab_oidc_isser: 'https://keycloak.onwalk.net/realms/cloud-sso'
+        gitlab_oidc_redirect_uri: 'https://gitlab.onwalk.net/users/auth/openid_connect/callback'
