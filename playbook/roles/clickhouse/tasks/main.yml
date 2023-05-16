@@ -4,14 +4,14 @@
 - name: Prep NameSpace
   shell: "kubectl create namespace clickhouse || echo true"
 
-- name: get clickhouse node ips
+- name: get clickhouse node ip
   shell: "kubectl  get pods -n clickhouse -o wide | grep  clickhouse  | awk '{print $6}'"
-  register: ck_node_ips_raw
+  register: ck_node_ip_raw
   when: inventory_hostname in groups[group][0]
 
-- name: set fact join command for ck_node_ip1
+- name: set fact join command for ck_node_ip
   set_fact:
-    ck_node_ip1 : "{{ ck_node_ips_raw.stdout_lines[0] }}"
+    ck_node_ip : "{{ ck_node_ip_raw.stdout_lines[0] }}"
   when: inventory_hostname in groups[group][0]
 
 - name: sync clickhouse deploy yaml

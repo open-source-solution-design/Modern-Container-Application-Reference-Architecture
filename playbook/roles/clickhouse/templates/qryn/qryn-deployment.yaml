@@ -26,7 +26,7 @@ spec:
             - name: CLICKHOUSE_PORT
               value: "8123"
             - name: CLICKHOUSE_SERVER
-              value: "{{ ck_node_ip1 }}"
+              value: "{{ ck_node_ip }}"
           image: qxip/qryn
           name: qryn
           ports:
