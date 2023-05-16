@@ -1,4 +1,4 @@
-.github/workflows/setup-k3s-with-existed-vhost.yml name: setup k3s cluster with existed vhost 
+name: setup k3s cluster with existed vhost 
 
 on:
   workflow_dispatch:
