@@ -5,6 +5,10 @@
   gather_facts: yes
   tasks:
     - include_role:
+        name: clickhouse
+      vars:
+        group: master
+    - include_role:
         name: observability-server
       vars:
         group: master
