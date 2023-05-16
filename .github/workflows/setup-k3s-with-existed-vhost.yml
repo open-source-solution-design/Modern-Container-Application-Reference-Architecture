@@ -1,6 +1,10 @@
 name: setup k3s cluster with existed vhost 
 
 on:
+  pull_request:
+  push:
+    paths:
+      - '.github/workflows/setup-k3s-with-existed-vhost.yml'
   workflow_dispatch:
     branches: [ 'main' ]
 
