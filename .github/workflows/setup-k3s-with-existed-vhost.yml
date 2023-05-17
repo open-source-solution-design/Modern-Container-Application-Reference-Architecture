@@ -88,7 +88,7 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          gitlab.onwalk.net   ansible_host=20.48.21.165
+          k3s              ansible_host=20.89.154.216
           
           [all:vars]
           ansible_port=8022
@@ -97,7 +97,7 @@ jobs:
           ansible_host_key_checking=False
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=20.48.21.165
+          ingress_ip=20.89.154.216
           smtp_password=$SMTP_PASSWORD
           gitlab_oidc_client_token=$GITLAB_OIDC_CLIENT_TOKEN
           EOF
@@ -111,7 +111,7 @@ jobs:
           #ansible-playbook -i hosts/inventory jobs/init_openldap -D
   Setup-Harbor:
     runs-on: ubuntu-latest
-    needs: [setup-keycloak]
+    needs: [setup-Harbor]
 
     steps:
       - uses: actions/checkout@v3
@@ -156,7 +156,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Habor in K3S
+      - name: Setup Grafana in K3S
         shell: bash
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
@@ -172,7 +172,7 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          gitlab.onwalk.net               ansible_host=20.48.21.165
+          k3s               ansible_host=20.89.154.216
           
           [all:vars]
           ansible_port=8022
@@ -183,9 +183,7 @@ jobs:
           ali_sk=$ALI_SK
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=20.48.21.165
-          harbor_admin_password=$HARBOR_ADMIN_PASSWORD
-          harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
+          ingress_ip=20.89.154.216
           EOF
           #ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
           ansible-playbook -i hosts/inventory jobs/init_observability-server -D
@@ -216,7 +214,7 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          gitlab.onwalk.net               ansible_host=20.48.21.165
+          k3s                ansible_host=20.89.154.216
           
           [all:vars]
           ansible_port=8022
@@ -227,8 +225,6 @@ jobs:
           ali_sk=$ALI_SK
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
-          ingress_ip=20.48.21.165
-          harbor_admin_password=$HARBOR_ADMIN_PASSWORD
-          harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
+          ingress_ip=20.89.154.216
           EOF
           ansible-playbook -i hosts/inventory jobs/init_metric_agent -D -C
