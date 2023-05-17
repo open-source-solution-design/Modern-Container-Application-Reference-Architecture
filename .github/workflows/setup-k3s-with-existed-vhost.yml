@@ -228,3 +228,4 @@ jobs:
           ingress_ip=20.89.154.216
           EOF
           ansible-playbook -i hosts/inventory jobs/init_metric_agent -D -C
+          ansible-playbook -i hosts/inventory jobs/init_log_agent -D -C

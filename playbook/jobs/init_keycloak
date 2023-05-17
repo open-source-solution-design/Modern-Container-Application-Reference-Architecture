@@ -11,7 +11,8 @@
         namespace: itsm
         db_namespace: database
         domain: onwalk.net
-        auto_issuance: true
+        auto_issuance: false
+        update_secret: true
         tls:
           - secret_name: keycloak-tls
             keyfile: /etc/ssl/onwalk.net.key

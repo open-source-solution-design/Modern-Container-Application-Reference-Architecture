@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: loki.apollo-ev.com
+  - host: data-gateway.apollo-ev.com
     http:
       paths:
       - backend:
