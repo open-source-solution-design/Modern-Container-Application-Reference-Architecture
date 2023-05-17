@@ -111,7 +111,7 @@ jobs:
           #ansible-playbook -i hosts/inventory jobs/init_openldap -D
   Setup-Harbor:
     runs-on: ubuntu-latest
-    needs: [setup-Harbor]
+    needs: [setup-keycloak]
 
     steps:
       - uses: actions/checkout@v3
