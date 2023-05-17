@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: data-gateway.apollo-ev.com
+  - host: data-gateway.onwalk.net
     http:
       paths:
       - backend:
