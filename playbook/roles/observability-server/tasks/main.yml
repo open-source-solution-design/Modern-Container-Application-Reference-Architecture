@@ -29,5 +29,6 @@
   when: inventory_hostname in groups[group][0]
 
 - name: Setup OpenLdap Server
-  script: files/setup-observable-server.sh {{ domain }} {{ secret }} {{ namespace }} {{ mysql_db_password }} {{ ck_node_ip1 }} {{ ck_node_ip2 }} {{ ck_node_ip3 }}
-  when: inventory_hostname in groups[group]
+  script: files/setup-observable-server.sh {{ domain }} {{ item.secret_name }} {{ namespace }} {{ mysql_db_password }} {{ ck_node_ip1 }} {{ ck_node_ip2 }} {{ ck_node_ip3 }}
+  when: inventory_hostname in groups[group] and ( tls is defined)
+  loop: "{{ tls }}"
