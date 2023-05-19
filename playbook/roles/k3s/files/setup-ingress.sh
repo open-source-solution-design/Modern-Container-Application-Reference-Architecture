@@ -20,8 +20,15 @@ metadata:
   name: nginx-nginx-ingress
   namespace: ingress
 data:
-  client-max-body-size: 1000m
   external-status-address: $ip
+  proxy-connect-timeout: 10s
+  proxy-read-timeout: 10s
+  client-header-buffer-size: 64k
+  client-body-buffer-size: 64k
+  client-max-body-size: 1000m
+  proxy-buffers: 8 32k
+  proxy-body-size: 1024m
+  proxy-buffer-size: 32k
   proxy-connect-timeout: 10s
   proxy-read-timeout: 10s
 EOF
