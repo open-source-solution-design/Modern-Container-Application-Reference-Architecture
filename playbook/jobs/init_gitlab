@@ -17,6 +17,6 @@
           - secret_name: gitlab-tls
             keyfile: /etc/ssl/onwalk.net.key
             certfile: /etc/ssl/onwalk.net.pem
-        gitlab_oidc_client_id: code_oidc
+        gitlab_oidc_client_id: gitlab-oidc
         gitlab_oidc_isser: 'https://keycloak.onwalk.net/realms/cloud-sso'
         gitlab_oidc_redirect_uri: 'https://gitlab.onwalk.net/users/auth/openid_connect/callback'
