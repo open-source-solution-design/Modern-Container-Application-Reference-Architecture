@@ -15,18 +15,13 @@ clusterAgent:
 datadog:
   site: 'datadoghq.eu'
   apiKeyExistingSecret: datadog-agent
-  logs:
-    enabled: true
-    containerCollectAll: true
   apm:
     portEnabled: true
   networkMonitoring:
-    enabled: true
-  env:
-    - name: DD_APM_FEATURES
-      value: 'enale_cid_stats'
-    - name: DD_REMOTE_CONFIGURATION_ENABLED
-      value: true
+    enabled: false
+  logs:
+    enabled: false
+    containerCollectAll: false
 EOF
 kubectl create namespace datadog || echo true
 kubectl delete secret datadog-agent --namespace=datadog || echo true
