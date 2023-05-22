@@ -1,0 +1,10 @@
+- name: set datadog-agent with helm
+  hosts: all
+  user: root
+  become: yes
+  gather_facts: yes
+  tasks:
+    - include_role:
+        name: datadog-agent
+      vars:
+        group: master
