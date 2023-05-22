@@ -1,0 +1,24 @@
+- name: Prep DIR
+  shell: "mkdir -pv /tmp/bookinfo/"
+
+- name: Prep NameSpace
+  shell: "kubectl create namespace default || echo true"
+
+- name: Sync bookinfo deploy yaml
+  template: src=templates/{{ item }}  dest=/tmp/bookinfo/{{ item }} owner=root group=root mode=0644 force=yes unsafe_writes=yes
+  with_items:
+    - apline-cli.yaml                  
+    - bookinfo-productpage-python.yaml
+    - bookinfo-reviews.yaml
+    - bookinfo-details.yaml
+    - bookinfo-ratings.yaml
+
+- name: Setup bookinfo
+  shell: "kubectl apply -f /tmp{{ item }}"
+  when: inventory_hostname in groups[group]
+  with_items:
+    - apline-cli.yaml                  
+    - bookinfo-productpage-python.yaml
+    - bookinfo-reviews.yaml
+    - bookinfo-details.yaml
+    - bookinfo-ratings.yaml
