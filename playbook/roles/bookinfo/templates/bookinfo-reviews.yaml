@@ -194,7 +194,7 @@ spec:
         app: reviews
         version: v3
       annotations:
-        admission.datadoghq.com/java-lib.version: v1.14.0
+        admission.datadoghq.com/java-lib.version: v1.12.1
     spec:
       serviceAccountName: bookinfo-reviews
       containers:
