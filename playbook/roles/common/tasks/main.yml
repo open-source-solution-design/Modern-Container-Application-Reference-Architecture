@@ -14,9 +14,9 @@
   shell: 'echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf; echo "net.ipv4.conf.all.proxy_arp = 1" >> /etc/sysctl.conf ; sysctl -p /etc/sysctl.conf'
 
 - name: Install packages
-  shell: "yum makecache && yum install -y audit"
-  when: ansible_facts['distribution'] != "Ubuntu"
+  shell: "apt install -y auditd"
+  when: (ansible_facts['distribution'] == "Ubuntu") or (ansible_facts['distribution'] == "Debian")
 
 - name: Install packages
-  shell: "apt install -y auditd"
-  when: ansible_facts['distribution'] == "Ubuntu"
+  shell: "yum makecache && yum install -y audit"
+  when: (ansible_facts['distribution'] != "Ubuntu") or (ansible_facts['distribution'] != "Debian")
