@@ -1,4 +1,4 @@
-name: setup k3s cluster with existed vhost 
+name: setup Datadog APM demo with existed vhost 
 
 on:
   pull_request:
