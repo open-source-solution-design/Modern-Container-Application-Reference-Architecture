@@ -15,7 +15,7 @@
     - bookinfo-ingress.yaml
 
 - name: Setup bookinfo
-  shell: "kubectl apply -f /tmp{{ item }}"
+  shell: "kubectl apply -f /tmp/{{ item }}"
   when: inventory_hostname in groups[group]
   with_items:
     - apline-cli.yaml
