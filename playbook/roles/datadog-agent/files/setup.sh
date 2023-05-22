@@ -5,8 +5,8 @@ export token=$1
 helm repo add datadog https://helm.datadoghq.com
 helm repo update
 cat > datadog-values.yaml << EOF
+#registry: artifact.onwalk.net/public/datadog
 targetSystem: "linux"
-registry: artifact.onwalk.net/public/datadog
 clusterAgent:
   enabled: true
   admissionController:
