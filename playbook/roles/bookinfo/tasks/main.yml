@@ -12,6 +12,7 @@
     - bookinfo-reviews.yaml
     - bookinfo-details.yaml
     - bookinfo-ratings.yaml
+    - bookinfo-ingress.yaml
 
 - name: Setup bookinfo
   shell: "kubectl apply -f /tmp{{ item }}"
@@ -22,3 +23,4 @@
     - bookinfo-reviews.yaml
     - bookinfo-details.yaml
     - bookinfo-ratings.yaml
+    - bookinfo-ingress.yaml
