@@ -41,6 +41,6 @@ fluent-bit:
           tls.verify  on
 EOF
 
-helm repo add stable https://artifact.onwalk.net/chartrepo/k8s/
+helm repo add stable https://artifact.onwalk.net/chartrepo/public/
 helm repo update
-helm upgrade --install observableagent stable/observableagent -n monitoring --create-namespace -f values.yaml
+helm upgrade --install observableagent stable/observabilityagent -n monitoring --create-namespace -f values.yaml
