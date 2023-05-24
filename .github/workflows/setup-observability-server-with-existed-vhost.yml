@@ -1,6 +1,10 @@
 name: setup observability-server with existed vhost 
 
 on:
+  pull_request:
+  push:
+    paths:
+      - 'setup-observability-server-with-existed-vhost.yml' 
   workflow_dispatch:
     branches: [ 'main' ]
 
