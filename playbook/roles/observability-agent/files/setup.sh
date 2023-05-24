@@ -41,9 +41,9 @@ fluent-bit:
 EOF
 
 node_name=`kubectl get nodes | awk 'NR>1 {print $1}'`
-kubectl label nodes $node prometheus=true --overwrite
-helm repo add stable https://artifact.onwalk.net/chartrepo/public/
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+kubectl label nodes $node prometheus=true --overwrite || echo true
+helm repo add stable https://artifact.onwalk.net/chartrepo/public/ || echo true
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts || echo true
 helm repo update
 helm upgrade --install node-exporter prometheus-community/prometheus-node-exporter
 helm upgrade --install observableagent stable/observabilityagent -n monitoring --create-namespace -f values.yaml
