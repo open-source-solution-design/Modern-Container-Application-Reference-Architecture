@@ -21,7 +21,7 @@ prometheus:
     - --web.enable-lifecycle
     remoteWrite:
     - name: remote_prometheus
-      url: 'https://${obserableserver}:${port}/api/v1/write'
+      url: 'https://${obserableserver}/api/v1/write'
   alertmanager:
     enabled: false
   rometheus-pushgateway:
