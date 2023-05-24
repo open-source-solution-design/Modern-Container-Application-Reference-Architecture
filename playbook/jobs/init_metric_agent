@@ -12,5 +12,5 @@
         name: prometheus-agent
       vars:
         group: all
-        label: "env: dev"
+        label: "cluster: dev"
         remote_write: 'https://prometheus.onwalk.net/api/v1/write'
