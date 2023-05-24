@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     paths:
-      - 'setup-observability-server-with-existed-vhost.yml' 
+      - '.github/workflows/setup-observability-server-with-existed-vhost.yml'
   workflow_dispatch:
     branches: [ 'main' ]
 
