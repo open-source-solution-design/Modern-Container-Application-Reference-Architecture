@@ -124,3 +124,4 @@ jobs:
           ingress_ip=34.146.25.114
           EOF
           ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_observability-agent -D
