@@ -53,6 +53,8 @@ jobs:
           ansible-playbook -i hosts/inventory jobs/init_observability-server -D
   setup-agent-for-vhosts:
     runs-on: ubuntu-latest
+    needs:
+      - setup-observability-server
 
     steps:
       - uses: actions/checkout@v3
