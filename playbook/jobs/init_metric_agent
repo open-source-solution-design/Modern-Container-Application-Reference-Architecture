@@ -13,4 +13,4 @@
       vars:
         group: all
         label: "env: dev"
-        remote_write: 'https://data-gateway.onwalk.net:3100/api/v1/write'
+        remote_write: 'http://data-gateway.onwalk.net:3100/api/v1/write'
