@@ -7,9 +7,7 @@ export deepflowserverid=$4
 
 cat > values.yaml << EOF
 kube-state-metrics:
-  enabled: false
-prometheus-to-cloudwatch:
-  enabled: false
+  enabled: true
 deepflow-agent:
   enabled: true
   deepflowServerNodeIPS:
@@ -20,6 +18,7 @@ prometheus:
   server:
     extraFlags:
     - enable-feature=expand-external-labels
+    - --web.enable-lifecycle
     remoteWrite:
     - name: remote_prometheus
       url: 'https://${obserableserver}:${port}/api/v1/write'
@@ -41,6 +40,8 @@ fluent-bit:
           tls.verify  on
 EOF
 
+node_name=`kubectl get nodes | awk 'NR>1 {print $1}'`
+kubectl label nodes $node prometheus=true --overwrite
 helm repo add stable https://artifact.onwalk.net/chartrepo/public/
 helm repo update
 helm upgrade --install observableagent stable/observabilityagent -n monitoring --create-namespace -f values.yaml
