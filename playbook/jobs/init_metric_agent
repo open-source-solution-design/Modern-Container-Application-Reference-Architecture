@@ -13,4 +13,4 @@
       vars:
         group: all
         label: "env: dev"
-        remote_write: 'https://prometheus.onwalk.net/api/v1/prom/remote/write'
+        remote_write: 'https://prometheus.onwalk.net/api/v1/write'
