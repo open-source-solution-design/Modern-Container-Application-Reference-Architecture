@@ -1,5 +1,2 @@
 dependencies:
-  - role: mysql
-  - role: clickhouse
-  - role: cert-manager
-  - role: secret-manger
+  - role: common
