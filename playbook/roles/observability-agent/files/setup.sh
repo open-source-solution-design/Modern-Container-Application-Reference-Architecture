@@ -21,7 +21,7 @@ prometheus:
     - web.enable-lifecycle
     remoteWrite:
     - name: remote_prometheus
-      url: 'https://${obserableserver}/api/v1/write'
+      url: 'https://${observableserver}/api/v1/write'
   alertmanager:
     enabled: false
   rometheus-pushgateway:
@@ -34,7 +34,7 @@ fluent-bit:
       [OUTPUT]
           Name        loki
           Match       kube.*
-          Host        $obserableserver
+          Host        $observableserver
           port        $port
           tls         on
           tls.verify  on
