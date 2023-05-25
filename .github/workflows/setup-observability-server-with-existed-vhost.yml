@@ -56,8 +56,7 @@ jobs:
           EOF
           ansible-playbook -i hosts/inventory jobs/init_observability-server -D
           ansible-playbook -i hosts/inventory jobs/init_bookinfo -D
-          ansible-paybook -i hosts/inventory jobs/init_nginx_oss -D
-          #ansible-playbook -i hosts/inventory jobs/init_gitlab -D
+          ansible-playbook -i hosts/inventory jobs/init_nginx_oss -D
   setup-agent-for-vhosts:
     runs-on: ubuntu-latest
     needs:
