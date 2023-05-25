@@ -7,12 +7,12 @@
 - name: Sync bookinfo deploy yaml
   template: src=templates/{{ item }}  dest=/tmp/bookinfo/{{ item }} owner=root group=root mode=0644 force=yes unsafe_writes=yes
   with_items:
-    - apline-cli.yaml
-    - bookinfo-productpage-python.yaml
-    - bookinfo-reviews.yaml
-    - bookinfo-details.yaml
-    - bookinfo-ratings.yaml
-    - bookinfo-ingress.yaml
+    - deepflow-apm/apline-cli.yaml
+    - deepflow-apm/bookinfo-productpage-python.yaml
+    - deepflow-apm/bookinfo-reviews.yaml
+    - deepflow-apm/bookinfo-details.yaml
+    - deepflow-apm/bookinfo-ratings.yaml
+    - deepflow-apm/bookinfo-ingress.yaml
 
 - name: Setup bookinfo
   shell: "kubectl apply -f /tmp/bookinfo/{{ item }}"
