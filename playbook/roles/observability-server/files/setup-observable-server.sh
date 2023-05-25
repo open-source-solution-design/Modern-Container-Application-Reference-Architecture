@@ -15,7 +15,7 @@ cat > values.yaml << EOF
 deepflow:
   enabled: true
   clickhouse:
-    enabled: false
+    enabled: true
   mysql:
     enabled: false
   grafana:
@@ -30,20 +30,20 @@ deepflow:
           hosts:
             - grafana.${domain}
   global:
-    externalClickHouse:
-      enabled: true
-      type: ep
-      clusterName: default
-      storagePolicy: default
-      username: default
-      password: ''
-      hosts:
-      - ip: $ck_node_ip1
-        port: 9000
-      - ip: $ck_node_ip2
-        port: 9000
-      - ip: $ck_node_ip3
-        port: 9000
+    #externalClickHouse:
+    #  enabled: true
+    #  type: ep
+    #  clusterName: default
+    #  storagePolicy: default
+    #  username: default
+    #  password: ''
+    #  hosts:
+    #  - ip: $ck_node_ip1
+    #    port: 9000
+    #  - ip: $ck_node_ip2
+    #    port: 9000
+    #  - ip: $ck_node_ip3
+    #    port: 9000
     externalMySQL:
       enabled: true
       ip: mysql.database.svc.cluster.local
