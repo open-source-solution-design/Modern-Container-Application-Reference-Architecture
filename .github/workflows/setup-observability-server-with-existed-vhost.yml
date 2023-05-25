@@ -12,6 +12,8 @@ env:
   DNS_AK: ${{ secrets.DNS_AK }}
   DNS_SK: ${{ secrets.DNS_SK }}
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+  GITLAB_OIDC_CLIENT_TOKEN: ${{ secrets.GITLAB_OIDC_CLIENT_TOKEN }}
 
 defaults:
   run:
@@ -49,6 +51,8 @@ jobs:
           ansible_host_key_checking=False
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
+          smtp_password=$SMTP_PASSWORD
+          gitlab_oidc_client_token=$GITLAB_OIDC_CLIENT_TOKEN
           EOF
           #ansible-playbook -i hosts/inventory jobs/init_observability-server -D
           ansible-playbook -i hosts/inventory jobs/init_bookinfo -D
