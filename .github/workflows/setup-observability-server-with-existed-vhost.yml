@@ -50,7 +50,7 @@ jobs:
           dns_ak=$DNS_AK
           dns_sk=$DNS_SK
           EOF
-          ansible-playbook -i hosts/inventory jobs/init_observability-server -D
+          #ansible-playbook -i hosts/inventory jobs/init_observability-server -D
           ansible-playbook -i hosts/inventory jobs/init_bookinfo -D
           ansible-playbook -i hosts/inventory jobs/init_nginx_oss -D
           ansible-playbook -i hosts/inventory jobs/init_gitlab -D
