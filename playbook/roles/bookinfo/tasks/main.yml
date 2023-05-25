@@ -1,5 +1,5 @@
 - name: Prep DIR
-  shell: "mkdir -pv /tmp/bookinfo/"
+  shell: "mkdir -pv /tmp/bookinfo/deepflow-apm/"
 
 - name: Prep NameSpace
   shell: "kubectl create namespace default || echo true"
@@ -14,13 +14,13 @@
     - deepflow-apm/bookinfo-ratings.yaml
     - deepflow-apm/bookinfo-ingress.yaml
 
-- name: Setup bookinfo
+- name: Setup bookinfo app
   shell: "kubectl apply -f /tmp/bookinfo/{{ item }}"
   when: inventory_hostname in groups[group]
   with_items:
-    - apline-cli.yaml
-    - bookinfo-productpage-python.yaml
-    - bookinfo-reviews.yaml
-    - bookinfo-details.yaml
-    - bookinfo-ratings.yaml
-    - bookinfo-ingress.yaml
+    - deepflow-apm/apline-cli.yaml
+    - deepflow-apm/bookinfo-productpage-python.yaml
+    - deepflow-apm/bookinfo-reviews.yaml
+    - deepflow-apm/bookinfo-details.yaml
+    - deepflow-apm/bookinfo-ratings.yaml
+    - deepflow-apm/bookinfo-ingress.yaml
