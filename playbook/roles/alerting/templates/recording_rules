@@ -1,3 +1,16 @@
+data:
+  recording_rules.yml: |
+    groups:
+    - name: host-monitoring
+      rules:
+      - record: node_load1
+        expr: node_load1
+      - record: node_cpu_usage
+        expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+      - record: node_memory_usage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemFree_bytes - node_memory_Buffers_bytes - node_memory_Cached_bytes) / node_memory_MemTotal_bytes * 100
+      - record: node_disk_usage
+        expr: 100 - (avg by (instance) (node_filesystem_avail_bytes{fstype="ext4"} / node_filesystem_size_bytes{fstype="ext4"}) * 100)
 groups:
 - name: 实例存活告警规则
   rules:

@@ -1,4 +1,4 @@
-- name: get db password
+roles/alerting/tasks/main.yml- name: get db password
   shell: 'kubectl get secret --namespace database postgresql -o jsonpath="{.data.postgres-password}" | base64 -d'
   register: command_raw
   when: inventory_hostname in groups[group][0]

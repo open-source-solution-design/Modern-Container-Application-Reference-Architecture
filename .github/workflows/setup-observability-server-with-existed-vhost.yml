@@ -119,6 +119,7 @@ jobs:
           cat > hosts/inventory << EOF
           [master]
           k3s-dev              ansible_host=34.146.25.114
+          mirrors.onwalk.net   ansible_host=8.130.11.192
           
           [all:vars]
           ansible_port=22
