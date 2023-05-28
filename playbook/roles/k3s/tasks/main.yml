@@ -1,4 +1,4 @@
-roles/k3s/tasks/main.yml- name: Setup K3S Server
+- name: Setup K3S Server
   script: files/setup.sh
   when: inventory_hostname in groups[group]
 
