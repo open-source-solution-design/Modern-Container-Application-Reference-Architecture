@@ -1,6 +1,14 @@
 #!/bin/bash
 export NodeIP=$1
 node_name=`hostname`
+
+modprobe geneve
+modprobe openvswitch
+modprobe ip_tables
+modprobe iptable_nat
+
+rm -rvf /etc/cni/net.d/*
+
 kubectl taint node $onde_name node-role.kubernetes.io/control-plane:NoSchedule-
 kubectl label node $node_name kubernetes.io/os=linux --overwrite
 kubectl label node $node_name kube-ovn/role=master --overwrite
