@@ -7,7 +7,7 @@ if [ $? -eq 0 ]; then
   echo "当前主机在国际网络上"
   curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.24.7+k3s1 sh -s - \
 	--disable=traefik,servicelb                          \
-	--node-ip $node_ip                                   \
+	--node-ip=$node_ip                                   \
 	--write-kubeconfig-mode 644                          \
         --flannel-backend=none                               \
 	--disable-network-policy                             \
@@ -18,7 +18,7 @@ else
   echo "当前主机在大陆网络上"
   curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_VERSION=v1.24.7+k3s1  INSTALL_K3S_MIRROR=cn sh -s - \
 	--disable=traefik,servicelb                          \
-	--node-ip $node_ip                                   \
+	--node-ip=$node_ip                                   \
         --flannel-backend=none                               \
 	--disable-network-policy                             \
 	--write-kubeconfig-mode 644                          \
