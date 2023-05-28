@@ -1,4 +1,4 @@
-setup-kube-ovn-demo-with-existed-vhost.ymlname: setup k3s/kube-ovn cluster with existed vhost 
+name: setup k3s/kube-ovn cluster with existed vhost 
 
 on:
   pull_request:
