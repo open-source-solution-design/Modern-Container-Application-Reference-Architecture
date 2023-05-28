@@ -27,8 +27,7 @@ NODE_LOCAL_DNS_IP=${NODE_LOCAL_DNS_IP:-}
 EXCHANGE_LINK_NAME=${EXCHANGE_LINK_NAME:-false}
 # The nic to support container network can be a nic name or a group of regex
 # separated by comma, if empty will use the nic that the default route use
-#IFACE=${IFACE:-}
-IFACE=wg0
+IFACE=${IFACE:-}
 # Specifies the name of the dpdk tunnel iface.
 # Note that the dpdk tunnel iface and tunnel ip cidr should be diffierent with Kubernetes api cidr, otherwise the route will be a problem.
 DPDK_TUNNEL_IFACE=${DPDK_TUNNEL_IFACE:-br-phy}
