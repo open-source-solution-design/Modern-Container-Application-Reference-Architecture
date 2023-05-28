@@ -6,8 +6,8 @@
   template: src=templates/promtail.yaml dest=/etc/promtail/promtail.yaml owner=root group=root mode=0644
   when: inventory_hostname in groups[group]
 
-- name: Init Xtls service
-  shell: 'bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @install'
+- name: Init Wireguard Service
+  shell: 'apt update && apt install wireguard-tools wireguard-dkms -y'
   when: inventory_hostname in groups[group]
 
 - name: Remove fluent-bit service
