@@ -10,6 +10,7 @@
         group: master
         pod_cidr: '10.17.0.0/16'
         pod_gateway: '10.17.0.1'
+        node_ip: '10.255.0.2'
         svc_cidr: '10.97.0.0/16'
         join_cidr: '100.64.0.0/16'
         cni_iface: 'eth0'
