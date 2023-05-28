@@ -2,8 +2,12 @@
   script: files/setup.sh
   when: inventory_hostname in groups[group]
 
+- name: Sync K3S CNI Config
+  template: src=templates/cni_install.sh dest=/tmp/ owner=root group=root mode=0644
+  when: inventory_hostname in groups[group]
+
 - name: Setup K3S CNI
-  script: files/setup-cni-kubeovn.sh {{ ingress_ip }}
+  shell: 'sh /tmp/cni_install.sh'
   when: inventory_hostname in groups[group]
 
 - name: Setup K3S Ingress
