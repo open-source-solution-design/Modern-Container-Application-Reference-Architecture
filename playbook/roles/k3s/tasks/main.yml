@@ -1,4 +1,4 @@
-- name: Setup K3S Server
+roles/k3s/tasks/main.yml- name: Setup K3S Server
   script: files/setup.sh
   when: inventory_hostname in groups[group]
 
@@ -9,6 +9,7 @@
 - name: Setup K3S CNI
   shell: 'bash /tmp/cni_install.sh'
   when: inventory_hostname in groups[group]
+  ignore_errors: yes
 
 - name: Setup K3S Ingress
   script: files/setup-ingress-apisix-controller.sh {{ ingress_ip }}
