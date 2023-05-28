@@ -86,7 +86,7 @@ metadata:
   name: chatwithgpt
   namespace: chatwithgpt
 spec:
-  ingressClassName: nginx
+  ingressClassName: apisix
   rules:
   - host: chatwithgpt.onwalk.net
     http:

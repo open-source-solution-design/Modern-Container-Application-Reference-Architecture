@@ -11,7 +11,7 @@ postgresql:
   enabled: false
 ingress:
   enabled: true
-  ingressClassName: "nginx"
+  ingressClassName: "apisix"
   hostname: keycloak.${domain}
   tls: true
   extraTls:

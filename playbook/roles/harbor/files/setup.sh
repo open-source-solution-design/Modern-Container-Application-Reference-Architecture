@@ -24,7 +24,7 @@ expose:
     hosts:
       core: artifact.${domain}
       notary: notary.${domain}
-    className: "nginx"
+    className: "apisix"
 externalURL: https://artifact.${domain}
 database:
   type: external
