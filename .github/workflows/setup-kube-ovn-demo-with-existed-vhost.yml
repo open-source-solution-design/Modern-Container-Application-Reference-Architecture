@@ -97,7 +97,7 @@ jobs:
           dns_sk=$DNS_SK
           ali_ak=$ALI_AK
           ali_sk=$ALI_SK
-          harbor_admin_password=$ADMIN_INIT_PASSWORD
+          admin_password=$ADMIN_INIT_PASSWORD
           harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
           EOF
           ansible-playbook -i hosts/inventory jobs/init_harbor -D
