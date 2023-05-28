@@ -1,9 +1,13 @@
 - name: Setup K3S Server
-  script: files/setup-k3s-with-hostpath-sc.sh
+  script: files/setup.sh
   when: inventory_hostname in groups[group]
 
-- name: Setup Ingress
-  script: files/setup-ingress.sh {{ ingress_ip }}
+- name: Setup K3S CNI
+  script: files/setup-cni-kubeovn.sh {{ ingress_ip }}
+  when: inventory_hostname in groups[group]
+
+- name: Setup K3S Ingress
+  script: files/setup-ingress-apisix-controller.sh {{ ingress_ip }}
   when: inventory_hostname in groups[group]
 
 #- name: Setup Egress
