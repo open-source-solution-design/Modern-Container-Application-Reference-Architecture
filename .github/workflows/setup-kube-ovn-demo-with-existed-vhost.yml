@@ -50,7 +50,7 @@ jobs:
           mkdir -pv hosts/ 
           cat > hosts/inventory << EOF
           [master]
-          mirrors.onwalk.net               ansible_host=34.146.25.114
+          gcp.onwalk.net               ansible_host=34.146.25.114
           
           [all:vars]
           ansible_port=22
