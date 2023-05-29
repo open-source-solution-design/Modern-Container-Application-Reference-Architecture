@@ -178,3 +178,38 @@ jobs:
           ansible-playbook -i hosts/inventory jobs/init_keycloak -D
           ansible-playbook -i hosts/inventory jobs/init_nginx_oss -D
           ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
+  Setup-Agent-for-ALL-K3S:
+    runs-on: ubuntu-latest
+    needs:
+      - Setup-APP-for-ALI-K3S
+      - Setup-APP-for-GCP-K3S
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Agent for K3S
+        shell: bash
+        run: |
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          sudo apt install jq ansible -y
+
+          mkdir -pv ~/.ssh/
+          cat > ~/.ssh/id_rsa << EOF
+          ${SSH_PRIVATE_KEY}
+          EOF
+          sudo chmod 0400 ~/.ssh/id_rsa
+          md5sum ~/.ssh/id_rsa
+
+          mkdir -pv hosts/ 
+          cat > hosts/inventory << EOF
+          [master]
+          gcp.onwalk.net               ansible_host=34.146.25.114
+          ali.onwalk.net               ansible_host=8.130.11.192
+          
+          [all:vars]
+          ansible_port=22
+          ansible_ssh_user=root
+          ansible_ssh_private_key_file=~/.ssh/id_rsa
+          ansible_host_key_checking=False
+          EOF
+          ansible-playbook -i hosts/inventory jobs/init_observability-agent -D
