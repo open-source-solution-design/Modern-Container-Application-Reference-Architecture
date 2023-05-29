@@ -5,7 +5,6 @@ export version=$1
 export cluster_domain=$2
 export cni=$3
 export ingress=$4
-export svc_cidr=$5
 
 function set_k3s_default()
 {
@@ -43,7 +42,6 @@ function set_k3s_cni_kubevon()
     curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=$version sh -s - \
 	--disable=traefik,servicelb                          \
 	--cluster-domain=$cluster_domain                     \
-        --service-cidr=$svc_cidr                             \
 	--write-kubeconfig-mode 644                          \
         --flannel-backend=none                               \
 	--disable-network-policy                             \
@@ -55,7 +53,6 @@ function set_k3s_cni_kubevon()
     curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_VERSION=$version  INSTALL_K3S_MIRROR=cn sh -s - \
 	--disable=traefik,servicelb                          \
 	--cluster-domain=$cluster_domain                     \
-        --service-cidr=$svc_cidr                             \
         --flannel-backend=none                               \
 	--disable-network-policy                             \
 	--write-kubeconfig-mode 644                          \
