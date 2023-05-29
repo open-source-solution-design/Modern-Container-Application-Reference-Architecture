@@ -102,4 +102,5 @@ jobs:
           EOF
           ansible-playbook -i hosts/inventory jobs/init_harbor -D
           ansible-playbook -i hosts/inventory jobs/init_keycloak -D
+          ansible-playbook -i hosts/inventory jobs/init_nginx_oss -D
           ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
