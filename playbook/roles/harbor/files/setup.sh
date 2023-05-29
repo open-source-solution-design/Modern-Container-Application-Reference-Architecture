@@ -24,7 +24,7 @@ expose:
     hosts:
       core: harbor.${domain}
       notary: notary.${domain}
-    className: "apisix"
+    className: "nginx"
 externalURL: https://harbor.${domain}
 database:
   type: external
