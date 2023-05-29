@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 export domain=$1
 export Ali_Key=$2
 export Ali_Secret=$3
