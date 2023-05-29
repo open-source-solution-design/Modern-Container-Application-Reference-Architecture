@@ -61,7 +61,7 @@ jobs:
           dns_sk=$DNS_SK
           ingress_ip=8.130.11.192
           EOF
-          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster -D
+          ansible-playbook -i hosts/inventory jobs/init_k3s_cluster_ali -D
   setup-gcp-k3s:
     runs-on: ubuntu-latest
 
