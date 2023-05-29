@@ -1,23 +1,22 @@
 - name: Setup K3S Server
-  script: files/setup-k3s.sh {{ version }} {{ cluster_domain }}
+  script: files/setup-k3s.sh {{ version }} {{ cluster_domain }} {{ cni }} {{ ingress }} {{ svc_cidr }}
   when: inventory_hostname in groups[group]
 
 - name: Setup K3S Ingress
-  script: files/setup-ingress-nginx.sh {{ ingress_ip }}
+  script: files/setup-ingress.sh {{ ingress }} {{ ingress_ip }}
   when: inventory_hostname in groups[group]
 
 - name: Setup DNS Provider
   script: files/setup-dns-provider.sh {{ dns_ak }}  {{ dns_sk }}
   when: inventory_hostname in groups[group]
 
-#- name: Sync K3S CNI Config
-#  template: src=templates/cni_install.sh dest=/tmp/ owner=root group=root mode=0644
-#  when: inventory_hostname in groups[group]
-#
-#- name: Setup K3S CNI
-#  shell: 'bash /tmp/cni_install.sh'
-#  when: inventory_hostname in groups[group]
-#  ignore_errors: yes
+- name: Sync K3S CNI Config
+  template: src=templates/cni_install.sh dest=/tmp/ owner=root group=root mode=0644
+  when: ( inventory_hostname in groups[group] ) and (cni == kubeovn )
+- name: Setup K3S CNI
+  shell: 'bash /tmp/cni_install.sh'
+  when: ( inventory_hostname in groups[group] ) and (cni == kubeovn )
+  ignore_errors: yes
 
 #- name: Setup Egress
 #  script: files/setup-egress.sh {{ egress_ip }} {{ namespace }}
