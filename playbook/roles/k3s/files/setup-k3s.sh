@@ -2,18 +2,13 @@
 
 export version=$1
 export cluster_domain=$2
-export pod_cidr=$3
-export svc_cidr=$4
-
 mkdir -pv /opt/rancher/k3s
 
 ping -c 1 google.com > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   echo "当前主机在国际网络上"
-  curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.24.7+k3s1 sh -s - \
+  curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=$version sh -s - \
 	--disable=traefik,servicelb                          \
-	--cluster-cidr=$pod_cidr                             \
-	--service-cidr=$svc_cidr                             \
 	--cluster-domain=$cluster_domain                     \
 	--write-kubeconfig-mode 644                          \
 	--write-kubeconfig ~/.kube/config                    \
@@ -21,10 +16,8 @@ if [ $? -eq 0 ]; then
 	--kube-apiserver-arg service-node-port-range=0-50000
 else
   echo "当前主机在大陆网络上"
-  curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_VERSION=v1.24.7+k3s1  INSTALL_K3S_MIRROR=cn sh -s - \
+  curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_VERSION=$version  INSTALL_K3S_MIRROR=cn sh -s - \
 	--disable=traefik,servicelb                          \
-	--cluster-cidr=$pod_cidr                             \
-	--service-cidr=$svc_cidr                             \
 	--cluster-domain=$cluster_domain                     \
 	--write-kubeconfig-mode 644                          \
 	--write-kubeconfig ~/.kube/config                    \
