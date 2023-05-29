@@ -8,6 +8,7 @@ curl https://get.acme.sh | sh -s email=156405189@qq.com
 
 rm -rvf ${domain}.* -f
 sh ~/.acme.sh/acme.sh --set-default-ca --server zerossl --issue --force --dns dns_ali -d ${domain} -d "*.${domain}"
+sh ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt --issue --force --dns dns_ali -d ${domain} -d "*.${domain}"
 cat ~/.acme.sh/${domain}_ecc/${domain}.cer > ${domain}.pem
 cat ~/.acme.sh/${domain}_ecc/ca.cer >> ${domain}.pem
 cat ~/.acme.sh/${domain}_ecc/${domain}.key > ${domain}.key
