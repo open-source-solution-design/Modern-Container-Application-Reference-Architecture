@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 export version=$1
 export cluster_domain=$2
