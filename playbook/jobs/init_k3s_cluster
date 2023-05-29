@@ -11,7 +11,4 @@
         pod_cidr: '10.16.0.0/16'
         pod_gateway: '10.16.0.1'
         svc_cidr: '10.96.0.0/16'
-        join_cidr: '100.64.0.0/16'
-        node_ip: '10.255.0.1'
         cni_iface: 'eth0'
-        ni_tunnel: 'geneve'
