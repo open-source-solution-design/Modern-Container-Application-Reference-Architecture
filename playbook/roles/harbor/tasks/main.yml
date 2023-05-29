@@ -20,6 +20,10 @@
 #- name: Show Debug Info
 #  debug: var=command_raw verbosity=0
 
+- name: Pre Setup harbor DB
+  script: files/pre-setup.sh {{ namespace }} 
+  when: inventory_hostname in groups[group]
+
 - name: Setup harbor Server
   script: files/setup.sh {{ ali_ak }} {{ ali_sk }} {{ domain }} {{ namespace }} {{ item.secret_name }} {{ hostvars[groups[group][0]].redis_password }} {{ hostvars[groups[group][0]].pg_db_password }} {{ storage_type }}
   loop: "{{ tls }}"
