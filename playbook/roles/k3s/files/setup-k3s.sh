@@ -17,7 +17,6 @@ function set_k3s_default()
     curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=$version sh -s - \
   	--disable=traefik,servicelb                          \
   	--cluster-domain=$cluster_domain                     \
-        --service-cidr=$svc_cidr                             \
   	--write-kubeconfig-mode 644                          \
   	--write-kubeconfig ~/.kube/config                    \
   	--data-dir=/opt/rancher/k3s                          \
@@ -27,7 +26,6 @@ function set_k3s_default()
     curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_VERSION=$version  INSTALL_K3S_MIRROR=cn sh -s - \
   	--disable=traefik,servicelb                          \
   	--cluster-domain=$cluster_domain                     \
-        --service-cidr=$svc_cidr                             \
   	--write-kubeconfig-mode 644                          \
   	--write-kubeconfig ~/.kube/config                    \
   	--data-dir=/opt/rancher/k3s                          \
