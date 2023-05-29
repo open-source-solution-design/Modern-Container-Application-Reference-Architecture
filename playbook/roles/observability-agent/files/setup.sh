@@ -41,6 +41,8 @@ fluent-bit:
 EOF
 
 node_name=`kubectl get nodes | awk 'NR>1 {print $1}'`
+kubectl delete clusterrolebindings --all -n monitoring || echo true
+kubectl delete serviceaccounts --all -n monitoring || echo true
 kubectl create namespace monitoring || echo true
 kubectl label nodes $node prometheus=true --overwrite || echo true
 helm repo add stable https://artifact.onwalk.net/chartrepo/public/ || echo true
