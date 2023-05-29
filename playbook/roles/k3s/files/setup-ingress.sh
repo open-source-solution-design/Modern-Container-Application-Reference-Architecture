@@ -2,7 +2,7 @@
 ingress=$1
 ingress_ip=$2
 
-if [[ $ingress_type == nginx ]]; then
+if [[ $ingress == nginx ]]; then
 cat > value.yaml <<EOF
 controller:
   nginxplus: false
@@ -57,7 +57,7 @@ helm upgrade --install nginx nginx-stable/nginx-ingress --version=0.15.0 --names
 kubectl apply -f nginx-cm.yaml
 kubectl patch svc nginx-nginx-ingress -n ingress --patch-file nginx-svc-patch.yaml
 
-elif [[ $ingress_type == apisix ]]; then
+elif [[ $ingress == apisix ]]; then
 
 export ingress_ip=$1
 helm repo add apisix https://charts.apiseven.com || echo true
