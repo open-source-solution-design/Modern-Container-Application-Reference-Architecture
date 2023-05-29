@@ -100,6 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - setup-ali-k3s
+      - Setup-Agent-for-ALL-K3S
 
     steps:
       - uses: actions/checkout@v3
@@ -140,6 +141,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - setup-gcp-k3s
+      - Setup-Agent-for-ALL-K3S
 
     steps:
       - uses: actions/checkout@v3
@@ -181,8 +183,8 @@ jobs:
   Setup-Agent-for-ALL-K3S:
     runs-on: ubuntu-latest
     needs:
-      - Setup-APP-for-ALI-K3S
-      - Setup-APP-for-GCP-K3S
+      - setup-gcp-k3s
+      - setup-ali-k3s
 
     steps:
       - uses: actions/checkout@v3
