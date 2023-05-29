@@ -6,6 +6,10 @@ kubectl create ns ingress || echo true
 helm upgrade --install apisix apisix/apisix \
   --set etcd.replicaCount=1                 \
   --set gateway.type=NodePort               \
+  --set gateway.http.enabled=true           \
+  --set gateway.http.nodePort=80            \
+  --set gateway.tls.enabled=true            \
+  --set gateway.tls.nodePort=443            \
   --set gateway.externalIPs[0]=$ingress_ip  \
   --set ingress-controller.enabled=true     \
   --namespace ingress                       \
