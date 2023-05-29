@@ -8,7 +8,8 @@
         name: k3s
       vars:
         group: master
-        pod_cidr: '10.16.0.0/16'
-        pod_gateway: '10.16.0.1'
-        svc_cidr: '10.96.0.0/16'
+        cluster_domain: 'cluster.local'
+        version: 'v1.24.7+k3s1'
+        pod_cidr: '172.16.0.0/16'
+        svc_cidr: '192.168.0.0/24'
         cni_iface: 'eth0'
