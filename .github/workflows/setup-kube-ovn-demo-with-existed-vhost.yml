@@ -183,8 +183,8 @@ jobs:
   Setup-Agent-for-ALL-K3S:
     runs-on: ubuntu-latest
     needs:
-      - setup-gcp-k3s
-      - setup-ali-k3s
+      - Setup-APP-for-GCP-K3S
+      - Setup-APP-for-ALi-K3S
 
     steps:
       - uses: actions/checkout@v3
