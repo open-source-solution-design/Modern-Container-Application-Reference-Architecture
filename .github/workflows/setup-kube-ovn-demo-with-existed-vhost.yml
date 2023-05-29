@@ -134,6 +134,6 @@ jobs:
           admin_password=$ADMIN_INIT_PASSWORD
           harbor_odic_client_token=$HARBOR_OIDC_CLIENT_TOKEN
           EOF
-          ansible-playbook -i hosts/inventory jobs/init_harbor -D -C
-          ansible-playbook -i hosts/inventory jobs/init_keycloak -D -C
-          ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D -C
+          ansible-playbook -i hosts/inventory jobs/init_harbor -D
+          ansible-playbook -i hosts/inventory jobs/init_keycloak -D
+          ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
