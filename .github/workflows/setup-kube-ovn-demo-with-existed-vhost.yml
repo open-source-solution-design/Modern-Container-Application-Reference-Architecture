@@ -105,3 +105,5 @@ jobs:
           ansible-playbook -i hosts/inventory jobs/init_nginx_oss -D
           ansible-playbook -i hosts/inventory jobs/init_chatwithgpt -D
           ansible-playbook -i hosts/inventory jobs/init_observability-agent -D
+          ansible-playbook -i hosts/inventory jobs/init_datadog_agent -D
+          ansible-playbook -i hosts/inventory jobs/init_bookinfo -D

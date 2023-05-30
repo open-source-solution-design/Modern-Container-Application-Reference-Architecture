@@ -16,3 +16,7 @@ spec:
               number: 9080
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - bookinfo.onwalk.net
+    secretName: bookinfo-tls
