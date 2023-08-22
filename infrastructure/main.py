@@ -43,3 +43,17 @@ async def iac_operation(iac: IAC):
         return iac
 
     return handle_iac_operation(iac, callback)
+
+from fastapi import FastAPI
+from iac_operation import iac_operation, run_playbook
+from models import IAC, Playbook
+
+app = FastAPI()
+
+@app.post("/iac/"
+async def handle_iac_operation(iac: IAC):
+    return iac_operation(iac)
+
+@app.post("/playbook/")
+async def handle_playbook_operation(playbook: Playbook):
+    return run_playbook(playbook)
